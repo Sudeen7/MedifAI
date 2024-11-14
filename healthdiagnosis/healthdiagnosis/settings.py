@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'diagnosis.middleware.SessionTimeoutMiddleware',
 ]
 
 ROOT_URLCONF = 'healthdiagnosis.urls'
@@ -123,3 +124,23 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Set session expiration time to 1 hour (3600 seconds)
+SESSION_COOKIE_AGE = 3600  # 1 hour
+
+# Expire session when the browser is closed (optional)
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+LOGIN_URL = 'login'
+
+# Email settings (use your SMTP service provider's details)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Example: Gmail SMTP server
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'slntklr777@gmail.com'
+EMAIL_HOST_PASSWORD = 'Cartoon7#@*'
+
+DEFAULT_FROM_EMAIL = 'slntklr777@gmail.com'
+

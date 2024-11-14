@@ -129,14 +129,14 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/">MedifAI</a>
+        <a class="navbar-brand" href="/medifai">MedifAI</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
+              <a class="nav-link active" aria-current="page" href="/medifai">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/about">About</a>
@@ -150,6 +150,9 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog">Blog</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -160,7 +163,9 @@
       <h2 class="text-center">Contact Us</h2>
       <p>If you have any questions, comments, or suggestions, feel free to reach out to us using the form below:</p>
       
-      <form class="contact-form">
+      <form class="contact-form" method="POST">
+        {% csrf_token %}
+        {% comment %} {{ form.as_p }} {% endcomment %}
         <div class="mb-3">
           <label for="name" class="form-label">Name</label>
           <input type="text" class="form-control" id="name" placeholder="Your Name" required>

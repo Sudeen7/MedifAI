@@ -1,8 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse,redirect
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib import messages
 import numpy as np
 import pandas as pd
 import pickle
 import warnings
+from .forms import ContactForm
+from django.core.mail import send_mail
+from django.conf import settings
+from django.core.mail import EmailMessage
 warnings.filterwarnings('ignore', category=UserWarning)
 
 # Load datasets
@@ -41,6 +50,9 @@ def get_predicted_value(patient_symptoms):
     return diseases_list.get(prediction[0], "Disease not found")
 
 # Views
+def landingpage(request):
+    return render(request, "landing_page.html")
+
 def index(request):
     return render(request, "index.html")
 
@@ -73,8 +85,51 @@ def predict(request):
 def about(request):
     return render(request, "about.html")  
 
-def contact(request):
-    return render(request, "contact.html")  
+# def contact(request):
+#     return render(request, "contact.html")  
+
+def contact_us(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Save the contact message to the database
+            form.save()
+
+            # After saving, send an email to the user
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+
+            print("name:", name)
+            print("email", email)
+            print("subject", subject)
+
+            try:
+                # Sending email
+                email_message = EmailMessage(
+                    'Thank you for contacting us!',
+                    f'<p>Hello {name},</p><p>Thank you for reaching out to us regarding "{subject}". We will respond to you soon.</p>',
+                    settings.DEFAULT_FROM_EMAIL,  # Sender's email address
+                    [email],  # Recipient's email address
+                )
+                email_message.content_subtype = "html"  # Specify email type as HTML
+                email_message.send()
+
+                # Redirect to the thank you page after sending the email
+                return redirect('thank_you')  
+            except Exception as e:
+                messages.error(request, 'There was an error sending your message. Please try again later.')
+
+        else:
+            messages.error(request, 'There was an error in your form submission. Please try again.')
+
+    else:
+        form = ContactForm()
+
+    return render(request, 'contact.html', {'form': form})
+
+def thank_you(request):
+    return render(request, 'thank_you.html')
 
 def developer(request):
     return render(request, "developer.html")  
@@ -87,3 +142,49 @@ def privacy(request):
 
 def terms(request):
     return render(request, "terms.html")  
+
+@login_required(login_url='login')
+def HomePage(request):
+    return render(request, 'home.html')
+
+def SignupPage(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        # Ensure passwords match
+        if password1 != password2:
+            return HttpResponse("Your password and confirm password are not Same!!")
+
+        # Create user
+        else:
+            user = User.objects.create_user(username=username, email=email, password=password1)
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+            return redirect('login')
+
+    return render(request, 'signup.html')
+
+def LoginPage(request):
+    if request.method == 'POST':
+        # print(request.headers)  # Log request headers to debug
+        print(request.POST)     # Log POST data to see if csrf_token is included
+        username = request.POST.get('username')
+        pass1 = request.POST.get('pass')
+        user = authenticate(request, username=username, password=pass1)
+        if user is not None:
+            login(request, user)
+            return redirect('homepage')
+        else:
+            return HttpResponse("Username or Password is incorrect!!!")
+    
+    return render(request, 'login.html')
+
+def LogoutPage(request):
+    logout(request)
+    return redirect('login')
