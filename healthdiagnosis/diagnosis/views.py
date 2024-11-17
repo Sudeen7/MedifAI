@@ -50,6 +50,7 @@ def get_predicted_value(patient_symptoms):
     return diseases_list.get(prediction[0], "Disease not found")
 
 # Views
+@login_required(login_url='login')
 def landingpage(request):
     return render(request, "landing_page.html")
 
@@ -99,11 +100,6 @@ def contact_us(request):
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
             subject = form.cleaned_data['subject']
-
-            print("name:", name)
-            print("email", email)
-            print("subject", subject)
-
             try:
                 # Sending email
                 email_message = EmailMessage(
@@ -143,7 +139,6 @@ def privacy(request):
 def terms(request):
     return render(request, "terms.html")  
 
-@login_required(login_url='login')
 def HomePage(request):
     return render(request, 'home.html')
 
@@ -156,29 +151,31 @@ def SignupPage(request):
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
 
-        # Ensure passwords match
         if password1 != password2:
-            return HttpResponse("Your password and confirm password are not Same!!")
+            return HttpResponse("Your password and confirm password are not the same!")
 
-        # Create user
         else:
             user = User.objects.create_user(username=username, email=email, password=password1)
             user.first_name = first_name
             user.last_name = last_name
             user.save()
+
+            messages.success(request, f"Hello {username}, your account has been registered successfully! Please log in.")
+
             return redirect('login')
 
     return render(request, 'signup.html')
 
 def LoginPage(request):
     if request.method == 'POST':
-        # print(request.headers)  # Log request headers to debug
-        print(request.POST)     # Log POST data to see if csrf_token is included
         username = request.POST.get('username')
         pass1 = request.POST.get('pass')
         user = authenticate(request, username=username, password=pass1)
         if user is not None:
             login(request, user)
+
+            messages.success(request, f"{username}, you have logged in successfully! Now you can explore our web app")
+
             return redirect('homepage')
         else:
             return HttpResponse("Username or Password is incorrect!!!")

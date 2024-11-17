@@ -108,6 +108,15 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .alert {
+            color: #fff;
+            background-color: rgba(0, 128, 0, 0.8);
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
     </style>
 </head>
 <body>
@@ -118,6 +127,15 @@
     <form method="post">
         <h3>Login Here</h3>
         {% csrf_token %} 
+
+        <!-- Add this block to display messages -->
+        {% if messages %}
+        <div>
+            {% for message in messages %}
+                <p class="alert alert-success">{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
         <label for="username">Username</label>
         <input type="text" placeholder="Enter Username" id="username" name="username">
 
