@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login Page</title>
+    <title>Edit Profile</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <style media="screen">
         * { 
@@ -34,33 +33,33 @@
         /* Shape 1: Top-left */
         .shape-1 {
             background: linear-gradient(#1845ad, #23a2f6);
-            top: -80px;
-            left: -150px;
+            top: -100px;
+            left: -170px;
         }
         
         /* Shape 2: Top-right */
         .shape-2 {
             background: linear-gradient(#ff512f, #f09819);
-            top: -80px;
-            right: -150px;
+            top: -100px;
+            right: -170px;
         }
         
         /* Shape 3: Bottom-left */
         .shape-3 {
             background: linear-gradient(to right, #ff512f, #f09819);
-            bottom: -80px;
-            left: -150px;
+            bottom: -100px;
+            left: -170px;
         }
         
         /* Shape 4: Bottom-right */
         .shape-4 {
             background: linear-gradient(to right, #1845ad, #23a2f6);
-            bottom: -80px;
-            right: -150px;
+            bottom: -100px;
+            right: -170px;
         }
 
         form {
-            height: 450px;
+            height: 720px;
             width: 450px;
             background-color: rgba(255,255,255,0.13);
             position: absolute;
@@ -147,7 +146,7 @@
     </div>
     
     <form method="post">
-        <h3>Login Here</h3>
+        <h3>Edit Profile</h3>
         {% csrf_token %}
 
         <!-- Display messages -->
@@ -159,14 +158,23 @@
             {% endfor %}
         {% endif %}
 
+        <label for="first_name">First Name</label>
+        <input type="text" id="first_name" name="first_name" value="{{ first_name }}" placeholder="Enter First Name">
+
+        <label for="last_name">Last Name</label>
+        <input type="text" id="last_name" name="last_name" value="{{ last_name }}" placeholder="Enter Last Name">
+
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" value="{{ username|default:'' }}" placeholder="Enter Username">
+        <input type="text" id="username" name="username" value="{{ username }}" placeholder="Enter Username">
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="pass" placeholder="Enter Password">
+        <label for="password">New Password (optional)</label>
+        <input type="password" id="password1" name="password1" placeholder="Enter New Password">
 
-        <button type="submit">Login</button>
-        <a href="{% url 'signup' %}" style="display: block; margin-top: 15px; text-align: center; color: #ffffff;">Create an Account</a>
+        <label for="password2">Confirm Password</label>
+        <input type="password" id="password2" name="password2" placeholder="Confirm New Password">
+
+        <button type="submit">Update Profile</button>
+        <a href="{% url 'profile' %}" style="display: block; margin-top: 15px; text-align: center; color: #ffffff;">Back to Profile</a>
     </form>
 </body>
 </html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Profile - MedifAI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      /* Global Styles */
+      body, html {
+        height: 100%;
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(45deg, #f0f0f0, #c0d9e9);
+        color: #333;
+        display: flex;               
+        flex-direction: column;      
+      }
+      .navbar {
+        background-color: #1a1a1a;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      }
+      .navbar-brand {
+        font-size: 24px;
+        font-weight: bold;
+        color: #fff !important;
+      }
+      .nav-link {
+        color: #fff !important;
+        font-size: 18px;
+        margin-right: 10px;
+      }
+      .nav-link:hover {
+        background-color: #52ab98;
+        border-radius: 8px;
+        transition: 0.3s;
+      }
+      .profile-card {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-top: 50px;
+      }
+      .profile-card h2 {
+        color: #1a1a1a;
+        margin-bottom: 20px;
+      }
+      .profile-card p {
+        font-size: 18px;
+        margin: 10px 0;
+      }
+      .content {
+        flex: 1;  
+      }
+      footer {
+        background-color: #1a1a1a;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        width: 100%;
+        margin-top: auto;
+      }
+      footer p {
+        margin: 0;
+      }
+      footer a {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/medifai">MedifAI</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/medifai">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/developer">Developer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/profile">Profile</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Profile Section -->
+      <div class="content">
+        <div class="container my-5">
+          <div class="profile-card text-center">
+            <h2>User Profile</h2>
+            <p><strong>Username:</strong> {{ username }}</p>
+            <p><strong>First Name:</strong> {{ first_name }}</p>
+            <p><strong>Last Name:</strong> {{ last_name }}</p>
+            <p><strong>Email:</strong> {{ email }}</p>
+            <a href="/profile/edit" class="btn btn-warning btn-lg mb-4">Edit Profile</a>
+            <a href="/logout" class="btn btn-danger btn-lg mb-4">Logout</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer>
+        &copy; 2024 MedifAI | <a href="/privacy" style="color: white;">Privacy Policy</a> | <a href="/terms" style="color: white;">Terms of Service</a>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 import numpy as np
 import pandas as pd
@@ -50,13 +51,14 @@ def get_predicted_value(patient_symptoms):
     return diseases_list.get(prediction[0], "Disease not found")
 
 # Views
-@login_required(login_url='login')
 def landingpage(request):
     return render(request, "landing_page.html")
 
+@login_required(login_url='login')
 def index(request):
     return render(request, "index.html")
 
+@login_required(login_url='login')
 def predict(request):
     if request.method == 'POST':
         symptoms = request.POST.get('symptoms')
@@ -83,12 +85,14 @@ def predict(request):
             return render(request, 'index.html', {'message': message})
     return render(request, 'index.html')
 
+@login_required(login_url='login')
 def about(request):
     return render(request, "about.html")  
 
 # def contact(request):
 #     return render(request, "contact.html")  
 
+@login_required(login_url='login')
 def contact_us(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
@@ -124,26 +128,33 @@ def contact_us(request):
 
     return render(request, 'contact.html', {'form': form})
 
+@login_required(login_url='login')
 def thank_you(request):
     return render(request, 'thank_you.html')
 
+@login_required(login_url='login')
 def developer(request):
     return render(request, "developer.html")  
 
+@login_required(login_url='login')
 def blog(request):
     return render(request, "blog.html")  
 
+@login_required(login_url='login')
 def privacy(request):
     return render(request, "privacy.html")  
 
+@login_required(login_url='login')
 def terms(request):
     return render(request, "terms.html")  
 
+@login_required(login_url='login')
 def HomePage(request):
     return render(request, 'home.html')
 
 def SignupPage(request):
     if request.method == 'POST':
+        # Get form data
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         username = request.POST.get('username')
@@ -151,20 +162,31 @@ def SignupPage(request):
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
 
+        # Check if passwords match
         if password1 != password2:
-            return HttpResponse("Your password and confirm password are not the same!")
+            messages.error(request, "Your password and confirm password do not match!")
+            # Pass form data back to template
+            context = {
+                'first_name': first_name,
+                'last_name': last_name,
+                'username': username,
+                'email': email,
+            }
+            return render(request, 'signup.html', context)
 
         else:
+            # Create the user
             user = User.objects.create_user(username=username, email=email, password=password1)
             user.first_name = first_name
             user.last_name = last_name
             user.save()
 
+            # Add success message
             messages.success(request, f"Hello {username}, your account has been registered successfully! Please log in.")
-
-            return redirect('login')
+            return redirect('login')  # Redirect to the login page after successful registration
 
     return render(request, 'signup.html')
+
 
 def LoginPage(request):
     if request.method == 'POST':
@@ -178,10 +200,66 @@ def LoginPage(request):
 
             return redirect('homepage')
         else:
-            return HttpResponse("Username or Password is incorrect!!!")
+            # Return to login page with error and username
+            messages.error(request, "Username or Password is incorrect!")
+            return render(request, 'login.html', {'username': username})
     
     return render(request, 'login.html')
 
+@login_required(login_url='login')
 def LogoutPage(request):
     logout(request)
     return redirect('login')
+
+@login_required(login_url='login')  
+def ProfilePage(request):
+    user = request.user  
+    context = {
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'username': user.username,
+        'email': user.email,
+    }
+    return render(request, 'profile.html', context)
+
+@login_required(login_url='login')
+def EditProfilePage(request):
+    user = request.user
+
+    if request.method == 'POST':
+        # Get the updated data from the form
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        username = request.POST.get('username')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        # Check if the passwords match
+        if password1 and password1 != password2:
+            messages.error(request, "Your passwords do not match.")
+            return redirect('profile_edit')
+
+        # Check if any data has been changed
+        if user.username != username:
+            user.username = username
+        if user.first_name != first_name:
+            user.first_name = first_name
+        if user.last_name != last_name:
+            user.last_name = last_name
+        
+        # Update password if a new one is provided
+        if password1:
+            user.set_password(password1)
+            update_session_auth_hash(request, user) 
+
+        user.save()
+
+        messages.success(request, "Your profile has been updated successfully.")
+        return redirect('profile')
+
+    context = {
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'username': user.username
+    }
+    return render(request, 'profile_edit.html', context)

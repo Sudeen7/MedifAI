@@ -16,6 +16,8 @@ urlpatterns = [
     path('login/', views.LoginPage, name='login'),
     path('home/', views.HomePage, name='homepage'),
     path('logout/',views.LogoutPage,name='logout'),
+    path('profile/', views.ProfilePage, name='profile'),
+    path('profile/edit/', views.EditProfilePage, name='profile_edit'),
 ]
 
 
