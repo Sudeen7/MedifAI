@@ -61,28 +61,57 @@ def index(request):
 @login_required(login_url='login')
 def predict(request):
     if request.method == 'POST':
-        symptoms = request.POST.get('symptoms')
-        if symptoms:
-            user_symptoms = [s.strip() for s in symptoms.split(',')]
-            predicted_disease = get_predicted_value(user_symptoms)
-            dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)
-            my_precautions = [i for i in precautions[0] if pd.notna(i)]
-            return render(
-                request,
-                'index.html',
-                {
-                    'symptoms': symptoms,
-                    'predicted_disease': predicted_disease,
-                    'dis_des': dis_des,
-                    'my_precautions': my_precautions,
-                    'medications': medications,
-                    'my_diet': rec_diet,
-                    'workout': workout
-                }
-            )
-        else:
-            message = "Please enter symptoms."
+        # Retrieve symptoms from the dropdown selections
+        symptom1 = request.POST.get('symptom1')
+        symptom2 = request.POST.get('symptom2')
+        symptom3 = request.POST.get('symptom3')
+        symptom4 = request.POST.get('symptom4')
+        symptom5 = request.POST.get('symptom5')
+        symptom6 = request.POST.get('symptom6')
+        
+        # Collect all symptoms into a list
+        symptoms = [symptom1, symptom2, symptom3, symptom4, symptom5, symptom6]
+
+        # Filter out empty selections (None or blank)
+        selected_symptoms = [s for s in symptoms if s] 
+        
+        # Debugging: print the selected symptoms
+        print(f"Selected symptoms: {selected_symptoms}")
+        
+        # Ensure that at least 4 symptoms are selected
+        if len(selected_symptoms) < 3:
+            message2 = "Please select at least three symptoms."
+            return render(request, 'index.html', {'message2': message2})
+
+        # Check if any symptoms are the same (after filtering out empty selections)
+        if len(set(selected_symptoms)) != len(selected_symptoms):
+            message = "You cannot select the same symptom more than once."
             return render(request, 'index.html', {'message': message})
+
+        # Combine symptoms into a string for displaying
+        user_symptoms_string = ', '.join(selected_symptoms)
+
+        # Call the prediction logic (ensure you have implemented this)
+        predicted_disease = get_predicted_value(selected_symptoms)
+        dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)
+        my_precautions = [i for i in precautions[0] if pd.notna(i)]
+        
+        # Render the results with all relevant information
+        return render(
+            request,
+            'index.html',
+            {
+                'symptoms': user_symptoms_string,
+                'predicted_disease': predicted_disease,
+                'dis_des': dis_des,
+                'my_precautions': my_precautions,
+                'medications': medications,
+                'my_diet': rec_diet,
+                'workout': workout
+            }
+        )
+    
+    # Render the form if not a POST request
     return render(request, 'index.html')
 
 @login_required(login_url='login')
