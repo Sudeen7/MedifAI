@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,7 +11,8 @@
         font-family: "Arial", sans-serif;
         margin: 0;
         padding: 0;
-        background-image: url("../assets/landing-page.png");
+        background-image: url("{% static 'assets/landing-page.png' %}");
+
         background-size: cover;
         background-position: center;
         display: flex;
@@ -126,7 +129,5 @@
     <a href="/signup/">Login or SignUp</a>
 
     <div class="footer">&copy; 2024 MedifAI. All rights reserved.</div>
-
-    <script></script>
   </body>
 </html>
