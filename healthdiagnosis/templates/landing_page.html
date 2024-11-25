@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedifAI - Personalized Medicine Recommendation System</title>
-    <link rel="stylesheet" href="styles.css">
+    
     <style>
         body {
+            
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url('images/background_image.avif'); /* Local image reference */
-            background-size: cover;
-            background-position: center;
+            background-image: url('../assets/landing-page.jpg'); /* Local image reference */
+            background-size: cover;  
+            background-position: center; 
+            background-repeat: no-repeat;  
+            height: 100vh;   
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -22,6 +25,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             animation: fadeIn 1s;
             overflow: hidden; /* Prevents overflow on small screens */
+        
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -43,7 +47,7 @@
             max-width: 600px;
             margin: 20px 0;
             animation: fadeInUp 1s ease forwards; /* Fade in upwards */
-            opacity: 0; /* Start hidden for animation */
+            opacity: 10; /* Start hidden for animation */
             animation-delay: 0.5s; /* Delay for a staggered effect */
         }
         @keyframes fadeInUp {
@@ -88,6 +92,7 @@
     </style>
 </head>
 <body>
+    
     <h1>Welcome to MedifAI</h1>
     <p>Your personalized medicine recommendation system that helps you find the best treatments tailored to your unique health needs. Explore a world of health insights and treatment options designed just for you.</p>
     <p>Discover personalized treatment plans, track your health progress, and connect with healthcare professionals at your convenience.</p>
