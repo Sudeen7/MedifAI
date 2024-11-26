@@ -136,7 +136,7 @@ def predict(request):
         # If the predicted disease is AIDS, show a custom message only
         if predicted_disease.lower() == 'aids':
             message = "No disease matches your symptoms."
-            return render(request, 'index.html', {'message': message})
+            return render(request, 'index.html', {'message': message, 'symptoms':user_symptoms_string})
 
         # Get additional details for the predicted disease
         dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)
