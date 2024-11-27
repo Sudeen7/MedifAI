@@ -69,6 +69,7 @@ diseases_list = {0: '(vertigo) Paroymsal Positional Vertigo', 1: 'AIDS', 2: 'Acn
                  27: 'Impetigo', 28: 'Jaundice', 29: 'Malaria', 30: 'Migraine', 31: 'Osteoarthritis', 32: 'Paralysis (brain hemorrhage)', 
                  33: 'Peptic ulcer disease', 34: 'Pneumonia', 35: 'Psoriasis', 36: 'Tuberculosis', 37: 'Typhoid', 38: 'Urinary tract infection', 
                  39: 'Varicose veins', 40: 'hepatitis A'}
+
 def helper(dis):
     desc = description[description['Disease'] == dis]['Description']
     desc = " ".join([w for w in desc])
@@ -132,11 +133,14 @@ def predict(request):
 
         # Call the prediction logic
         predicted_disease = get_predicted_value(selected_symptoms)
-        
-        # If the predicted disease is AIDS, show a custom message only
+        print(predicted_disease)
         if predicted_disease.lower() == 'aids':
             message = "No disease matches your symptoms."
-            return render(request, 'index.html', {'message': message, 'symptoms':user_symptoms_string})
+            return render(request, 'index.html', {'message': message, 'symptoms': user_symptoms_string})
+
+        if predicted_disease not in diseases_list.values():
+            message = "No disease matches your symptoms."
+            return render(request, 'index.html', {'message': message, 'symptoms': user_symptoms_string})
 
         # Get additional details for the predicted disease
         dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)

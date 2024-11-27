@@ -18,7 +18,7 @@
 
       /* Navbar Styles */
       .navbar {
-          background-color: #2a2a2a; /* Slightly lighter dark background for navbar */
+          background-color: #2a2a2a;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       }
 
@@ -958,6 +958,7 @@
               </select>
             </div>
             {% comment %} <button type="button" id="startSpeechRecognition" class="btn btn-primary mb-3 rounded-pill">Start Speech Recognition</button> {% endcomment %}
+            
             <div id="transcription" class="mb-4"></div>
           
             {% if symptoms %}
@@ -975,6 +976,7 @@
             {% if message2 %}
             <p>{{ message2 }}</p>
             {% endif %}
+              
             
             <button type="submit" class="btn btn-danger btn-lg w-100 py-3">Predict</button>
           </form>

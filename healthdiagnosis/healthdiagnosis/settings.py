@@ -113,7 +113,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
@@ -124,11 +123,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 # Set session expiration time to 1 hour (3600 seconds)
 SESSION_COOKIE_AGE = 3600  # 1 hour
 
-# Expire session when the browser is closed (optional)
+# Expire session when the browser is closed
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 LOGIN_URL = 'login'
@@ -141,4 +139,3 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'slntklr777@gmail.com'
 EMAIL_HOST_PASSWORD = 'Cartoon7#@*'
 DEFAULT_FROM_EMAIL = 'slntklr777@gmail.com'
-
