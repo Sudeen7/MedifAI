@@ -13,6 +13,8 @@ from .forms import ContactForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.mail import EmailMessage
+from .models import Contact
+import re
 warnings.filterwarnings('ignore', category=UserWarning)
 
 # Load datasets
@@ -169,8 +171,47 @@ def predict(request):
 def about(request):
     return render(request, "about.html")  
 
-# def contact(request):
-#     return render(request, "contact.html")  
+@login_required(login_url='login')
+def contact_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Manually create and save the contact message
+            contact = Contact(
+                name=form.cleaned_data['name'],
+                email=form.cleaned_data['email'],
+                phone=form.cleaned_data['phone'],
+                subject=form.cleaned_data['subject'],
+                message=form.cleaned_data['message']
+            )
+            contact.save()  # Save to the database
+
+            # Send an email to the user who submitted the form
+            subject = f"Thank you for contacting us, {form.cleaned_data['name']}!"
+            message = f"Dear {form.cleaned_data['name']},\n\n" \
+                      f"Thank you for reaching out to us regarding: {form.cleaned_data['subject']}.\n\n" \
+                      f"We have received your message:\n\n{form.cleaned_data['message']}\n\n" \
+                      "Our team will get back to you soon.\n\nBest regards,\nMedifAI Team"
+            recipient = form.cleaned_data['email']
+
+            send_mail(
+                subject,  # Subject of the email
+                message,  # Email content
+                settings.DEFAULT_FROM_EMAIL,  # Sender's email (configured in settings)
+                [recipient],  # Recipient's email (user's email)
+                fail_silently=False,  # Raise an error if email sending fails
+            )
+
+            return redirect('success')  # Redirect to a success page
+
+    else:
+        form = ContactForm()
+
+    return render(request, 'contact.html', {'form': form})
+
+@login_required(login_url='login')
+def success_view(request):
+    return render(request, 'success.html')
 
 @login_required(login_url='login')
 def contact_us(request):
@@ -242,10 +283,9 @@ def SignupPage(request):
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
 
-        # Check if passwords match
-        if password1 != password2:
-            messages.error(request, "Your password and confirm password do not match!")
-            # Pass form data back to template
+        # Check if username already exists
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists! Please choose a different username.")
             context = {
                 'first_name': first_name,
                 'last_name': last_name,
@@ -254,16 +294,68 @@ def SignupPage(request):
             }
             return render(request, 'signup.html', context)
 
-        else:
-            # Create the user
-            user = User.objects.create_user(username=username, email=email, password=password1)
-            user.first_name = first_name
-            user.last_name = last_name
-            user.save()
+        # Check if passwords match
+        if password1 != password2:
+            messages.error(request, "Your password and confirm password do not match!")
+            context = {
+                'first_name': first_name,
+                'last_name': last_name,
+                'username': username,
+                'email': email,
+            }
+            return render(request, 'signup.html', context)
 
-            # Add success message
-            messages.success(request, f"Hello {username}, your account has been registered successfully! Please log in.")
-            return redirect('login')  # Redirect to the login page after successful registration
+        # Password strength validation (at least 8 characters)
+        if len(password1) < 8:
+            messages.error(request, "Password must be at least 8 characters long.")
+            context = {
+                'first_name': first_name,
+                'last_name': last_name,
+                'username': username,
+                'email': email,
+            }
+            return render(request, 'signup.html', context)
+
+        # Additional checks for password strength (optional)
+        if not re.search(r'[A-Z]', password1):  # Check for uppercase letter
+            messages.error(request, "Password must contain at least one uppercase letter.")
+            context = {
+                'first_name': first_name,
+                'last_name': last_name,
+                'username': username,
+                'email': email,
+            }
+            return render(request, 'signup.html', context)
+
+        if not re.search(r'[0-9]', password1):  # Check for digit
+            messages.error(request, "Password must contain at least one number.")
+            context = {
+                'first_name': first_name,
+                'last_name': last_name,
+                'username': username,
+                'email': email,
+            }
+            return render(request, 'signup.html', context)
+
+        if not re.search(r'[\W_]', password1):  # Check for special character
+            messages.error(request, "Password must contain at least one special character (e.g., @, #, $, etc.).")
+            context = {
+                'first_name': first_name,
+                'last_name': last_name,
+                'username': username,
+                'email': email,
+            }
+            return render(request, 'signup.html', context)
+
+        # Create the user if all checks pass
+        user = User.objects.create_user(username=username, email=email, password=password1)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+
+        # Add success message
+        messages.success(request, f"Hello {username}, your account has been registered successfully! Please log in.")
+        return redirect('login')  # Redirect to the login page after successful registration
 
     return render(request, 'signup.html')
 

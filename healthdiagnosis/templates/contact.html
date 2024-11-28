@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -10,15 +12,17 @@
       body, html {
         height: 100%;
         margin: 0;
+        
         font-family: 'Arial', sans-serif;
         background: linear-gradient(45deg, #f0f0f0, #c0d9e9);
+        background-image: url("{% static 'assets/contact-page.png' %}");
         color: #333;
       }
 
       /* Navbar Styles */
       .navbar {
-          background-color: #2a2a2a; /* Slightly lighter dark background for navbar */
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        background-color: #2a2a2a;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       }
       .navbar-brand {
         font-size: 24px;
@@ -45,7 +49,8 @@
       .content {
         flex: 1;
         padding: 60px 20px;
-        background: white;
+        background: rgb(38, 36, 36);
+        color: white;
         margin: 30px auto;
         border-radius: 15px;
         max-width: 1000px;
@@ -53,19 +58,21 @@
       }
       h2 {
         font-size: 32px;
-        color: #2b6777;
+        color: #f6f9fa;
         margin-bottom: 20px;
       }
       p {
         font-size: 18px;
         line-height: 1.6;
         margin-bottom: 15px;
-        color: #4e4e4e;
+        color: #fefdfd;
       }
 
       /* Form Styles */
       .contact-form {
         margin-top: 30px;
+        background: rgb(37, 36, 36);
+        color: white;
       }
       .form-control, .form-control:focus {
         border-radius: 10px;
@@ -73,11 +80,12 @@
       }
       .form-label {
         font-weight: bold;
+        color: white;
       }
 
       /* Footer Styles */
       footer {
-        background-color: #2b6777;
+        background-color: #1a1c1d;
         color: #fff;
         padding: 20px;
         text-align: center;
@@ -87,14 +95,12 @@
         margin: 0;
       }
       footer a {
-        color: white; /* Ensuring footer links are white */
-        text-decoration: none; /* Remove underline */
+        color: white;
+        text-decoration: none;
       }
-      
       footer a:hover {
-          text-decoration: underline; /* Optional: Add underline on hover */
+        text-decoration: underline;
       }
-    
 
       /* Button Styling */
       .submit-btn {
@@ -125,7 +131,6 @@
     </style>
   </head>
   <body>
-
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid">
@@ -138,21 +143,11 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/medifai">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/contact">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/developer">Developer</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/blog">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/profile">Profile</a>
-            </li>
+            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="/developer">Developer</a></li>
+            <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
           </ul>
         </div>
       </div>
@@ -163,25 +158,9 @@
       <h2 class="text-center">Contact Us</h2>
       <p>If you have any questions, comments, or suggestions, feel free to reach out to us using the form below:</p>
       
-      <form class="contact-form" method="POST">
+      <form class="contact-form" method="POST" action="{% url 'contact' %}">
         {% csrf_token %}
-        {% comment %} {{ form.as_p }} {% endcomment %}
-        <div class="mb-3">
-          <label for="name" class="form-label">Name</label>
-          <input type="text" class="form-control" id="name" placeholder="Your Name" required>
-        </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" placeholder="Your Email" required>
-        </div>
-        <div class="mb-3">
-          <label for="subject" class="form-label">Subject</label>
-          <input type="text" class="form-control" id="subject" placeholder="Subject" required>
-        </div>
-        <div class="mb-3">
-          <label for="message" class="form-label">Message</label>
-          <textarea class="form-control" id="message" rows="5" placeholder="Your Message" required></textarea>
-        </div>
+        {{ form.as_p }}
         <button type="submit" class="submit-btn">Send Message</button>
       </form>
     </div>

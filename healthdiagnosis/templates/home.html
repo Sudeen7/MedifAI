@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,7 +15,8 @@
         /* Custom CSS */
         body {
             background: linear-gradient(135deg, #f0f0f0, #d6e4f0);
-            color: #333;
+            background-image: url("{% static 'assets/home-page.png' %}");
+            color: #faf6f6;
             font-family: Arial, sans-serif;
         }
         
@@ -21,14 +24,15 @@
             text-align: center;
             margin-top: 20vh;
             padding: 30px;
-            background-color: #fff;
+            background-color: transparent;
+            color: white;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             font-size: 2.5rem;
-            color: #2c3e50;
+            color: #f5f6f7;
             margin-bottom: 20px;
         }
 
@@ -67,8 +71,8 @@
         </div>
         {% endif %}
         <h1>Welcome to MedifAI</h1>
-        <a href="{% url 'logout' %}" class="btn btn-custom">Logout</a>
         <a href="{% url 'medifai' %}" class="btn btn-custom">Go to MedifAI</a>
+        <a href="{% url 'logout' %}" class="btn btn-custom">Logout</a>
     </div>
 
     <!-- Optional JavaScript -->

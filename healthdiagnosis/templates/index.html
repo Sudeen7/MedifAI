@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,6 +15,7 @@
         margin: 0;
         font-family: 'Arial', sans-serif;
         background: linear-gradient(45deg, #f0f0f0, #c0d9e9);
+        background-image: url("{% static 'assets/index-page.png' %}");
         color: #333;
       }
 
@@ -119,7 +122,7 @@
 
       <!-- Main content -->
       <div class="content">
-        <div class="container my-5 p-5 bg-secondary text-white rounded-3 shadow-lg">
+        <div class="container my-5 p-5 text-white rounded-3 shadow-lg">
           <h1 class="text-center mb-4 text-warning">MedifAI</h1>
           <form action="/predict/" method="post">
             {% csrf_token %}
@@ -962,23 +965,23 @@
             <div id="transcription" class="mb-4"></div>
           
             {% if symptoms %}
-                <p>Your symptoms are: {{ symptoms }}</p>
+                <p class="text-warning"> Your symptoms are: {{ symptoms }}</p>
             {% endif %}
             
             <div id="transcription" class="mb-4"></div>
 
             {% if message %}
-            <p>{{ message }}</p>
+            <p class="text-warning">{{ message }}</p>
             {% endif %}
 
             <div id="transcription" class="mb-4"></div>
 
             {% if message2 %}
-            <p>{{ message2 }}</p>
+            <p class="text-warning">{{ message2 }}</p>
             {% endif %}
               
             
-            <button type="submit" class="btn btn-danger btn-lg w-100 py-3">Predict</button>
+            <button type="submit" class="btn btn-danger bg-secondary btn-lg w-100 py-3">Predict</button>
           </form>
           
         </div>
@@ -986,7 +989,7 @@
         {% if predicted_disease %}
         <!-- Results Section -->
         <div class="container my-5">
-          <h2 class="text-center my-4">Our AI System Results</h2>
+          <h2 class="text-center my-4 text-white"> Our AI System Results</h2>
           <div class="d-flex justify-content-center flex-wrap">
             <button class="toggle-button" onclick="showModal('diseaseModal')" style="background: #F39334;">Disease</button>
             <button class="toggle-button" onclick="showModal('descriptionModal')" style="background: #268AF3;">Description</button>
