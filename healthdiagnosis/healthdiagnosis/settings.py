@@ -126,8 +126,8 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Set session expiration time to 1 hour (3600 seconds)
-SESSION_COOKIE_AGE = 3600  # 1 hour
+# Set session expiration time to 1 day
+SESSION_COOKIE_AGE = 86400  # 1 day
 
 # Expire session when the browser is closed
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
@@ -140,5 +140,6 @@ EMAIL_HOST = 'smtp.gmail.com'  # Use your SMTP server (Gmail in this example)
 EMAIL_PORT = 587  # SMTP port (587 is for TLS)
 EMAIL_USE_TLS = True  # Use TLS for secure connection
 EMAIL_HOST_USER = 'slntklr777@gmail.com'  # Your email address
-EMAIL_HOST_PASSWORD = 'asim@2059'  # Your email password or app-specific password
+EMAIL_HOST_PASSWORD = 'reqz gddw kkne jeby'  # Your email password or app-specific password
 DEFAULT_FROM_EMAIL = 'slntklr777@gmail.com'  # Default from email address
+
