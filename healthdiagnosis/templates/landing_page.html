@@ -83,6 +83,10 @@
         opacity: 0; /* Start hidden for animation */
         animation-delay: 0.5s; /* Delay for a staggered effect */
       }
+      .content{
+        text-align: center;
+        color: rgb(247, 249, 251);
+      }
       @keyframes fadeInUp {
         from {
           transform: translateY(20px);
@@ -127,7 +131,7 @@
         position: absolute;
         bottom: 20px;
         font-size: 0.9em;
-        color: #555;
+        color: #fffefe;
         animation: fadeIn 2s; /* Fade in effect for footer */
       }
       @media (max-width: 768px) {
@@ -195,8 +199,13 @@
 =======
   </head>
   <body>
+<<<<<<< HEAD
 >>>>>>> 2bc754747899454bdf53ccf38d484b84593cd143
     <h1>Welcome to MedifAI</h1>
+=======
+    <div class="content">
+      <h1>Welcome to MedifAI</h1>
+>>>>>>> 89c04afd35c30d6dde10ef2d0ac213d5a0d0afa4
     <p>
       Your personalized medicine recommendation system that helps you find the
       best treatments tailored to your unique health needs. Explore a world of
@@ -207,6 +216,9 @@
       connect with healthcare professionals at your convenience.
     </p>
     <a href="/signup/">Login or SignUp</a>
+    </div>
+    
+    
 
     <div class="footer">&copy; 2024 MedifAI. All rights reserved.</div>
   </body>
