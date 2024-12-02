@@ -182,7 +182,7 @@ def contact_view(request):
                 email=form.cleaned_data['email'],
                 phone=form.cleaned_data['phone'],
                 subject=form.cleaned_data['subject'],
-                message=form.cleaned_data['message']
+                message = form.cleaned_data['message'],
             )
             contact.save()  # Save to the database
 
@@ -212,46 +212,6 @@ def contact_view(request):
 @login_required(login_url='login')
 def success_view(request):
     return render(request, 'success.html')
-
-@login_required(login_url='login')
-def contact_us(request):
-    if request.method == "POST":
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            # Save the contact message to the database
-            form.save()
-
-            # After saving, send an email to the user
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            subject = form.cleaned_data['subject']
-            try:
-                # Sending email
-                email_message = EmailMessage(
-                    'Thank you for contacting us!',
-                    f'<p>Hello {name},</p><p>Thank you for reaching out to us regarding "{subject}". We will respond to you soon.</p>',
-                    settings.DEFAULT_FROM_EMAIL,  # Sender's email address
-                    [email],  # Recipient's email address
-                )
-                email_message.content_subtype = "html"  # Specify email type as HTML
-                email_message.send()
-
-                # Redirect to the thank you page after sending the email
-                return redirect('thank_you')  
-            except Exception as e:
-                messages.error(request, 'There was an error sending your message. Please try again later.')
-
-        else:
-            messages.error(request, 'There was an error in your form submission. Please try again.')
-
-    else:
-        form = ContactForm()
-
-    return render(request, 'contact.html', {'form': form})
-
-@login_required(login_url='login')
-def thank_you(request):
-    return render(request, 'thank_you.html')
 
 @login_required(login_url='login')
 def developer(request):

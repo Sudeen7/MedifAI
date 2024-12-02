@@ -6,6 +6,53 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MedifAI</title>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          const form = document.getElementById('symptomForm');
+          const customAlert = document.getElementById('customAlert');
+          const alertMessage = document.getElementById('alertMessage');
+          const closeAlert = document.getElementById('closeAlert');
+  
+          // Close custom alert when the close button is clicked
+          closeAlert.addEventListener('click', () => {
+              customAlert.style.display = 'none';
+          });
+  
+          if (form) {
+              form.addEventListener('submit', (event) => {
+                  const symptom1 = document.getElementById('symptom1').value;
+                  const symptom2 = document.getElementById('symptom2').value;
+                  const symptom3 = document.getElementById('symptom3').value;
+                  const symptom4 = document.getElementById('symptom4').value;
+                  const symptom5 = document.getElementById('symptom5').value;
+                  const symptom6 = document.getElementById('symptom6').value;
+  
+                  const symptoms = [symptom1, symptom2, symptom3, symptom4, symptom5, symptom6];
+                  const selectedSymptoms = symptoms.filter(symptom => symptom);
+  
+                  if (selectedSymptoms.length < 3) {
+                      // Show the custom alert for fewer than 3 symptoms
+                      alertMessage.textContent = 'Please select at least three symptoms.';
+                      customAlert.style.display = 'block';
+                      event.preventDefault();
+                      return false;
+                  }
+  
+                  const uniqueSymptoms = new Set(selectedSymptoms);
+                  if (uniqueSymptoms.size !== selectedSymptoms.length) {
+                      // Show the custom alert for duplicate symptoms
+                      alertMessage.textContent = 'You cannot select the same symptom more than once.';
+                      customAlert.style.display = 'block';
+                      event.preventDefault();
+                      return false;
+                  }
+              });
+          } else {
+              console.error('Form with id "symptomForm" not found.');
+          }
+      });
+  </script>
+  
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     {% comment %} <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon"> <!-- Favicon added --> {% endcomment %}
     <style>
@@ -52,6 +99,18 @@
       .content {
         flex: 1;
       }
+      #transcription{
+        background-color: #f0f0f0;
+        color: #121111;
+      }
+      .text-warning{
+        background-color: #f0f0f0;
+        color: #121111 !important;
+      }
+      .name{
+        background-color: transparent !important;
+        color: yellow !important;
+      }
       .toggle-button {
         padding: 10px;
         margin: 5px;
@@ -82,7 +141,38 @@
       footer a {
         color: white; 
       }
-
+      
+      .alert-box {
+          display: none;
+          position: fixed;
+          top: 5%; 
+          left: 50%;
+          transform: translateX(-50%); 
+          width: 300px;
+          padding: 20px;
+          background-color: #edf0e7;
+          color: #0e0d0d;
+          text-align: center;
+          border-radius: 8px;
+          /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+          z-index: 1000;
+      }
+      .alert-message {
+          margin-bottom: 20px;
+          font-size: 16px;
+          font-weight: bold;
+      }
+      .alert-button {
+          padding: 10px 20px;
+          background-color: #721c24;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+      }
+      .alert-button:hover {
+          background-color: #a94442;
+      }
       @media (max-width: 768px) {
         h2 {
           font-size: 28px;
@@ -124,11 +214,17 @@
         </div>
       </nav>
 
+      <div id="customAlert" class="alert-box">
+        <p id="alertMessage" class="alert-message"></p>
+        <button id="closeAlert" class="alert-button">OK</button>
+    </div>
+    
+
       <!-- Main content -->
       <div class="content">
         <div class="container my-5 p-5 text-white rounded-3 shadow-lg">
-          <h1 class="text-center mb-4 text-warning">MedifAI</h1>
-          <form action="/predict/" method="post">
+          <h1 class="text-center mb-4 text-warning name">MedifAI</h1>
+          <form id="symptomForm" action="/predict/" method="post">
             {% csrf_token %}
             <div class="mb-3">
               <label for="symptom1" class="form-label">Select Symptom 1:</label>
@@ -159,7 +255,7 @@
                     <option value="patches_in_throat">Patches in Throat</option>
                     <option value="irregular_sugar_level">Irregular Sugar Level</option>
                     <option value="cough">Cough</option>
-                    <option value="high_fever">High Fever</option>
+                    <!-- <option value="high_fever">High Fever</option> -->
                     <option value="sunken_eyes">Sunken Eyes</option>
                     <option value="breathlessness">Breathlessness</option>
                     <option value="sweating">Sweating</option>
@@ -300,7 +396,7 @@
                 <option value="patches_in_throat">Patches in Throat</option>
                 <option value="irregular_sugar_level">Irregular Sugar Level</option>
                 <option value="cough">Cough</option>
-                <option value="high_fever">High Fever</option>
+                <!-- <option value="high_fever">High Fever</option> -->
                 <option value="sunken_eyes">Sunken Eyes</option>
                 <option value="breathlessness">Breathlessness</option>
                 <option value="sweating">Sweating</option>
@@ -439,7 +535,7 @@
                 <option value="patches_in_throat">Patches in Throat</option>
                 <option value="irregular_sugar_level">Irregular Sugar Level</option>
                 <option value="cough">Cough</option>
-                <option value="high_fever">High Fever</option>
+                <!-- <option value="high_fever">High Fever</option> -->
                 <option value="sunken_eyes">Sunken Eyes</option>
                 <option value="breathlessness">Breathlessness</option>
                 <option value="sweating">Sweating</option>
@@ -578,7 +674,7 @@
                 <option value="patches_in_throat">Patches in Throat</option>
                 <option value="irregular_sugar_level">Irregular Sugar Level</option>
                 <option value="cough">Cough</option>
-                <option value="high_fever">High Fever</option>
+                <!-- <option value="high_fever">High Fever</option> -->
                 <option value="sunken_eyes">Sunken Eyes</option>
                 <option value="breathlessness">Breathlessness</option>
                 <option value="sweating">Sweating</option>
@@ -716,7 +812,7 @@
                 <option value="patches_in_throat">Patches in Throat</option>
                 <option value="irregular_sugar_level">Irregular Sugar Level</option>
                 <option value="cough">Cough</option>
-                <option value="high_fever">High Fever</option>
+                <!-- <option value="high_fever">High Fever</option> -->
                 <option value="sunken_eyes">Sunken Eyes</option>
                 <option value="breathlessness">Breathlessness</option>
                 <option value="sweating">Sweating</option>
@@ -855,7 +951,7 @@
                 <option value="patches_in_throat">Patches in Throat</option>
                 <option value="irregular_sugar_level">Irregular Sugar Level</option>
                 <option value="cough">Cough</option>
-                <option value="high_fever">High Fever</option>
+                <!-- <option value="high_fever">High Fever</option> -->
                 <option value="sunken_eyes">Sunken Eyes</option>
                 <option value="breathlessness">Breathlessness</option>
                 <option value="sweating">Sweating</option>
@@ -1122,6 +1218,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+
+        
 
       // Speech Recognition
       const startSpeechRecognition = document.getElementById('startSpeechRecognition');
