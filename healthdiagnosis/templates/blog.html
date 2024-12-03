@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,8 +12,9 @@
         height: 100%;
         margin: 0;
         font-family: 'Arial', sans-serif;
-        background: linear-gradient(45deg, #f0f0f0, #c0d9e9);
-        color: #333;
+        background-image: url("{% static 'assets/index-page.png' %}");
+        /* background: linear-gradient(45deg, #f0f0f0, #c0d9e9);
+        color: #333; */
       }
 
       /* Navbar Styles */
@@ -37,20 +39,16 @@
       }
 
       /* Main Content */
-      .page-container {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
       .content {
-        flex: 1;
-        padding: 60px 20px;
-        background: white;
-        margin: 30px auto;
-        border-radius: 15px;
-        max-width: 1000px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+          flex: 1;
+          padding: 60px 15px;
+          background: white;
+          margin: 30px auto;
+          border-radius: 15px;
+          max-width: 1000px; /* Make both containers the same width */
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       }
+
       h3 {
         font-size: 32px;
         color: #2b6777;
@@ -93,15 +91,6 @@
       .explore-btn:hover {
         background-color: #3d8d80;
         transform: scale(1.05);
-      }
-
-      /* Blog Post Specific Styles */
-      .blog-post-container {
-        margin: 50px auto;
-        padding: 30px;
-        background-color: #fff;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        border-radius: 15px;
       }
 
       /* Responsive Styling */
@@ -150,7 +139,7 @@
     </nav>
 
     <!-- Blog Content -->
-    <div class="container blog-post-container my-4 mt-4">
+    <div class="container content">
       <h2 class="text-center">Building a Symptom-Based Disease Diagnosis Web App with Django and Machine Learning</h2>
       <p>In today’s fast-paced world, access to reliable and timely healthcare information is crucial. Leveraging the versatility of Django, we developed a symptom-based disease diagnosis web application that employs machine learning to help users identify potential health concerns based on their symptoms. This project combines the power of web technology and predictive analytics to make healthcare more accessible.</p>
     

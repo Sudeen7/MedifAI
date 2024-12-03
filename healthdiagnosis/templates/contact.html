@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 
 <!doctype html>
 <html lang="en">
@@ -13,8 +14,9 @@
         height: 100%;
         margin: 0;
         font-family: 'Arial', sans-serif;
-        background: linear-gradient(45deg, #f0f0f0, #c0d9e9);
-        color: #333;
+        background-image: url("{% static 'assets/index-page.png' %}");
+        /* background: linear-gradient(45deg, #f0f0f0, #c0d9e9);
+        color: #333; */
       }
 
       /* Navbar Styles */
@@ -66,19 +68,41 @@
         color: black;
       }
 
-      /* Form Styles */
+      /* Custom Styles for Form Elements */
+      .custom-input {
+          border-radius: 8px;
+          border: 1px solid #ccc;
+          padding: 10px;
+          font-size: 16px;
+          margin-bottom: 15px;
+          transition: border-color 0.3s ease-in-out;
+      }
+
+      .custom-input:focus {
+          border-color: #52ab98;
+          outline: none;
+      }
+
+      .custom-textarea {
+          border-radius: 8px;
+          border: 1px solid #ccc;
+          padding: 10px;
+          font-size: 16px;
+          margin-bottom: 15px;
+          transition: border-color 0.3s ease-in-out;
+          height: 150px;
+      }
+
+      .custom-textarea:focus {
+          border-color: #52ab98;
+          outline: none;
+      }
+
+      /* Add some specific margin or padding to the form itself */
       .contact-form {
-        margin-top: 30px;
-        color: white;
+          margin-top: 20px;
       }
-      .form-control, .form-control:focus {
-        border-radius: 10px;
-        border: 1px solid #ccc;
-      }
-      .form-label {
-        font-weight: bold;
-       
-      }
+
 
       /* Footer Styles */
       footer {
@@ -157,9 +181,10 @@
       
       <form class="contact-form" method="POST" action="{% url 'contact' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <button type="submit" class="submit-btn">Send Message</button>
       </form>
+      
     </div>
 
     <footer>
