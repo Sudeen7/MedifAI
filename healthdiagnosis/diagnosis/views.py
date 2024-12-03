@@ -164,7 +164,7 @@ def predict(request):
         )
     
     # Render the form if not a POST request
-    return render(request, 'index.html')
+    return render(request, 'index.html') 
 
 
 @login_required(login_url='login')
