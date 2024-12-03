@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +14,7 @@
             box-sizing: border-box;
         }
         body {
-            background-color: #080710;
+            background-image: url("{% static 'assets/sudeen.jpg' %}");
             font-family: 'Poppins', sans-serif;
         }
         .background {
@@ -30,33 +32,6 @@
             border-radius: 50%;
         }
         
-        /* Shape 1: Top-left */
-        .shape-1 {
-            background: linear-gradient(#1845ad, #23a2f6);
-            top: -100px;
-            left: -170px;
-        }
-        
-        /* Shape 2: Top-right */
-        .shape-2 {
-            background: linear-gradient(#ff512f, #f09819);
-            top: -100px;
-            right: -170px;
-        }
-        
-        /* Shape 3: Bottom-left */
-        .shape-3 {
-            background: linear-gradient(to right, #ff512f, #f09819);
-            bottom: -100px;
-            left: -170px;
-        }
-        
-        /* Shape 4: Bottom-right */
-        .shape-4 {
-            background: linear-gradient(to right, #1845ad, #23a2f6);
-            bottom: -100px;
-            right: -170px;
-        }
 
         form {
             height: 720px;
