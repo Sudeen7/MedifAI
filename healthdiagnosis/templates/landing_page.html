@@ -6,25 +6,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MedifAI - Personalized Medicine Recommendation System</title>
-    <style>
-      body {
-        font-family: "Arial", sans-serif;
-        margin: 0;
-        padding: 0;
-        background-image: url("{% static 'assets/landing-page.png' %}");
 
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        color: #333; /* Darker text color */
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        animation: fadeIn 1s;
-        overflow: hidden; /* Prevents overflow on small screens */
-      }
+    
+    <style>
+        body {
+            
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'assets/landing-page.png' %}");
+            background-size: cover;  
+            background-position: center; 
+            background-repeat: no-repeat;  
+            height: 100vh;   
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            float: right;
+            margin-right: 70px;
+            align-items: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            {% comment %} animation: fadeIn 1s;
+            overflow: hidden; /* Prevents overflow on small screens */ {% endcomment %}
+        }
+
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -34,7 +39,7 @@
         }
       }
       h1 {
-        font-size: 3em;
+        font-size: 4em;
         margin: 0;
         animation: slideIn 1s ease forwards; /* Slide in animation */
         opacity: 0; /* Start hidden for animation */
@@ -114,17 +119,68 @@
           font-size: 2.5em;
         }
         p {
+            font-size: 1.2em;
+            text-align: center;
+            max-width: 600px;
+            margin: 20px 0;
+            animation: fadeInUp 1s ease forwards; /* Fade in upwards */
+            opacity: 10; /* Start hidden for animation */
+            animation-delay: 0.5s; /* Delay for a staggered effect */
+        }
+        @keyframes fadeInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: rgba(76, 175, 80, 0.8);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            animation: bounce 1s infinite; /* Bounce animation */
+        }
+        a:hover {
+            background-color: rgba(76, 175, 80, 1);
+            transform: scale(1.05);
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.9em;
+            color: #555;
+            animation: fadeIn 2s; /* Fade in effect for footer */
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            p {
+                font-size: 1em;
+            }
+
           font-size: 1em;
         }
       }
     </style>
+
 </head>
 <body>
+    
 
   </head>
   <body>
+
     <div class="content">
       <h1>Welcome to MedifAI</h1>
+
     <p>
       Your personalized medicine recommendation system that helps you find the
       best treatments tailored to your unique health needs. Explore a world of
@@ -136,7 +192,6 @@
     </p>
     <a href="/signup/">Login or SignUp</a>
     </div>
-    
     
 
     <div class="footer">&copy; 2024 MedifAI. All rights reserved.</div>

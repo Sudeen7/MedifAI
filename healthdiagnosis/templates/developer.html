@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -58,7 +60,7 @@
         margin-bottom: 20px;
       }
       .developer-card {
-        margin: 20px 0;
+        margin: 10px 0;
         border-radius: 15px;
         background: #f9f9f9;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -74,6 +76,7 @@
         height: 100px;
         object-fit: cover;
         margin-bottom: 15px;
+        margin-right:10px;
       }
       
       /* Footer Styles */
@@ -140,7 +143,7 @@
 
       <!-- Developer 1 -->
       <div class="developer-card d-flex align-items-center">
-        <img src="https://via.placeholder.com/100" alt="Asim" class="developer-img">
+        <img src= "{% static 'assets/Asim.jpg' %}" alt="Asim" class="developer-img">
         <div>
           <h5>Asim Ghimire</h5>
           <p><strong>Backend Developer</strong><br>Specializes in backend development and machine learning models.</p>
@@ -149,7 +152,7 @@
 
       <!-- Developer 2 -->
       <div class="developer-card d-flex align-items-center">
-        <img src="https://via.placeholder.com/100" alt="Sudin" class="developer-img">
+        <img src="{% static 'assets/sudeen.jpg' %}"  alt="Sudin" class="developer-img">
         <div>
           <h5>Sudin Bohara</h5>
           <p><strong>Frontend Developer</strong><br>Expert in creating engaging user interfaces.</p>
@@ -158,7 +161,7 @@
 
       <!-- Developer 3 -->
       <div class="developer-card d-flex align-items-center">
-        <img src="https://via.placeholder.com/100" alt="Sumit" class="developer-img">
+        <img src="{% static 'assets/sumit.jpg' %}"  alt="Sumit" class="developer-img">
         <div>
           <h5>Sumit Darshandhari</h5>
           <p><strong>UI/UX & Frontend Developer</strong><br>Focuses on user experience and design.</p>

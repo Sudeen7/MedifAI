@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,8 +13,9 @@
         height: 100%;
         margin: 0;
         font-family: 'Arial', sans-serif;
-        background: linear-gradient(45deg, #f0f0f0, #c0d9e9);
-        color: #333;
+        background-image: url("{% static 'assets/index-page.png' %}");
+        {% comment %} background: linear-gradient(45deg, #f0f0f0, #c0d9e9); {% endcomment %}
+        {% comment %} color: #333; {% endcomment %}
       }
 
       /* Navbar Styles */

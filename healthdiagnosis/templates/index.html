@@ -73,7 +73,7 @@
       }
 
       .navbar-brand {
-        font-size: 24px;
+        font-size: 30px;
         font-weight: bold;
         color: #fff !important;
       }
@@ -91,6 +91,10 @@
         display: flex;
         flex-direction: column;
         min-height: 100vh;
+      }
+      h1{
+        margin-top: -80px;
+        font-size:100px;
       }
       .content {
         flex: 1;
@@ -1061,7 +1065,7 @@
             <div id="transcription" class="mb-4"></div>
           
             {% if symptoms %}
-                <p class="text-warning"> Your symptoms are: {{ symptoms }}</p>
+                <p class="text-warning", style=" background-color: white;  text-align: center;"> Your symptoms are: {{ symptoms }}</p>
             {% endif %}
             
             <div id="transcription" class="mb-4"></div>
@@ -1085,7 +1089,7 @@
         {% if predicted_disease %}
         <!-- Results Section -->
         <div class="container my-5">
-          <h2 class="text-center my-4 text-white"> Our AI System Results</h2>
+          <h2 class="text-center my-4 text-white" > Our AI System Results</h2>
           <div class="d-flex justify-content-center flex-wrap">
             <button class="toggle-button" onclick="showModal('diseaseModal')" style="background: #F39334;">Disease</button>
             <button class="toggle-button" onclick="showModal('descriptionModal')" style="background: #268AF3;">Description</button>

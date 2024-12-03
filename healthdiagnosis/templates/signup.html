@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +15,12 @@
             box-sizing: border-box;
         }
         body { 
-            background-image: url(assets/signup-page.jpg); /* Local image reference */
+            background-image: url("{% static 'assets/signup-page.png' %}");
             background-size: cover;  
             background-position: center; 
             background-repeat: no-repeat;  
             height: 100vh; 
-            background-color: #080710; 
+            
         }
         .background { 
             width: 430px;
@@ -34,16 +36,7 @@
             position: absolute; 
             border-radius: 50%; 
         }
-        .shape:first-child { 
-            background: linear-gradient(#1845ad, #23a2f6); 
-            left: -180px; 
-            top: -80px; 
-        }
-        .shape:last-child { 
-            background: linear-gradient(to right, #ff512f, #f09819); 
-            right: -180px; 
-            bottom: -80px; 
-        }
+      
         form { 
             height: 800px; 
             width: 450px; 
