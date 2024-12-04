@@ -94,6 +94,8 @@ def get_predicted_value(patient_symptoms):
 
 # Views
 def landingpage(request):
+    if request.user.is_authenticated:
+        return redirect('medifai')
     return render(request, "landing_page.html")
 
 @login_required(login_url='login')
