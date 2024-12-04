@@ -1,8 +1,8 @@
-from django.shortcuts import render,HttpResponse,redirect
+from django.shortcuts import render ,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 import numpy as np
@@ -12,7 +12,6 @@ import warnings
 from .forms import ContactForm
 from django.core.mail import send_mail
 from django.conf import settings
-from django.core.mail import EmailMessage
 from .models import Contact
 import re
 warnings.filterwarnings('ignore', category=UserWarning)
@@ -138,11 +137,7 @@ def predict(request):
         # Call the prediction logic
         predicted_disease = get_predicted_value(selected_symptoms)
         print(predicted_disease)
-        if predicted_disease.lower() == 'aids':
-            message = "No disease matches your symptoms."
-            return render(request, 'index.html', {'message': message, 'symptoms': user_symptoms_string})
-
-        if predicted_disease not in diseases_list.values():
+        if predicted_disease not in diseases_list.values() or predicted_disease.lower() == 'aids':
             message = "No disease matches your symptoms."
             return render(request, 'index.html', {'message': message, 'symptoms': user_symptoms_string})
 
