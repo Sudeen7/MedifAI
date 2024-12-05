@@ -62,7 +62,7 @@
         margin: 0;
         font-family: 'Arial', sans-serif;
         background: linear-gradient(45deg, #f0f0f0, #c0d9e9);
-        background-image: url("{% static 'assets/index-page.png' %}");
+        background-image: url("{% static 'assets/home-page.png' %}");
         color: #333;
       }
 
@@ -99,6 +99,48 @@
       .content {
         flex: 1;
       }
+      #symptomForm{
+        background-color: rgb(231, 235, 220);
+        padding: 20px;
+        margin: 10px;
+      }
+      .ai{
+        color: black;
+        background-color: rgb(231, 235, 220);
+        padding: 20px;
+        width: 1200px;
+        height: 200px;
+        /* margin-left: 100px;
+        margin-right: -100px; */
+      }
+      .form-label{
+        color: black;
+      }
+     
+      .center-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       
+      }
+
+      .centered-button {
+        background-color: #c6d5a7;
+        color: black;
+        border: none;
+        padding: 10px; 
+        font-size: 1.5rem; 
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease; 
+      }
+
+     
+      .centered-button:active {
+        background-color: #bd8080; 
+        color: white; 
+      }
+
       #transcription{
         background-color: #f0f0f0;
         color: #121111;
@@ -1081,15 +1123,17 @@
             {% endif %}
               
             
-            <button type="submit" class="btn btn-danger bg-secondary btn-lg w-100 py-3">Predict</button>
+            <div class="center-container">
+              <button class="centered-button">Predict</button>
+            </div>
           </form>
           
         </div>
 
         {% if predicted_disease %}
         <!-- Results Section -->
-        <div class="container my-5">
-          <h2 class="text-center my-4 text-white" > Our AI System Results</h2>
+        <div class="container ai my-5">
+          <h2 class="text-center my-4" style="color: black;" > Our AI System Results</h2>
           <div class="d-flex justify-content-center flex-wrap">
             <button class="toggle-button" onclick="showModal('diseaseModal')" style="background: #F39334;">Disease</button>
             <button class="toggle-button" onclick="showModal('descriptionModal')" style="background: #268AF3;">Description</button>
