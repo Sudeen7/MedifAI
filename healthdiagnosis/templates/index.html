@@ -17,7 +17,7 @@
           closeAlert.addEventListener('click', () => {
               customAlert.style.display = 'none';
           });
-  
+
           if (form) {
               form.addEventListener('submit', (event) => {
                   const symptom1 = document.getElementById('symptom1').value;
@@ -103,6 +103,7 @@
         background-color: rgb(231, 235, 220);
         padding: 20px;
         margin: 10px;
+        border-radius: 20px;
       }
       .ai{
         color: black;
@@ -121,18 +122,18 @@
         display: flex;
         justify-content: center;
         align-items: center;
-       
+        border-radius: 20px;
       }
 
       .centered-button {
         background-color: #c6d5a7;
         color: black;
         border: none;
-        padding: 10px; 
-        font-size: 1.5rem; 
+        padding: 10px;
+        font-size: 1.5rem;
         border-radius: 10px;
         cursor: pointer;
-        transition: background-color 0.3s ease, color 0.3s ease; 
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
 
      
@@ -232,27 +233,27 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/medifai">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/about">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/contact">Contact</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/developer">Developer</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/blog">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/profile">Profile</a>
-              </li>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/medifai">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/developer">Developer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Profile</a>
+                </li>
             </ul>
-          </div>
+        </div>
         </div>
       </nav>
 
@@ -271,7 +272,7 @@
             <div class="mb-3">
               <label for="symptom1" class="form-label">Select Symptom 1:</label>
                 <select class="form-select" id="symptom1" name="symptom1">
-                    <option value="">--Select Symptom--</option> 
+                    <option value="">--Select Symptom--</option>
                     <option value="itching">Itching</option>
                     <option value="skin_rash">Skin Rash</option>
                     <option value="nodal_skin_eruptions">Nodal Skin Eruptions</option>
