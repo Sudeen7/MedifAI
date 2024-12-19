@@ -1,9 +1,8 @@
-from django.shortcuts import render ,redirect
+from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 import numpy as np
 import pandas as pd
@@ -12,8 +11,7 @@ import warnings
 from .forms import ContactForm
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import Contact
-import re
+from django.core.mail import EmailMessage
 warnings.filterwarnings('ignore', category=UserWarning)
 
 # Load datasets
@@ -26,16 +24,6 @@ diets = pd.read_csv("datasets/diets.csv")
 
 # Load model
 voting_clf = pickle.load(open('models/voting_clf.pkl', 'rb'))
-with open('models/logistic_regression_model.pkl', 'rb') as file:
-    logistic_regression_model = pickle.load(file)
-
-with open('models/random_forest_model.pkl', 'rb') as file:
-    random_forest_model = pickle.load(file)
-
-
-with open('models/heart_disease_model.pkl', 'rb') as file:
-    heart_disease_model = pickle.load(file)
-
 
 # Custom functions
 symptoms_dict = {
@@ -103,15 +91,11 @@ def get_predicted_value(patient_symptoms):
 
 # Views
 def landingpage(request):
-    if request.user.is_authenticated:
-        return redirect('homepage')
     return render(request, "landing_page.html")
 
-@login_required(login_url='login')
 def index(request):
     return render(request, "index.html")
 
-@login_required(login_url='login')
 def predict(request):
     if request.method == 'POST':
         # Retrieve symptoms from the dropdown selections
@@ -131,7 +115,7 @@ def predict(request):
         # Debugging: print the selected symptoms
         print(f"Selected symptoms: {selected_symptoms}")
         
-        # Ensure that at least 3 symptoms are selected
+        # Ensure that at least 4 symptoms are selected
         if len(selected_symptoms) < 3:
             message2 = "Please select at least three symptoms."
             return render(request, 'index.html', {'message2': message2})
@@ -144,14 +128,8 @@ def predict(request):
         # Combine symptoms into a string for displaying
         user_symptoms_string = ', '.join(selected_symptoms)
 
-        # Call the prediction logic
+        # Call the prediction logic (ensure you have implemented this)
         predicted_disease = get_predicted_value(selected_symptoms)
-        print(predicted_disease)
-        if predicted_disease not in diseases_list.values() or predicted_disease.lower() == 'aids':
-            message = "No disease matches your symptoms."
-            return render(request, 'index.html', {'message': message, 'symptoms': user_symptoms_string})
-
-        # Get additional details for the predicted disease
         dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)
         my_precautions = [i for i in precautions[0] if pd.notna(i)]
         
@@ -171,7 +149,24 @@ def predict(request):
         )
     
     # Render the form if not a POST request
-    return render(request, 'index.html') 
+    return render(request, 'index.html')
+
+
+
+import pickle
+import numpy as np
+from django.shortcuts import render
+
+# Load the models and scaler
+with open('models/logistic_regression_model.pkl', 'rb') as file:
+    logistic_regression_model = pickle.load(file)
+
+with open('models/random_forest_model.pkl', 'rb') as file:
+    random_forest_model = pickle.load(file)
+
+
+with open('models/heart_disease_model.pkl', 'rb') as file:
+    heart_disease_model = pickle.load(file)
 
 
 def heart_disease_predict(request):
@@ -255,65 +250,66 @@ def predict_diabetes(request):
     # Render the prediction form
     return render(request, 'predict.html')
 
-@login_required(login_url='login')
+
+
 def about(request):
     return render(request, "about.html")  
 
-@login_required(login_url='login')
-def contact_view(request):
-    if request.method == 'POST':
+# def contact(request):
+#     return render(request, "contact.html")  
+
+def contact_us(request):
+    if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            # Manually create and save the contact message
-            contact = Contact(
-                name=form.cleaned_data['name'],
-                email=form.cleaned_data['email'],
-                phone=form.cleaned_data['phone'],
-                subject=form.cleaned_data['subject'],
-                message = form.cleaned_data['message'],
-            )
-            contact.save()  # Save to the database
+            # Save the contact message to the database
+            form.save()
 
-            # Send an email to the user who submitted the form
-            subject = f"Thank you for contacting us, {form.cleaned_data['name']}!"
-            message = f"Dear {form.cleaned_data['name']},\n\n" \
-                      f"Thank you for reaching out to us regarding: {form.cleaned_data['subject']}.\n\n" \
-                      f"We have received your message:\n\n{form.cleaned_data['message']}\n\n" \
-                      "Our team will get back to you soon.\n\nBest regards,\nMedifAI Team"
-            recipient = form.cleaned_data['email']
+            # After saving, send an email to the user
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
 
-            send_mail(
-                subject,  # Subject of the email
-                message,  # Email content
-                settings.DEFAULT_FROM_EMAIL,  # Sender's email (configured in settings)
-                [recipient],  # Recipient's email (user's email)
-                fail_silently=False,  # Raise an error if email sending fails
-            )
+            print("name:", name)
+            print("email", email)
+            print("subject", subject)
 
-            return redirect('success')  # Redirect to a success page
+            try:
+                # Sending email
+                email_message = EmailMessage(
+                    'Thank you for contacting us!',
+                    f'<p>Hello {name},</p><p>Thank you for reaching out to us regarding "{subject}". We will respond to you soon.</p>',
+                    settings.DEFAULT_FROM_EMAIL,  # Sender's email address
+                    [email],  # Recipient's email address
+                )
+                email_message.content_subtype = "html"  # Specify email type as HTML
+                email_message.send()
+
+                # Redirect to the thank you page after sending the email
+                return redirect('thank_you')  
+            except Exception as e:
+                messages.error(request, 'There was an error sending your message. Please try again later.')
+
+        else:
+            messages.error(request, 'There was an error in your form submission. Please try again.')
 
     else:
         form = ContactForm()
 
     return render(request, 'contact.html', {'form': form})
 
-@login_required(login_url='login')
-def success_view(request):
-    return render(request, 'success.html')
+def thank_you(request):
+    return render(request, 'thank_you.html')
 
-@login_required(login_url='login')
 def developer(request):
     return render(request, "developer.html")  
 
-@login_required(login_url='login')
 def blog(request):
     return render(request, "blog.html")  
 
-@login_required(login_url='login')
 def privacy(request):
     return render(request, "privacy.html")  
 
-@login_required(login_url='login')
 def terms(request):
     return render(request, "terms.html")  
 
@@ -323,7 +319,6 @@ def HomePage(request):
 
 def SignupPage(request):
     if request.method == 'POST':
-        # Get form data
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         username = request.POST.get('username')
@@ -331,155 +326,35 @@ def SignupPage(request):
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
 
-        # Check if username already exists
-        if User.objects.filter(username=username).exists():
-            messages.error(request, "Username already exists! Please choose a different username.")
-            context = {
-                'first_name': first_name,
-                'last_name': last_name,
-                'username': username,
-                'email': email,
-            }
-            return render(request, 'signup.html', context)
-
-        # Check if passwords match
+        # Ensure passwords match
         if password1 != password2:
-            messages.error(request, "Your password and confirm password do not match!")
-            context = {
-                'first_name': first_name,
-                'last_name': last_name,
-                'username': username,
-                'email': email,
-            }
-            return render(request, 'signup.html', context)
+            return HttpResponse("Your password and confirm password are not Same!!")
 
-        # Password strength validation (at least 8 characters)
-        if len(password1) < 8:
-            messages.error(request, "Password must be at least 8 characters long.")
-            context = {
-                'first_name': first_name,
-                'last_name': last_name,
-                'username': username,
-                'email': email,
-            }
-            return render(request, 'signup.html', context)
-
-        # Additional checks for password strength (optional)
-        if not re.search(r'[A-Z]', password1):  # Check for uppercase letter
-            messages.error(request, "Password must contain at least one uppercase letter.")
-            context = {
-                'first_name': first_name,
-                'last_name': last_name,
-                'username': username,
-                'email': email,
-            }
-            return render(request, 'signup.html', context)
-
-        if not re.search(r'[0-9]', password1):  # Check for digit
-            messages.error(request, "Password must contain at least one number.")
-            context = {
-                'first_name': first_name,
-                'last_name': last_name,
-                'username': username,
-                'email': email,
-            }
-            return render(request, 'signup.html', context)
-
-        if not re.search(r'[\W_]', password1):  # Check for special character
-            messages.error(request, "Password must contain at least one special character (e.g., @, #, $, etc.).")
-            context = {
-                'first_name': first_name,
-                'last_name': last_name,
-                'username': username,
-                'email': email,
-            }
-            return render(request, 'signup.html', context)
-
-        # Create the user if all checks pass
-        user = User.objects.create_user(username=username, email=email, password=password1)
-        user.first_name = first_name
-        user.last_name = last_name
-        user.save()
-
-        # Add success message
-        messages.success(request, f"Hello {username}, your account has been registered successfully! Please log in.")
-        return redirect('login')  # Redirect to the login page after successful registration
+        # Create user
+        else:
+            user = User.objects.create_user(username=username, email=email, password=password1)
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+            return redirect('login')
 
     return render(request, 'signup.html')
 
-
 def LoginPage(request):
     if request.method == 'POST':
+        # print(request.headers)  # Log request headers to debug
+        # print(request.POST)     # Log POST data to see if csrf_token is included
         username = request.POST.get('username')
         pass1 = request.POST.get('pass')
         user = authenticate(request, username=username, password=pass1)
         if user is not None:
             login(request, user)
-
-            messages.success(request, f"{username}, you have logged in successfully! Now you can explore our web app")
-
             return redirect('homepage')
         else:
-            # Return to login page with error and username
-            messages.error(request, "Username or Password is incorrect!")
-            return render(request, 'login.html', {'username': username})
+            return HttpResponse("Username or Password is incorrect!!!")
     
     return render(request, 'login.html')
 
-@login_required(login_url='login')
 def LogoutPage(request):
     logout(request)
     return redirect('login')
-
-@login_required(login_url='login')  
-def ProfilePage(request):
-    user = request.user  
-    context = {
-        'first_name': user.first_name,
-        'last_name': user.last_name,
-        'username': user.username,
-        'email': user.email,
-    }
-    return render(request, 'profile.html', context)
-
-@login_required(login_url='login')
-def EditProfilePage(request):
-    user = request.user
-
-    if request.method == 'POST':
-        # Get the updated data from the form
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        username = request.POST.get('username')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
-
-        # Check if the passwords match
-        if password1 and password1 != password2:
-            messages.error(request, "Your passwords do not match.")
-            return redirect('profile_edit')
-
-        # Check if any data has been changed
-        if user.username != username:
-            user.username = username
-        if user.first_name != first_name:
-            user.first_name = first_name
-        if user.last_name != last_name:
-            user.last_name = last_name
-        
-        # Update password if a new one is provided
-        if password1:
-            user.set_password(password1)
-            update_session_auth_hash(request, user) 
-
-        user.save()
-
-        messages.success(request, "Your profile has been updated successfully.")
-        return redirect('profile')
-
-    context = {
-        'first_name': user.first_name,
-        'last_name': user.last_name,
-        'username': user.username
-    }
-    return render(request, 'profile_edit.html', context)

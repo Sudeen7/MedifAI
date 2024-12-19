@@ -18,17 +18,41 @@
             background-image: url("{% static 'assets/home-page.png' %}");
             color: #faf6f6;
             font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+          background-color: #1a1a1a; /* Dark background for navbar */
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff !important;
+        }
+        .nav-link {
+            color: #fff !important;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        .nav-link:hover {
+            background-color: #52ab98;
+            border-radius: 8px;
+            transition: 0.3s;
         }
         
-        .container {
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            margin-top: 20vh;
-            padding: 30px;
-            background-color: transparent;
             color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            
         }
 
         h1 {
@@ -36,19 +60,14 @@
             color: #f5f6f7;
             margin-bottom: 20px;
         }
-        .butt{
+
+        .butt {
             display: flex;
             justify-content: center;  /* Aligns horizontally */
-            align-items: center;  
-            gap: 20px;    /* Aligns vertically */
-            
+            gap: 20px;    /* Adds space between buttons */
         }
 
         .btn-custom {
-            
-            text-align: center;
-            margin-top: 25vh;
-            
             background-color: #3498db;
             border: none;
             color: white;
@@ -62,18 +81,58 @@
             background-color: #2980b9;
         }
 
-        /* Message Styling */
-        .alert-success {
-            font-size: 1rem;
-            padding: 10px 15px;
-            margin: 10px auto 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/home">MedifAI</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/developer">Developer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Profile</a>
+                </li>
+            </ul>
+        </div>
+        </div>
+      </nav>    
+
+    <!-- Main Content -->
+    <div class="content">
         {% if messages %}
         <div>
             {% for message in messages %}
@@ -82,11 +141,17 @@
         </div>
         {% endif %}
         <h1>Welcome to MedifAI</h1>
+        <div class="butt">
+            <a href="{% url 'diabetes_predict' %}" class="btn btn-custom">Predict Diabetes</a>
+            <a href="{% url 'heart_disease_predict' %}" class="btn btn-custom">Predict Heart Disease</a>
+            <a href="{% url 'medifai' %}" class="btn btn-custom">Go to MedifAI</a>
+        </div>
     </div>
-    <div class ="butt">
-        <a href="{% url 'medifai' %}" class="btn btn-custom">Go to MedifAI</a>
-        <a href="{% url 'logout' %}" class="btn btn-custom">Logout</a>
-    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2024 MedifAI | <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a>
+    </footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
