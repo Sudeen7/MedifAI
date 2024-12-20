@@ -1,135 +1,13 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends 'base.html' %}
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% load static %}
 
-    <title>Home Page</title>
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-        }
+{% block title %}Home{% endblock %}
 
-        body {
-            background: linear-gradient(135deg, #f0f0f0, #d6e4f0);
-            color: #333;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Navbar Styles */
-        .navbar {
-            background-color: #2a2a2a;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        .navbar-brand {
-            font-size: 30px;
-            font-weight: bold;
-            color: #fff !important;
-        }
-        .nav-link {
-            color: #fff !important;
-            font-size: 18px;
-            margin-right: 10px;
-        }
-        .nav-link:hover {
-            background-color: #52ab98;
-            border-radius: 8px;
-            transition: 0.3s;
-        }
-
-        .content {
-            flex: 1; /* Makes the content area take up all available space */
-            padding: 50px 15px;
-            text-align: center;
-        }
-
-        .card {
-            margin: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            color: #333;
-        }
-
-        .btn-custom {
-            background-color: #3498db;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-custom:hover {
-            background-color: #2980b9;
-        }
-
-        footer {
-            background-color: #1a1a1a;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-
-        footer a {
-            color: white;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/home">MedifAI</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/home">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/developer">Developer</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/blog">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/profile">Profile</a>
-                </li>
-            </ul>
-        </div>
-        </div>
-      </nav>
-
-    <!-- Main Content -->
+{% block content %}
     <div class="content">
         <h1>Welcome to MedifAI</h1>
-        <p>Your partner in predicting health outcomes with accuracy and ease.</p>
+        <p class="page-desc">Your partner in predicting health outcomes with accuracy and ease.</p>
         <div class="container">
             <div class="row">
                 <!-- Card 1 -->
@@ -166,14 +44,60 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        &copy; 2024 MedifAI | <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a>
-    </footer>
+{% block extra_css %}
+    <style>
+        /* Specific Styles for Home Page */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Arial', sans-serif;
+            background-image: url("{% static 'assets/home-page.png' %}");
+        }
+        h1,.page-desc{
+            color: antiquewhite;
+        }
+        .content {
+            flex: 1; 
+            padding: 50px 15px;
+            text-align: center;
+        }
 
-    <!-- Optional JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
-</body>
-</html>
+        .card {
+            margin: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .btn-custom {
+            background-color: #3498db;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #2980b9;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                margin: 10px;
+            }
+
+            .card-title {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+{% endblock %}
+{% endblock content %}

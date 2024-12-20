@@ -1,263 +1,62 @@
+{% extends 'base.html' %}
+
 {% load static %}
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MedifAI</title>
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-          const form = document.getElementById('symptomForm');
-          const customAlert = document.getElementById('customAlert');
-          const alertMessage = document.getElementById('alertMessage');
-          const closeAlert = document.getElementById('closeAlert');
-  
-          // Close custom alert when the close button is clicked
-          closeAlert.addEventListener('click', () => {
-              customAlert.style.display = 'none';
-          });
+{% block title %}Predict Disease{% endblock %}
 
-          if (form) {
-              form.addEventListener('submit', (event) => {
-                  const symptom1 = document.getElementById('symptom1').value;
-                  const symptom2 = document.getElementById('symptom2').value;
-                  const symptom3 = document.getElementById('symptom3').value;
-                  const symptom4 = document.getElementById('symptom4').value;
-                  const symptom5 = document.getElementById('symptom5').value;
-                  const symptom6 = document.getElementById('symptom6').value;
-  
-                  const symptoms = [symptom1, symptom2, symptom3, symptom4, symptom5, symptom6];
-                  const selectedSymptoms = symptoms.filter(symptom => symptom);
-  
-                  if (selectedSymptoms.length < 3) {
-                      // Show the custom alert for fewer than 3 symptoms
-                      alertMessage.textContent = 'Please select at least three symptoms.';
-                      customAlert.style.display = 'block';
-                      event.preventDefault();
-                      return false;
-                  }
-  
-                  const uniqueSymptoms = new Set(selectedSymptoms);
-                  if (uniqueSymptoms.size !== selectedSymptoms.length) {
-                      // Show the custom alert for duplicate symptoms
-                      alertMessage.textContent = 'You cannot select the same symptom more than once.';
-                      customAlert.style.display = 'block';
-                      event.preventDefault();
-                      return false;
-                  }
-              });
-          } else {
-              console.error('Form with id "symptomForm" not found.');
-          }
+{% block javascript %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('symptomForm');
+      const customAlert = document.getElementById('customAlert');
+      const alertMessage = document.getElementById('alertMessage');
+      const closeAlert = document.getElementById('closeAlert');
+
+      // Close custom alert when the close button is clicked
+      closeAlert.addEventListener('click', () => {
+          customAlert.style.display = 'none';
       });
-  </script>
-  
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    {% comment %} <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon"> <!-- Favicon added --> {% endcomment %}
-    <style>
-      /* Global Styles */
-      body, html {
-        height: 100%;
-        margin: 0;
-        font-family: 'Arial', sans-serif;
-        background: linear-gradient(45deg, #f0f0f0, #c0d9e9);
-        background-image: url("{% static 'assets/home-page.png' %}");
-        color: #333;
-      }
 
-      /* Navbar Styles */
-      .navbar {
-          background-color: #2a2a2a;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-      }
+      if (form) {
+          form.addEventListener('submit', (event) => {
+              const symptom1 = document.getElementById('symptom1').value;
+              const symptom2 = document.getElementById('symptom2').value;
+              const symptom3 = document.getElementById('symptom3').value;
+              const symptom4 = document.getElementById('symptom4').value;
+              const symptom5 = document.getElementById('symptom5').value;
+              const symptom6 = document.getElementById('symptom6').value;
 
-      .navbar-brand {
-        font-size: 30px;
-        font-weight: bold;
-        color: #fff !important;
-      }
-      .nav-link {
-        color: #fff !important;
-        font-size: 18px;
-        margin-right: 10px;
-      }
-      .nav-link:hover {
-        background-color: #52ab98;
-        border-radius: 8px;
-        transition: 0.3s;
-      }
-      .page-container {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-      h1{
-        margin-top: -80px;
-        font-size:100px;
-      }
-      .content {
-        flex: 1;
-      }
-      #symptomForm{
-        background-color: rgb(231, 235, 220);
-        padding: 20px;
-        margin: 10px;
-        border-radius: 20px;
-      }
-      .ai{
-        color: black;
-        background-color: rgb(231, 235, 220);
-        padding: 20px;
-        width: 1200px;
-        height: 200px;
-        /* margin-left: 100px;
-        margin-right: -100px; */
-      }
-      .form-label{
-        color: black;
-      }
-     
-      .center-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 20px;
-      }
+              const symptoms = [symptom1, symptom2, symptom3, symptom4, symptom5, symptom6];
+              const selectedSymptoms = symptoms.filter(symptom => symptom);
 
-      .centered-button {
-        background-color: #c6d5a7;
-        color: black;
-        border: none;
-        padding: 10px;
-        font-size: 1.5rem;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, color 0.3s ease;
-      }
+              if (selectedSymptoms.length < 3) {
+                  // Show the custom alert for fewer than 3 symptoms
+                  alertMessage.textContent = 'Please select at least three symptoms.';
+                  customAlert.style.display = 'block';
+                  event.preventDefault();
+                  return false;
+              }
 
+              const uniqueSymptoms = new Set(selectedSymptoms);
+              if (uniqueSymptoms.size !== selectedSymptoms.length) {
+                  // Show the custom alert for duplicate symptoms
+                  alertMessage.textContent = 'You cannot select the same symptom more than once.';
+                  customAlert.style.display = 'block';
+                  event.preventDefault();
+                  return false;
+              }
+          });
+      } else {
+          console.error('Form with id "symptomForm" not found.');
+      }
+  });
+</script>
+{% endblock %}
 
-      .centered-button:active {
-        background-color: #bd8080; 
-        color: white; 
-      }
+{% block content %}
+<div class="page-container">
 
-      #transcription{
-        background-color: #f0f0f0;
-        color: #121111;
-      }
-      .text-warning{
-        background-color: #f0f0f0;
-        color: #121111 !important;
-      }
-      .name{
-        background-color: transparent !important;
-        color: yellow !important;
-      }
-      .toggle-button {
-        padding: 10px;
-        margin: 5px;
-        font-size: 16px;
-        font-weight: bold;
-        border-radius: 8px;
-        color: #121111;
-        border: none;
-      }
-      .modal-header {
-        background-color: #343a40;
-        color: #fff;
-      }
-      .modal-body {
-        background-color: #f8f9fa;
-      }
-      /* Footer Styles */
-      footer {
-        background-color: #1a1a1a; 
-        color: #fff;
-        padding: 20px;
-        text-align: center;
-        position: relative;
-      }
-      footer p {
-        margin: 0;
-      }
-      footer a {
-        color: white; 
-      }
-      
-      .alert-box {
-          display: none;
-          position: fixed;
-          top: 7%; 
-          left: 50%;
-          transform: translateX(-50%); 
-          width: 300px;
-          padding: 20px;
-          background-color: #c6d5a7;
-          color: #0e0d0d;
-          text-align: center;
-          border-radius: 8px;
-          /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
-          z-index: 1000;
-      }
-      .alert-message {
-          margin-bottom: 20px;
-          font-size: 16px;
-          font-weight: bold;
-      }
-      .alert-button {
-          padding: 10px 20px;
-          background-color: #721c24;
-          color: #fff;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-      }
-      .alert-button:hover {
-          background-color: #a94442;
-      }
-      @media (max-width: 768px) {
-        h2 {
-          font-size: 28px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="page-container">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/home">MedifAI</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/home">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/developer">Developer</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/blog">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/profile">Profile</a>
-                </li>
-            </ul>
-        </div>
-        </div>
-      </nav>
-
-      <div id="customAlert" class="alert-box">
+<div id="customAlert" class="alert-box">
         <p id="alertMessage" class="alert-message"></p>
         <button id="closeAlert" class="alert-button">OK</button>
       </div>
@@ -1134,177 +933,269 @@
         {% if predicted_disease %}
         <!-- Results Section -->
         <div class="container ai my-5">
-          <h2 class="text-center my-4" style="color: black;" > Our AI System Results</h2>
+          <h2 class="text-center my-4" style="color: black;"> Our AI System Results</h2>
           <div class="d-flex justify-content-center flex-wrap">
-            <button class="toggle-button" onclick="showModal('diseaseModal')" style="background: #F39334;">Disease</button>
-            <button class="toggle-button" onclick="showModal('descriptionModal')" style="background: #268AF3;">Description</button>
-            <button class="toggle-button" onclick="showModal('precautionModal')" style="background: #F371F9;">Precaution</button>
-            <button class="toggle-button" onclick="showModal('medicationsModal')" style="background: #F8576F;">Medications</button>
-            <button class="toggle-button" onclick="showModal('workoutsModal')" style="background: #99F741;">Workouts</button>
-            <button class="toggle-button" onclick="showModal('dietsModal')" style="background: #E5E23D;">Diets</button>
+            <button type="button" class="toggle-button" onclick="showModal('diseaseModal')" style="background: #F39334;">Disease</button>
+            <button type="button" class="toggle-button" onclick="showModal('descriptionModal')" style="background: #268AF3;">Description</button>
+            <button type="button" class="toggle-button" onclick="showModal('precautionModal')" style="background: #F371F9;">Precaution</button>
+            <button type="button" class="toggle-button" onclick="showModal('medicationsModal')" style="background: #F8576F;">Medications</button>
+            <button type="button" class="toggle-button" onclick="showModal('workoutsModal')" style="background: #99F741;">Workouts</button>
+            <button type="button" class="toggle-button" onclick="showModal('dietsModal')" style="background: #E5E23D;">Diets</button>
           </div>
         </div>
         {% endif %}
 
-        <!-- Disease Modal -->
-        <div class="modal fade" id="diseaseModal" tabindex="-1" aria-labelledby="diseaseModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="diseaseModalLabel">Predicted Disease</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <p>{{ predicted_disease }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
+                <!-- Disease Modal -->
+                <div class="modal fade" id="diseaseModal" tabindex="-1" aria-labelledby="diseaseModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="diseaseModalLabel">Predicted Disease</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>{{ predicted_disease }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        
+                <!-- Description Modal -->
+                <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="descriptionModalLabel">Description</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>{{ dis_des }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        
+                <!-- Precaution Modal -->
+                <div class="modal fade" id="precautionModal" tabindex="-1" aria-labelledby="precautionModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="precautionModalLabel">Precaution</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <ul>
+                          {% for i in my_precautions %}
+                          <li>{{ i }}</li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        
+                <!-- Medications Modal -->
+                <div class="modal fade" id="medicationsModal" tabindex="-1" aria-labelledby="medicationsModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="medicationsModalLabel">Medications</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <ul>
+                          {% for i in medications %}
+                          <li>{{ i }}</li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        
+                <!-- Workouts Modal -->
+                <div class="modal fade" id="workoutsModal" tabindex="-1" aria-labelledby="workoutsModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="workoutsModalLabel">Workouts</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <ul>
+                          {% for i in workout %}
+                          <li>{{ i }}</li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        
+                <!-- Diets Modal -->
+                <div class="modal fade" id="dietsModal" tabindex="-1" aria-labelledby="dietsModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="dietsModalLabel">Diets</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <ul>
+                          {% for i in my_diet %}
+                          <li>{{ i }}</li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-        <!-- Description Modal -->
-        <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="descriptionModalLabel">Description</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <p>{{ dis_des }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 
-        <!-- Precaution Modal -->
-        <div class="modal fade" id="precautionModal" tabindex="-1" aria-labelledby="precautionModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="precautionModalLabel">Precaution</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <ul>
-                  {% for i in my_precautions %}
-                  <li>{{ i }}</li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+        <script>
+          function showModal(modalId) {
+            var myModal = new bootstrap.Modal(document.getElementById(modalId));
+            myModal.show();
+          }
+        </script>
 
-        <!-- Medications Modal -->
-        <div class="modal fade" id="medicationsModal" tabindex="-1" aria-labelledby="medicationsModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="medicationsModalLabel">Medications</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <ul>
-                  {% for i in medications %}
-                  <li>{{ i }}</li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Workouts Modal -->
-        <div class="modal fade" id="workoutsModal" tabindex="-1" aria-labelledby="workoutsModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="workoutsModalLabel">Workouts</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <ul>
-                  {% for i in workout %}
-                  <li>{{ i }}</li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Diets Modal -->
-        <div class="modal fade" id="dietsModal" tabindex="-1" aria-labelledby="dietsModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="dietsModalLabel">Diets</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <ul>
-                  {% for i in my_diet %}
-                  <li>{{ i }}</li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-
-      </div>
-
-      <!-- Footer -->
-      <footer>
-        &copy; 2024 MedifAI | <a href="/privacy" style="color: white;">Privacy Policy</a> | <a href="/terms" style="color: white;">Terms of Service</a>
-      </footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
 
-        
-
-      // Speech Recognition
-      const startSpeechRecognition = document.getElementById('startSpeechRecognition');
-      const transcription = document.getElementById('transcription');
-      const symptomsInput = document.getElementById('symptoms');
-
-      if ('webkitSpeechRecognition' in window) {
-        const recognition = new webkitSpeechRecognition();
-        recognition.continuous = false;
-        recognition.interimResults = false;
-
-        recognition.onstart = function () {
-          startSpeechRecognition.textContent = 'Listening...';
-        };
-
-        recognition.onresult = function (event) {
-          const transcript = event.results[0][0].transcript;
-          transcription.textContent = `You said: ${transcript}`;
-          symptomsInput.value = transcript;
-        };
-
-        recognition.onerror = function (event) {
-          transcription.textContent = 'Error occurred in recognition: ' + event.error;
-        };
-
-        recognition.onend = function () {
-          startSpeechRecognition.textContent = 'Start Speech Recognition';
-        };
-
-        startSpeechRecognition.addEventListener('click', function () {
-          recognition.start();
-        });
-      } else {
-        transcription.textContent = 'Speech recognition is not supported in this browser.';
+{% block extra_css %}
+    <style>
+        /* Specific Styles for Home Page */
+        body, html {
+        height: 100%;
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(45deg, #f0f0f0, #c0d9e9);
+        background-image: url("{% static 'assets/home-page.png' %}");
+        color: #333;
       }
-      // Modal Function
-      function showModal(modalId) {
-        var modal = new bootstrap.Modal(document.getElementById(modalId));
-        modal.show();
+        .page-container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
       }
-    </script>
-  </body>
-</html>
+      h1{
+        margin-top: -80px;
+        font-size:100px;
+      }
+      .content {
+        flex: 1;
+      }
+      #symptomForm{
+        background-color: rgb(231, 235, 220);
+        padding: 20px;
+        margin: 10px;
+        border-radius: 20px;
+      }
+      .ai{
+        color: black;
+        background-color: rgb(231, 235, 220);
+        padding: 20px;
+        width: 1200px;
+        height: 200px;
+        /* margin-left: 100px;
+        margin-right: -100px; */
+      }
+      .form-label{
+        color: black;
+      }
+     
+      .center-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+      }
+
+      .centered-button {
+        background-color: #c6d5a7;
+        color: black;
+        border: none;
+        padding: 10px;
+        font-size: 1.5rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+
+      .centered-button:active {
+        background-color: #bd8080; 
+        color: white; 
+      }
+
+      #transcription{
+        background-color: #f0f0f0;
+        color: #121111;
+      }
+      .text-warning{
+        background-color: #f0f0f0;
+        color: #121111 !important;
+      }
+      .name{
+        background-color: transparent !important;
+        color: yellow !important;
+      }
+      .toggle-button {
+        padding: 10px;
+        margin: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        color: #121111;
+        border: none;
+      }
+      .modal-header {
+        background-color: #343a40;
+        color: #fff;
+      }
+      .modal-body {
+        background-color: #f8f9fa;
+      }
+      
+      .alert-box {
+          display: none;
+          position: fixed;
+          top: 7%; 
+          left: 50%;
+          transform: translateX(-50%); 
+          width: 300px;
+          padding: 20px;
+          background-color: #c6d5a7;
+          color: #0e0d0d;
+          text-align: center;
+          border-radius: 8px;
+          /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+          z-index: 1000;
+      }
+      .alert-message {
+          margin-bottom: 20px;
+          font-size: 16px;
+          font-weight: bold;
+      }
+      .alert-button {
+          padding: 10px 20px;
+          background-color: #721c24;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+      }
+      .alert-button:hover {
+          background-color: #a94442;
+      }
+      @media (max-width: 768px) {
+        h2 {
+          font-size: 28px;
+        }
+      }
+    </style>
+{% endblock %}
+{% endblock content %}

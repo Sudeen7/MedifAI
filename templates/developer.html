@@ -1,52 +1,53 @@
+{% extends 'base.html' %}
+
 {% load static %}
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Developers - MedifAI</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+{% block title %}Developer{% endblock %}
+
+{% block content %}
+<div class="container content my-4 mt-4">
+  <h2 class="text-center">Meet Our Developers</h2>
+
+  <!-- Developer 1 -->
+  <div class="developer-card d-flex align-items-center">
+    <img src= "{% static 'assets/Asim.jpg' %}" alt="Asim" class="developer-img">
+    <div>
+      <h5>Asim Ghimire</h5>
+      <p><strong>Backend Developer</strong><br>Specializes in backend development and machine learning models.</p>
+    </div>
+  </div>
+
+  <!-- Developer 2 -->
+  <div class="developer-card d-flex align-items-center">
+    <img src="{% static 'assets/sudeen.jpg' %}"  alt="Sudin" class="developer-img">
+    <div>
+      <h5>Sudin Bohara</h5>
+      <p><strong>Frontend Developer</strong><br>Expert in creating engaging user interfaces.</p>
+    </div>
+  </div>
+
+  <!-- Developer 3 -->
+  <div class="developer-card d-flex align-items-center">
+    <img src="{% static 'assets/sumit.jpg' %}"  alt="Sumit" class="developer-img">
+    <div>
+      <h5>Sumit Darshandhari</h5>
+      <p><strong>UI/UX & Frontend Developer</strong><br>Focuses on user experience and design.</p>
+    </div>
+  </div>
+</div>
+
+{% block extra_css %}
     <style>
-      /* Global Styles */
-      body, html {
-        height: 100%;
-        margin: 0;
-        font-family: 'Arial', sans-serif;
-        background-image: url("{% static 'assets/home-page.png' %}");
-        /* background: linear-gradient(45deg, #f0f0f0, #c0d9e9);
-        color: #333; */
-      }
-
-      /* Navbar Styles */
-      .navbar {
-          background-color: #2a2a2a; /* Slightly lighter dark background for navbar */
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-      }
-
-      .navbar-brand {
-        font-size: 24px;
-        font-weight: bold;
-        color: #fff !important;
-      }
-      .nav-link {
-        color: #fff !important;
-        font-size: 18px;
-        margin-right: 10px;
-      }
-      .nav-link:hover {
-        background-color: #444; /* Darker hover effect */
-        border-radius: 8px;
-        transition: 0.3s;
-      }
-
-      /* Main Content */
-      .page-container {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-      .content {
+        /* Specific Styles for Home Page */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Arial', sans-serif;
+            background-image: url("{% static 'assets/home-page.png' %}");
+        }
+        .content {
         flex: 1;
         padding: 60px 20px;
         background: white;
@@ -79,22 +80,6 @@
         margin-bottom: 15px;
         margin-right:10px;
       }
-      
-      /* Footer Styles */
-      footer {
-        background-color: #1a1a1a; /* Dark background for footer */
-        color: #fff;
-        padding: 20px;
-        text-align: center;
-        position: relative;
-      }
-      footer p {
-        margin: 0;
-      }
-      footer a {
-        color: white; /* Ensuring footer links are white */
-      }
-
       /* Responsive Styling */
       @media (max-width: 768px) {
         h2 {
@@ -102,79 +87,5 @@
         }
       }
     </style>
-  </head>
-  <body>
-
-    <!-- Navbar -->
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/home">MedifAI</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/home">Home</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/about">About</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/contact">Contact</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/developer">Developer</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/blog">Blog</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/profile">Profile</a>
-              </li>
-          </ul>
-      </div>
-      </div>
-    </nav>
-
-    <!-- Developer Content -->
-    <div class="container content my-4 mt-4">
-      <h2 class="text-center">Meet Our Developers</h2>
-
-      <!-- Developer 1 -->
-      <div class="developer-card d-flex align-items-center">
-        <img src= "{% static 'assets/Asim.jpg' %}" alt="Asim" class="developer-img">
-        <div>
-          <h5>Asim Ghimire</h5>
-          <p><strong>Backend Developer</strong><br>Specializes in backend development and machine learning models.</p>
-        </div>
-      </div>
-
-      <!-- Developer 2 -->
-      <div class="developer-card d-flex align-items-center">
-        <img src="{% static 'assets/sudeen.jpg' %}"  alt="Sudin" class="developer-img">
-        <div>
-          <h5>Sudin Bohara</h5>
-          <p><strong>Frontend Developer</strong><br>Expert in creating engaging user interfaces.</p>
-        </div>
-      </div>
-
-      <!-- Developer 3 -->
-      <div class="developer-card d-flex align-items-center">
-        <img src="{% static 'assets/sumit.jpg' %}"  alt="Sumit" class="developer-img">
-        <div>
-          <h5>Sumit Darshandhari</h5>
-          <p><strong>UI/UX & Frontend Developer</strong><br>Focuses on user experience and design.</p>
-        </div>
-      </div>
-
-    </div>
-
-    <footer>
-      &copy; 2024 MedifAI | <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgY8fJLEibG6huHk8ROU4Ml4kLUXPpMrw6iBXVAmZFNxXtkJFwrKPnbSgz9z" crossorigin="anonymous"></script>
-  </body>
-</html>
+{% endblock %}
+{% endblock content %}
