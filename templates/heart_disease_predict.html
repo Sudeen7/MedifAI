@@ -99,7 +99,6 @@
 </head>
 <body>
     <!-- Navbar -->
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="/home">MedifAI</a>
@@ -139,7 +138,7 @@
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label for="age">Age:</label>
+                        <label for="age">Age (Years):</label>
                         <input type="number" name="age" id="age" required>
                     </div>
                     <div class="col-md-6 form-group">
@@ -149,57 +148,57 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label for="cp">Chest Pain Type (0-3):</label>
+                        <label for="cp">Chest Pain Type (0 = Typical Angina, 1 = Atypical Angina, 2 = Non-anginal Pain, 3 = Asymptomatic):</label>
                         <input type="number" name="cp" id="cp" required>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label for="trestbps">Resting Blood Pressure:</label>
+                        <label for="trestbps">Resting Blood Pressure (mm Hg):</label>
                         <input type="number" name="trestbps" id="trestbps" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label for="chol">Cholesterol:</label>
+                        <label for="chol">Cholesterol (mg/dl):</label>
                         <input type="number" name="chol" id="chol" required>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label for="fbs">Fasting Blood Sugar (>120 mg/dl = 1):</label>
+                        <label for="fbs">Fasting Blood Sugar (>120 mg/dl = 1, Otherwise = 0):</label>
                         <input type="number" name="fbs" id="fbs" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label for="restecg">Resting ECG Results (0-2):</label>
+                        <label for="restecg">Resting ECG (0 = Normal, 1 = ST-T Wave Abnormality, 2 = Left Ventricular Hypertrophy):</label>
                         <input type="number" name="restecg" id="restecg" required>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label for="thalach">Max Heart Rate Achieved:</label>
+                        <label for="thalach">Max Heart Rate Achieved (bpm):</label>
                         <input type="number" name="thalach" id="thalach" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label for="exang">Exercise Induced Angina (1 = Yes):</label>
+                        <label for="exang">Exercise Induced Angina (1 = Yes, 0 = No):</label>
                         <input type="number" name="exang" id="exang" required>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label for="oldpeak">ST Depression Induced by Exercise:</label>
+                        <label for="oldpeak">ST Depression Induced by Exercise (Relative to Rest):</label>
                         <input type="number" name="oldpeak" id="oldpeak" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label for="slope">Slope of the Peak Exercise ST:</label>
+                        <label for="slope">Slope of the Peak Exercise ST (0 = Upsloping, 1 = Flat, 2 = Downsloping):</label>
                         <input type="number" name="slope" id="slope" required>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label for="ca">Number of Major Vessels (0-4):</label>
+                        <label for="ca">Number of Major Vessels (0-3):</label>
                         <input type="number" name="ca" id="ca" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label for="thal">Thalassemia (0-3):</label>
+                        <label for="thal">Thalassemia (1 = Normal, 2 = Fixed Defect, 3 = Reversible Defect):</label>
                         <input type="number" name="thal" id="thal" required>
                     </div>
                 </div>
@@ -211,6 +210,7 @@
             {% if result %}
             <div class="results">
                 <h2>Prediction Result</h2>
+                <p><strong>Input Data:</strong> {{ input_data }}</p>
                 <p><strong>Result:</strong> {{ result }}</p>
             </div>
             {% endif %}

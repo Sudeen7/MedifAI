@@ -20,8 +20,8 @@
 
         /* Navbar Styles */
         .navbar {
-          background-color: #1a1a1a; /* Dark background for navbar */
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            background-color: #1a1a1a; /* Dark background for navbar */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
         .navbar-brand {
             font-size: 24px;
@@ -100,7 +100,6 @@
 </head>
 <body>
     <!-- Navbar -->
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="/home">MedifAI</a>
@@ -140,41 +139,41 @@
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label for="pregnancies">Pregnancies:</label>
+                        <label for="pregnancies">Pregnancies (count):</label>
                         <input type="number" name="pregnancies" id="pregnancies" min="0" required>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label for="glucose">Glucose:</label>
+                        <label for="glucose">Glucose (mg/dL):</label>
                         <input type="number" name="glucose" id="glucose" min="0" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label for="blood_pressure">Blood Pressure:</label>
+                        <label for="blood_pressure">Blood Pressure (mmHg):</label>
                         <input type="number" name="blood_pressure" id="blood_pressure" min="0" required>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label for="skin_thickness">Skin Thickness:</label>
+                        <label for="skin_thickness">Skin Thickness (mm):</label>
                         <input type="number" name="skin_thickness" id="skin_thickness" min="0">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label for="insulin">Insulin:</label>
+                        <label for="insulin">Insulin (µU/mL):</label>
                         <input type="number" name="insulin" id="insulin" min="0">
                     </div>
                     <div class="col-md-6 form-group">
-                        <label for="bmi">BMI:</label>
+                        <label for="bmi">BMI (kg/m²):</label>
                         <input type="number" step="0.1" name="bmi" id="bmi" min="0" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label for="diabetes_pedigree_function">Diabetes Pedigree Function:</label>
+                        <label for="diabetes_pedigree_function">Diabetes Pedigree Function (score):</label>
                         <input type="number" step="0.01" name="diabetes_pedigree_function" id="diabetes_pedigree_function" min="0" required>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label for="age">Age:</label>
+                        <label for="age">Age (years):</label>
                         <input type="number" name="age" id="age" min="0" required>
                     </div>
                 </div>
@@ -183,12 +182,11 @@
                 </div>
             </form>
 
-            {% if results %}
+            {% if result %}
             <div class="results">
                 <h2>Prediction Results</h2>
                 <p><strong>Input Data:</strong> {{ input_data }}</p>
-                <p><strong>Logistic Regression:</strong> {{ results.logistic_regression }}</p>
-                <p><strong>Random Forest:</strong> {{ results.random_forest }}</p>
+                <p><strong>Prediction:</strong> {{ result }}</p>
             </div>
             {% endif %}
         </div>

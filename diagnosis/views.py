@@ -26,12 +26,8 @@ diets = pd.read_csv("datasets/diets.csv")
 
 # Load model
 voting_clf = pickle.load(open('models/voting_clf.pkl', 'rb'))
-with open('models/logistic_regression_model.pkl', 'rb') as file:
-    logistic_regression_model = pickle.load(file)
 
-with open('models/random_forest_model.pkl', 'rb') as file:
-    random_forest_model = pickle.load(file)
-
+diabetes_prediction_model = pickle.load(open('models/diabetes_prediction.pkl', 'rb'))
 
 with open('models/heart_disease_model.pkl', 'rb') as file:
     heart_disease_model = pickle.load(file)
@@ -173,7 +169,7 @@ def predict(request):
     # Render the form if not a POST request
     return render(request, 'index.html') 
 
-
+@login_required(login_url='login')
 def heart_disease_predict(request):
     if request.method == 'POST':
         # Retrieve input data from form (assuming input fields are named appropriately)
@@ -212,9 +208,10 @@ def heart_disease_predict(request):
     # Render the prediction form
     return render(request, 'heart_disease_predict.html')
 
+@login_required(login_url='login')
 def predict_diabetes(request):
     if request.method == 'POST':
-        # Retrieve input data from form (assuming input fields named appropriately)
+        # Retrieve input data from form (ensure fields are named appropriately in the form)
         pregnancies = request.POST.get('pregnancies', 0)
         glucose = request.POST.get('glucose', 0)
         blood_pressure = request.POST.get('blood_pressure', 0)
@@ -224,7 +221,7 @@ def predict_diabetes(request):
         diabetes_pedigree_function = request.POST.get('diabetes_pedigree_function', 0)
         age = request.POST.get('age', 0)
 
-        # Create input data array (ensure all inputs are float for model compatibility)
+        # Create input data array (convert inputs to floats for compatibility)
         input_data = np.array([
             float(pregnancies),
             float(glucose),
@@ -236,23 +233,19 @@ def predict_diabetes(request):
             float(age)
         ]).reshape(1, -1)
 
-        # Make predictions with both models
-        log_reg_prediction = logistic_regression_model.predict(input_data)
-        rf_prediction = random_forest_model.predict(input_data)
+        # Make a prediction using the loaded model
+        prediction = diabetes_prediction_model.predict(input_data)
 
-        # Determine the final result
-        results = {
-            'logistic_regression': 'Diabetic' if log_reg_prediction[0] == 1 else 'Not Diabetic',
-            'random_forest': 'Diabetic' if rf_prediction[0] == 1 else 'Not Diabetic',
-        }
+        # Interpret the prediction result
+        result = 'Diabetic' if prediction[0] == 1 else 'Not Diabetic'
 
-        # Render the prediction results
+        # Render the prediction result to the template
         return render(request, 'predict.html', {
-            'results': results,
+            'result': result,
             'input_data': input_data[0].tolist()
         })
 
-    # Render the prediction form
+    # Render the prediction form if the request method is not POST
     return render(request, 'predict.html')
 
 @login_required(login_url='login')
