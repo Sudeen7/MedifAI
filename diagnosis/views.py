@@ -105,7 +105,7 @@ def landingpage(request):
 
 @login_required(login_url='login')
 def index(request):
-    return render(request, "index.html")
+    return render(request, "index.html", {'title': 'Predict Disease'})
 
 @login_required(login_url='login')
 def predict(request):
@@ -167,7 +167,7 @@ def predict(request):
         )
     
     # Render the form if not a POST request
-    return render(request, 'index.html') 
+    return render(request, 'index.html', {'title': 'Predict Disease'}) 
 
 @login_required(login_url='login')
 def heart_disease_predict(request):
@@ -206,7 +206,7 @@ def heart_disease_predict(request):
         })
 
     # Render the prediction form
-    return render(request, 'heart_disease_predict.html')
+    return render(request, 'heart_disease_predict.html', {'title': 'Heart Disease Prediction'})
 
 @login_required(login_url='login')
 def predict_diabetes(request):
@@ -246,11 +246,11 @@ def predict_diabetes(request):
         })
 
     # Render the prediction form if the request method is not POST
-    return render(request, 'predict.html')
+    return render(request, 'predict.html', {'title': 'Diabetes Prediction'})
 
 @login_required(login_url='login')
 def about(request):
-    return render(request, "about.html")  
+    return render(request, "about.html", {'title': 'About Us'})  
 
 @login_required(login_url='login')
 def contact_view(request):
@@ -296,23 +296,23 @@ def success_view(request):
 
 @login_required(login_url='login')
 def developer(request):
-    return render(request, "developer.html")  
+    return render(request, "developer.html", {'title': 'Developers'})  
 
 @login_required(login_url='login')
 def blog(request):
-    return render(request, "blog.html")  
+    return render(request, "blog.html", {'title': 'Blog'})  
 
 @login_required(login_url='login')
 def privacy(request):
-    return render(request, "privacy.html")  
+    return render(request, "privacy.html", {'title': 'Privacy Policy'})  
 
 @login_required(login_url='login')
 def terms(request):
-    return render(request, "terms.html")  
+    return render(request, "terms.html", {'title': 'Terms of Services'})  
 
 @login_required(login_url='login')
 def HomePage(request):
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'title': 'Home Page'})
 
 def SignupPage(request):
     if request.method == 'POST':
