@@ -109,6 +109,8 @@ def index(request):
 
 @login_required(login_url='login')
 def predict(request):
+    title = 'Predict Disease'
+
     if request.method == 'POST':
         # Retrieve symptoms from the dropdown selections
         symptom1 = request.POST.get('symptom1')
@@ -117,25 +119,25 @@ def predict(request):
         symptom4 = request.POST.get('symptom4')
         symptom5 = request.POST.get('symptom5')
         symptom6 = request.POST.get('symptom6')
-        
+
         # Collect all symptoms into a list
         symptoms = [symptom1, symptom2, symptom3, symptom4, symptom5, symptom6]
 
         # Filter out empty selections (None or blank)
-        selected_symptoms = [s for s in symptoms if s] 
-        
+        selected_symptoms = [s for s in symptoms if s]
+
         # Debugging: print the selected symptoms
         print(f"Selected symptoms: {selected_symptoms}")
-        
+
         # Ensure that at least 3 symptoms are selected
         if len(selected_symptoms) < 3:
             message2 = "Please select at least three symptoms."
-            return render(request, 'index.html', {'message2': message2})
+            return render(request, 'index.html', {'message2': message2, 'title': title})
 
         # Check if any symptoms are the same (after filtering out empty selections)
         if len(set(selected_symptoms)) != len(selected_symptoms):
             message = "You cannot select the same symptom more than once."
-            return render(request, 'index.html', {'message': message})
+            return render(request, 'index.html', {'message': message, 'title': title})
 
         # Combine symptoms into a string for displaying
         user_symptoms_string = ', '.join(selected_symptoms)
@@ -143,14 +145,15 @@ def predict(request):
         # Call the prediction logic
         predicted_disease = get_predicted_value(selected_symptoms)
         print(predicted_disease)
+
         if predicted_disease not in diseases_list.values() or predicted_disease.lower() == 'aids':
             message = "No disease matches your symptoms."
-            return render(request, 'index.html', {'message': message, 'symptoms': user_symptoms_string})
+            return render(request, 'index.html', {'message': message, 'symptoms': user_symptoms_string, 'title': title})
 
         # Get additional details for the predicted disease
         dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)
         my_precautions = [i for i in precautions[0] if pd.notna(i)]
-        
+
         # Render the results with all relevant information
         return render(
             request,
@@ -162,17 +165,20 @@ def predict(request):
                 'my_precautions': my_precautions,
                 'medications': medications,
                 'my_diet': rec_diet,
-                'workout': workout
+                'workout': workout,
+                'title': title
             }
         )
-    
-    # Render the form if not a POST request
-    return render(request, 'index.html', {'title': 'Predict Disease'}) 
+
+    return render(request, 'index.html', {'title': title})
+
 
 @login_required(login_url='login')
 def heart_disease_predict(request):
+    title = 'Heart Disease Prediction'
+
     if request.method == 'POST':
-        # Retrieve input data from form (assuming input fields are named appropriately)
+        # Retrieve input data from form
         age = request.POST.get('age', 0)
         sex = request.POST.get('sex', 0)
         cp = request.POST.get('cp', 0)
@@ -199,19 +205,21 @@ def heart_disease_predict(request):
         # Determine result
         result = "The Person has Heart Disease" if prediction[0] == 1 else "The Person does not have Heart Disease"
 
-        # Render the results
         return render(request, 'heart_disease_predict.html', {
+            'title': title, 
             'result': result,
             'input_data': input_data.tolist()
         })
+    
+    return render(request, 'heart_disease_predict.html', {'title': title})
 
-    # Render the prediction form
-    return render(request, 'heart_disease_predict.html', {'title': 'Heart Disease Prediction'})
 
 @login_required(login_url='login')
 def predict_diabetes(request):
+    title = 'Diabetes Prediction'
+
     if request.method == 'POST':
-        # Retrieve input data from form (ensure fields are named appropriately in the form)
+        # Retrieve input data from form
         pregnancies = request.POST.get('pregnancies', 0)
         glucose = request.POST.get('glucose', 0)
         blood_pressure = request.POST.get('blood_pressure', 0)
@@ -221,7 +229,7 @@ def predict_diabetes(request):
         diabetes_pedigree_function = request.POST.get('diabetes_pedigree_function', 0)
         age = request.POST.get('age', 0)
 
-        # Create input data array (convert inputs to floats for compatibility)
+        # Create input data array
         input_data = np.array([
             float(pregnancies),
             float(glucose),
@@ -233,20 +241,18 @@ def predict_diabetes(request):
             float(age)
         ]).reshape(1, -1)
 
-        # Make a prediction using the loaded model
+        # Make a prediction
         prediction = diabetes_prediction_model.predict(input_data)
 
-        # Interpret the prediction result
+        # Interpret prediction result
         result = 'Diabetic' if prediction[0] == 1 else 'Not Diabetic'
 
-        # Render the prediction result to the template
         return render(request, 'predict.html', {
+            'title': title,
             'result': result,
             'input_data': input_data[0].tolist()
         })
-
-    # Render the prediction form if the request method is not POST
-    return render(request, 'predict.html', {'title': 'Diabetes Prediction'})
+    return render(request, 'predict.html', {'title': title})
 
 @login_required(login_url='login')
 def about(request):
@@ -254,6 +260,8 @@ def about(request):
 
 @login_required(login_url='login')
 def contact_view(request):
+    title = 'Contact Us'
+
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -263,7 +271,7 @@ def contact_view(request):
                 email=form.cleaned_data['email'],
                 phone=form.cleaned_data['phone'],
                 subject=form.cleaned_data['subject'],
-                message = form.cleaned_data['message'],
+                message=form.cleaned_data['message'],
             )
             contact.save()  # Save to the database
 
@@ -288,7 +296,8 @@ def contact_view(request):
     else:
         form = ContactForm()
 
-    return render(request, 'contact.html', {'form': form})
+    return render(request, 'contact.html', {'form': form, 'title': title})
+
 
 @login_required(login_url='login')
 def success_view(request):
@@ -427,13 +436,17 @@ def LogoutPage(request):
 @login_required(login_url='login')  
 def ProfilePage(request):
     user = request.user  
+    title = 'User Profile'
+
     context = {
         'first_name': user.first_name,
         'last_name': user.last_name,
         'username': user.username,
         'email': user.email,
+        'title': title
     }
     return render(request, 'profile.html', context)
+
 
 @login_required(login_url='login')
 def EditProfilePage(request):

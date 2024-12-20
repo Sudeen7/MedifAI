@@ -8,6 +8,15 @@
 <div class="container page-container">
   <div class="profile-card">
     <h2>User Profile</h2>
+
+    {% if messages %}
+            {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+    {% endif %}
+
     <p><strong>Username:</strong> {{ username }}</p>
     <p><strong>First Name:</strong> {{ first_name }}</p>
     <p><strong>Last Name:</strong> {{ last_name }}</p>
@@ -19,43 +28,54 @@
 
 {% block extra_css %}
     <style>
-        /* Specific Styles for Home Page */
+        /* Specific Styles for Profile Page */
         body, html {
-        height: 100%; /* Full height for both body and html */
-        margin: 0;
-        font-family: 'Arial', sans-serif;
-        background-image: url("{% static 'assets/home-page.png' %}");
-        display: flex;
-        flex-direction: column;
-      }
+            height: 100%; /* Full height for both body and html */
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url("{% static 'assets/home-page.png' %}");
+            display: flex;
+            flex-direction: column;
+        }
 
-      .page-container {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start; /* Align content from the top */
-        flex-grow: 1; /* Allow content to grow and push footer to the bottom */
-        padding-bottom: 50px; /* Ensure no overlap with footer */
-      }
+        .page-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align content from the top */
+            flex-grow: 1; /* Allow content to grow and push footer to the bottom */
+            padding-bottom: 50px; /* Ensure no overlap with footer */
+        }
+
         .profile-card {
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        padding: 30px;
-        height: 400px; /* Fixed height */
-        width: 400px; /* Fixed width */
-        text-align: center;
-        margin-top: 80px; /* Ensures profile card is below the navbar */
-      }
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            height: 400px; /* Fixed height */
+            width: 400px; /* Fixed width */
+            text-align: center;
+            margin-top: 80px; /* Ensures profile card is below the navbar */
+        }
 
-      .profile-card h2 {
-        color: #1a1a1a;
-        margin-bottom: 20px;
-      }
+        .profile-card h2 {
+            color: #1a1a1a;
+            margin-bottom: 20px;
+        }
 
-      .profile-card p {
-        font-size: 18px;
-        margin: 10px 0;
-      }
+        .profile-card p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .message {
+            margin: 15px 0;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .message.success {
+            background-color: rgba(0, 128, 0, 0.8);
+            color: #fff;
+        }
     </style>
 {% endblock %}
 {% endblock content %}

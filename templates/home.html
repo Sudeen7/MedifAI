@@ -8,6 +8,15 @@
     <div class="content">
         <h1>Welcome to MedifAI</h1>
         <p class="page-desc">Your partner in predicting health outcomes with accuracy and ease.</p>
+
+        {% if messages %}
+            <div class="alert alert-info">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <div class="container">
             <div class="row">
                 <!-- Card 1 -->
