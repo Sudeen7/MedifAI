@@ -247,12 +247,12 @@ def predict_diabetes(request):
         # Interpret prediction result
         result = 'Diabetic' if prediction[0] == 1 else 'Not Diabetic'
 
-        return render(request, 'predict.html', {
+        return render(request, 'predict_diabetes.html', {
             'title': title,
             'result': result,
             'input_data': input_data[0].tolist()
         })
-    return render(request, 'predict.html', {'title': title})
+    return render(request, 'predict_diabetes.html', {'title': title})
 
 @login_required(login_url='login')
 def about(request):
@@ -279,7 +279,7 @@ def contact_view(request):
             subject = f"Thank you for contacting us, {form.cleaned_data['name']}!"
             message = f"Dear {form.cleaned_data['name']},\n\n" \
                       f"Thank you for reaching out to us regarding: {form.cleaned_data['subject']}.\n\n" \
-                      f"We have received your message:\n\n{form.cleaned_data['message']}\n\n" \
+                      f"We have received your message:\n\nMessage: {form.cleaned_data['message']}\n\n" \
                       "Our team will get back to you soon.\n\nBest regards,\nMedifAI Team"
             recipient = form.cleaned_data['email']
 
