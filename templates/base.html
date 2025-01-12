@@ -65,6 +65,7 @@
 
         footer a:hover {
             text-decoration: underline;
+            background-color: #52ab98;
             color: rgb(249, 248, 247) !important;
         }
     </style>
@@ -81,7 +82,7 @@
         <div class="container-fluid">
             <!-- Replace text with logo image -->
             <a class="navbar-brand" href="/home">
-                <img src="{% static 'assets/MedifAI Logo.jpg' %}" alt="MedifAI Logo" style="height: 50px; width: 200px;">
+                <img src="{% static 'assets/Medifai_logo.jpg' %}" alt="MedifAI Logo" style="height: 80px; width: 200px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -117,7 +118,7 @@
     {% endblock content %}
 
     <!-- Footer -->
-    <footer>
+    <footer class="mb-2 mb-lg-0">
         &copy; 2024 MedifAI | <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a>
     </footer>
 
