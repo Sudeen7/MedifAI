@@ -203,7 +203,7 @@ def heart_disease_predict(request):
         prediction = heart_disease_model.predict(input_data_reshaped)
 
         # Determine result
-        result = "The Person has Heart Disease" if prediction[0] == 1 else "The Person does not have Heart Disease"
+        result = "The Person may have Heart Disease" if prediction[0] == 1 else "The Person may not have Heart Disease"
 
         return render(request, 'heart_disease_predict.html', {
             'title': title, 
@@ -245,7 +245,7 @@ def predict_diabetes(request):
         prediction = diabetes_prediction_model.predict(input_data)
 
         # Interpret prediction result
-        result = 'Diabetic' if prediction[0] == 1 else 'Not Diabetic'
+        result = 'The Person may have Diabetes' if prediction[0] == 1 else 'The Person may not have Diabetes'
 
         return render(request, 'predict_diabetes.html', {
             'title': title,
