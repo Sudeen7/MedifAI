@@ -20,36 +20,36 @@
         <div class="container">
             <div class="row">
                 <!-- Card 1 -->
-                <div class="col-md-4">
+                <div class="col-sm-12 col-md-6 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Diabetes Prediction</h5>
-                            <p class="card-text">Our AI-powered tool provides a quick and reliable way to assess your risk of diabetes. By analyzing key health metrics such as blood glucose levels, BMI and pregnancies, this tool delivers personalized insights to help you make informed decisions about your health and lifestyle. Stay proactive and take control of your well-being today.</p>
+                            <p class="card-text">Quickly and reliably assess your risk of diabetes with our AI-powered tool. By analyzing health metrics like blood glucose levels, BMI, and pregnancy history, we deliver personalized insights to help you take control of your health.</p>
                             <a href="{% url 'diabetes_predict' %}" class="btn btn-custom">Predict</a>
                         </div>
                     </div>
                 </div>
                 <!-- Card 2 -->
-                <div class="col-md-4">
+                <div class="col-sm-12 col-md-6 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Heart Disease Prediction</h5>
-                            <p class="card-text">Gain valuable insights into your heart health with our advanced AI predictions. This tool evaluates critical factors such as cholesterol, blood pressure and lifestyle habits along with age to identify the potential risks of heart disease. Early detection and awareness are keys to better heart health and peace of mind.</p>
+                            <p class="card-text">Understand your heart health with advanced AI predictions. By analyzing cholesterol, blood pressure, lifestyle, and age, this tool identifies potential risks and empowers you to make informed decisions.</p>
                             <a href="{% url 'heart_disease_predict' %}" class="btn btn-custom">Predict</a>
                         </div>
                     </div>
                 </div> 
                 <!-- Card 3 -->
-                <div class="col-md-4">
+                <div class="col-sm-12 col-md-6 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Symptom-Based Prediction</h5>
-                            <p class="card-text">Not sure what's causing your symptoms? Our symptom-based prediction tool uses AI to analyze the symptoms you select and provide potential conditions along with their likelihood. This feature helps guide you towards appropriate next steps, whether it's self-care or seeking professional medidcal advice.</p>
+                            <p class="card-text">Leverage AI to analyze selected symptoms and identify potential conditions, offering probabilities and guiding you toward the next steps—be it self-care or professional medical advice.</p>
                             <a href="{% url 'medifai' %}" class="btn btn-custom">Predict</a>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
         </div>
     </div>
 
@@ -78,8 +78,8 @@
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
-            height: 340px;
-            width: 420px;
+            min-height: 340px;
+            height: auto;
             background: rgb(231, 235, 220);
         }
 
