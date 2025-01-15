@@ -1,6 +1,2 @@
-#ignore database file
+#ignore database file 
 db.sqlite3
-#virtual environment
-venv/
-env/
-.env/
