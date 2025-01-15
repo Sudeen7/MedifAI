@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Heart Disease Attributes Help{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container">
+        <h1>Understanding Heart Disease Prediction Attributes</h1>
+        <p>This page explains the attributes used in predicting heart disease and their significance.</p>
+        <div class="attribute-list">
+            <div class="attribute-item">
+                <h3>1. Age</h3>
+                <p><strong>Description:</strong> Age of the individual in years.</p>
+                <p><strong>Significance:</strong> The risk of heart disease increases with age.</p>
+            </div>
+            <div class="attribute-item">
+                <h3>2. Sex</h3>
+                <p><strong>Description:</strong> Biological sex (0 = Female, 1 = Male).</p>
+                <p><strong>Significance:</strong> Men are generally at higher risk for heart disease, though postmenopausal women also face increased risk.</p>
+            </div>
+            <div class="attribute-item">
+                <h3>3. Chest Pain Type</h3>
+                <p><strong>Description:</strong> Type of chest pain experienced:
+                <ul>
+                    <li>0: Typical Angina (related to reduced blood flow to the heart)</li>
+                    <li>1: Atypical Angina (not related to the heart)</li>
+                    <li>2: Non-anginal Pain (unrelated to heart issues)</li>
+                    <li>3: Asymptomatic (no chest pain)</li>
+                </ul>
+                </p>
+                <p><strong>Significance:</strong> Indicates the nature and potential cause of chest pain.</p>
+            </div>
+            <div class="attribute-item">
+                <h3>4. Resting Blood Pressure</h3>
+                <p><strong>Description:</strong> Blood pressure measured while the individual is at rest (in mmHg).</p>
+                <p><strong>Significance:</strong> High resting blood pressure (hypertension) increases the risk of heart disease.</p>
+            </div>
+            <div class="attribute-item">
+                <h3>5. Serum Cholesterol</h3>
+                <p><strong>Description:</strong> Level of cholesterol in the blood (mg/dL).</p>
+                <p><strong>Significance:</strong> High cholesterol can lead to plaque buildup in arteries, increasing the risk of heart disease.</p>
+            </div>
+            <div class="attribute-item">
+                <h3>6. Fasting Blood Sugar</h3>
+                <p><strong>Description:</strong> Whether fasting blood sugar is >120 mg/dL (1 = Yes, 0 = No).</p>
+                <p><strong>Significance:</strong> High fasting blood sugar is an indicator of diabetes, a major risk factor for heart disease.</p>
+            </div>
+            <div class="attribute-item">
+                <h3>7. Resting ECG Results</h3>
+                <p><strong>Description:</strong> Resting electrocardiographic results:
+                <ul>
+                    <li>0: Normal</li>
+                    <li>1: ST-T wave abnormality (e.g., T wave inversions, ST elevation or depression)</li>
+                    <li>2: Left Ventricular Hypertrophy (enlarged heart's main chamber)</li>
+                </ul>
+                </p>
+                <p><strong>Significance:</strong> Helps identify electrical activity and structural abnormalities of the heart.</p>
+            </div>
+            <div class="attribute-item">
+                <h3>8. Maximum Heart Rate Achieved</h3>
+                <p><strong>Description:</strong> The highest heart rate achieved during exercise or stress testing.</p>
+                <p><strong>Significance:</strong> Indicates the heart's capacity to handle physical activity.</p>
+            </div>
+            <div class="attribute-item">
+                <h3>9. Exercise-Induced Angina</h3>
+                <p><strong>Description:</strong> Whether angina occurs during exercise (1 = Yes, 0 = No).</p>
+                <p><strong>Significance:</strong> Suggests whether the heart receives enough blood during physical activity.</p>
+            </div>
+            <div class="attribute-item">
+                <h3>10. Oldpeak</h3>
+                <p><strong>Description:</strong> ST depression induced by exercise relative to rest.</p>
+                <p><strong>Significance:</strong> Indicates ischemia (reduced blood flow to the heart).</p>
+            </div>
+            <div class="attribute-item">
+                <h3>11. Slope of the Peak Exercise ST Segment</h3>
+                <p><strong>Description:</strong> The slope of the ST segment during peak exercise:
+                <ul>
+                    <li>0: Upsloping</li>
+                    <li>1: Flat</li>
+                    <li>2: Downsloping</li>
+                </ul>
+                </p>
+                <p><strong>Significance:</strong> Reflects the heart's response to stress and exercise.</p>
+            </div>
+            <div class="attribute-item">
+                <h3>12. Number of Major Vessels</h3>
+                <p><strong>Description:</strong> Number of major blood vessels (0-3) visible through fluoroscopy.</p>
+                <p><strong>Significance:</strong> A higher number of affected vessels indicates more severe coronary artery disease.</p>
+            </div>
+            <div class="attribute-item">
+                <h3>13. Thalassemia (Thal)</h3>
+                <p><strong>Description:</strong> Thalassemia status:
+                <ul>
+                    <li>0: Normal</li>
+                    <li>1: Fixed Defect (permanent heart damage)</li>
+                    <li>2: Reversible Defect (damage that can improve)</li>
+                </ul>
+                </p>
+                <p><strong>Significance:</strong> Helps assess the type and extent of heart-related damage.</p>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'heart_disease_predict' %}" class="btn btn-primary">Back to Prediction</a>
+        </div>
+    </div>
+</div>
+
+{% block extra_css %}
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url("{% static 'assets/home-page.png' %}");
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            background: rgb(231, 235, 220);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .attribute-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .attribute-item h3 {
+            margin-bottom: 5px;
+            color: #141414;
+        }
+        .attribute-item p {
+            margin: 0 0 10px;
+            color: #495057;
+        }
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+{% endblock content %}

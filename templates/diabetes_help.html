@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Diabetes Prediction Help{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container">
+        <h1>Diabetes Prediction - Understanding the Attributes</h1>
+        <p>The diabetes prediction model considers various medical and demographic factors to assess the likelihood of diabetes. Below is a detailed explanation of each attribute used in the model:</p>
+
+        <ul class="attributes-list">
+            <li>
+                <strong>Pregnancies:</strong> 
+                <p>The number of times the individual has been pregnant. This helps in understanding reproductive health factors which can influence diabetes risk.</p>
+            </li>
+            <li>
+                <strong>Glucose:</strong> 
+                <p>The plasma glucose concentration (mg/dL) from an oral glucose tolerance test. Elevated glucose levels are a key indicator of diabetes or pre-diabetes.</p>
+            </li>
+            <li>
+                <strong>BloodPressure:</strong> 
+                <p>Measured diastolic blood pressure (mm Hg). High blood pressure is often associated with diabetes and other metabolic disorders.</p>
+            </li>
+            <li>
+                <strong>SkinThickness:</strong> 
+                <p>Thickness of the triceps skin fold (in mm). This serves as a proxy for body fat percentage, which is linked to diabetes risk.</p>
+            </li>
+            <li>
+                <strong>Insulin:</strong> 
+                <p>The serum insulin level (μU/mL). Low or high levels can indicate insulin resistance, a hallmark of diabetes.</p>
+            </li>
+            <li>
+                <strong>BMI:</strong> 
+                <p>Body Mass Index calculated as weight in kilograms divided by the square of height in meters (kg/m²). A BMI above normal levels increases the risk of diabetes.</p>
+            </li>
+            <li>
+                <strong>DiabetesPedigreeFunction:</strong> 
+                <p>A score indicating the genetic predisposition to diabetes, based on family history. A higher score indicates a greater likelihood of diabetes.</p>
+            </li>
+            <li>
+                <strong>Age:</strong> 
+                <p>The age of the individual in years. Age is a crucial factor as the risk of diabetes increases with age, especially after 45 years.</p>
+            </li>
+        </ul>
+
+        <p class="note">
+            <strong>Note:</strong> These attributes collectively provide a comprehensive profile for the prediction of diabetes. While the model aids in identifying risk, it is not a substitute for a professional medical diagnosis.
+        </p>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'diabetes_predict' %}" class="btn btn-primary">Proceed to Prediction Form</a>
+        </div>
+    </div>
+</div>
+
+{% block extra_css %}
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background-image: url("{% static 'assets/home-page.png' %}");
+        display: flex;
+        flex-direction: column;
+    }
+    .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+    .container {
+        max-width: 800px;
+        background: rgb(231, 235, 220);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    .attributes-list {
+        margin-top: 20px;
+    }
+    .attributes-list li {
+        margin-bottom: 15px;
+        list-style-type: disc;
+    }
+    .attributes-list li strong {
+        font-size: 20px;
+        color: #121313;
+    }
+    .note {
+        margin-top: 20px;
+        font-style: italic;
+        color: #6c757d;
+    }
+    .btn-primary {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    .btn-primary:hover {
+        background-color: #218838;
+    }
+</style>
+{% endblock %}
+{% endblock content %}

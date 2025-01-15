@@ -91,12 +91,33 @@
             margin-top: 15px;
             text-align: center;
         }
+        .message {
+            margin: 15px 0;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .message.success {
+            background-color: rgba(0, 128, 0, 0.8);
+            color: #fff;
+        }
+        .message.error {
+            background-color: rgba(255, 0, 0, 0.8);
+            color: #fff;
+        }
     </style>
 </head>
 <body>
     <form action="" method="post">
         {% csrf_token %}
         <h3>Signup Here</h3>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
 
         <div class="form-group">
             <div style="flex: 1;">
