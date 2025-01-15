@@ -259,11 +259,15 @@ def predict_diabetes(request):
 
 @login_required(login_url='login')
 def diabetes_attributes_help(request):
-    return render(request, 'diabetes_help.html')
+    return render(request, 'diabetes_help.html', {'title': 'Diabetes-attribute help'})
 
 @login_required(login_url='login')
 def about(request):
     return render(request, "about.html", {'title': 'About Us'})  
+
+@login_required(login_url="login")
+def explore(request):
+    return render(request, "explore_more.html", {'title': 'Explore'})
 
 @login_required(login_url='login')
 def contact_view(request):

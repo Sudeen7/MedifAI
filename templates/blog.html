@@ -7,17 +7,17 @@
 {% block content %}
 <div class="container content">
   <h2 class="text-center">Building a Symptom-Based Disease Diagnosis Web App with Django and Machine Learning</h2>
-  <p>In today's fast-paced world, access to reliable and timely healthcare information is crucial. Leveraging the versatility of Django, we developed a symptom-based disease diagnosis web application that employs machine learning to help users identify potential health concerns based on their symptoms. This project combines the power of web technology and predictive analytics to make healthcare more accessible.</p>
+  <p>In today's fast-paced world, access to reliable and timely healthcare information is crucial. Leveraging the versatility of Django, we developed a symptom-based disease diagnosis web application that employs machine learning to help users identify potential health concerns based on their symptoms. This project combines the power of web technology and predictive analytics to make healthcare more accessible. With the inclusion of heart disease and diabetes prediction models, we aim to provide even more comprehensive health insights.</p>
 
   <h3>The Problem</h3>
-  <p>People often experience symptoms but are unsure about their possible causes. This leads to unnecessary stress or delayed medical intervention. With overlapping symptoms for many diseases, it can be challenging to narrow down possibilities without expert advice. Our goal was to address this issue by creating a solution that offers instant guidance.</p>
+  <p>People often experience symptoms but are unsure about their possible causes. This leads to unnecessary stress or delayed medical intervention. With overlapping symptoms for many diseases, including serious conditions like heart disease and diabetes, it can be challenging to narrow down possibilities without expert advice. Our goal was to address this issue by creating a solution that offers instant guidance, empowering users to make informed decisions about their health.</p>
 
   <h3>The Solution</h3>
   <p>We developed a Django-powered web application where users can enter their symptoms and receive a list of possible diseases predicted by a machine learning model. Here's how it works:</p>
 
   <ol>
     <li><b>Symptom Input:</b> Users can input their symptoms through an intuitive, user-friendly form designed with Django templates.</li>
-    <li><b>Machine Learning Model:</b> A Decision Tree Classifier, trained on a dataset of symptoms and corresponding diseases, is used to predict possible conditions.</li>
+    <li><b>Machine Learning Model:</b> A Support Vector Classifier(SVC), trained on a dataset of symptoms and corresponding diseases (including heart disease and diabetes), is used to predict possible conditions.</li>
     <li><b>Real-Time Predictions:</b> The Django backend processes the input, uses the ML model for predictions, and returns the most likely diagnosis.</li>
     <li><b>Informative Output:</b> The application also provides details about the predicted disease, including preventive measures, medications, dietary advice, and lifestyle tips.</li>
   </ol>
@@ -26,17 +26,16 @@
     <h3>Key Features</h3>
     <ul>
       <li><b>Scalable Framework:</b> Django ensures the application is robust and scalable for future enhancements.</li>
-      <li><b>Accurate Predictions:</b> The machine learning model offers reliable results based on a comprehensive dataset.</li>
+      <li><b>Accurate Predictions:</b> The machine learning model offers reliable results based on a comprehensive dataset, including conditions like heart disease and diabetes.</li>
       <li><b>Educational Content:</b> In addition to predictions, the app serves as an educational resource with blog posts and health tips.</li>
       <li><b>Responsive Design:</b> The application is accessible across devices, providing a seamless user experience.</li>
     </ul>
   </div>
 
   <h3>Conclusion</h3>
-  <p>This Django-based symptom diagnosis app bridges the gap between healthcare and technology, offering users a convenient way to understand their symptoms. By combining Django's robust features with machine learning capabilities, the app ensures both reliability and ease of use.</p>
+  <p>This Django-based symptom diagnosis app bridges the gap between healthcare and technology, offering users a convenient way to understand their symptoms. By combining Django's robust features with machine learning capabilities, the app ensures both reliability and ease of use. The introduction of heart disease and diabetes prediction tools adds an extra layer of health insight, helping users monitor and manage these critical conditions.</p>
   <p>As the demand for remote healthcare tools grows, this project represents a meaningful step toward enhancing health awareness and empowering individuals to make informed decisions about their well-being.</p>
 </div>    
-
 
 {% block extra_css %}
     <style>

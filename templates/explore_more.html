@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Explore More - MedifAI{% endblock %}
+
+{% block content %}
+<div class="container content">
+  <h2 class="text-center" style="font-weight: 500;">Explore MedifAI's Health Prediction Services</h2>
+
+  <p>Welcome to MedifAI, where technology meets healthcare. Our platform offers three powerful health prediction models, each designed to address specific health concerns. These include heart disease prediction, diabetes prediction, and symptom-based disease prediction. All our models have been trained on comprehensive datasets from Kaggle, ensuring high accuracy and reliability.</p>
+
+  <h3>Heart Disease Prediction</h3>
+  <p>Our heart disease prediction model uses several attributes to predict the likelihood of heart disease in individuals. This model is trained using Support Vector Classification (SVC), a powerful machine learning algorithm. The following attributes are used to predict the possibility of heart disease:</p>
+
+  <ul>
+    <li><b>Age:</b> The age of the individual.</li>
+    <li><b>Sex:</b> Gender of the individual (Male/Female).</li>
+    <li><b>Chest Pain Type:</b> Categorized into 4 types.</li>
+    <li><b>Resting Blood Pressure:</b> Measurement in mm Hg.</li>
+    <li><b>Serum Cholestoral:</b> In mg/dl.</li>
+    <li><b>Fasting Blood Sugar:</b> If greater than 120 mg/dl.</li>
+    <li><b>Resting Electrocardiographic Results:</b> Values of 0, 1, 2.</li>
+    <li><b>Maximum Heart Rate Achieved:</b> Heart rate during exercise.</li>
+    <li><b>Exercise Induced Angina:</b> Indication of angina during exercise.</li>
+    <li><b>Oldpeak:</b> ST depression induced by exercise relative to rest.</li>
+    <li><b>Slope of Peak Exercise ST Segment:</b> Exercise-related segment slope.</li>
+    <li><b>Number of Major Vessels:</b> Count of vessels colored by fluoroscopy.</li>
+    <li><b>Thal:</b> Three categories: normal, fixed defect, reversible defect.</li>
+  </ul>
+
+  <h3>Diabetes Prediction</h3>
+  <p>Our diabetes prediction model assesses the likelihood of diabetes in individuals by considering the following attributes. The model is trained using Support Vector Classification (SVC), providing an accurate prediction based on the data:</p>
+
+  <ul>
+    <li><b>Pregnancies:</b> The number of pregnancies.</li>
+    <li><b>Glucose:</b> The glucose level in the blood.</li>
+    <li><b>Blood Pressure:</b> The blood pressure measurement.</li>
+    <li><b>Skin Thickness:</b> The thickness of the skin fold.</li>
+    <li><b>Insulin:</b> The insulin level in the blood.</li>
+    <li><b>BMI:</b> The Body Mass Index.</li>
+    <li><b>Diabetes Pedigree Function:</b> The percentage risk of diabetes.</li>
+    <li><b>Age:</b> The age of the individual.</li>
+  </ul>
+
+  <h3>Symptom-Based Disease Prediction</h3>
+  <p>In addition to heart disease and diabetes predictions, MedifAI offers a symptom-based prediction system. This model is capable of analyzing symptoms provided by the user and predicting the most likely diseases. For accurate predictions, users can select up to six symptoms, with at least three required to proceed.</p>
+
+  <p>The system employs a voting classifier that combines predictions from five machine learning models, ensuring robust and reliable results. The models used are:</p>
+  <ul>
+    <li><b>Support Vector Classifier (SVC):</b> A powerful model for classification tasks.</li>
+    <li><b>Random Forest:</b> An ensemble method that operates by building multiple decision trees.</li>
+    <li><b>Gradient Boosting:</b> A machine learning technique that builds models in a sequential manner.</li>
+    <li><b>K-Nearest Neighbors (KNN):</b> A model that classifies symptoms based on proximity to others.</li>
+    <li><b>Multinomial Naive Bayes:</b> A probabilistic model used for classification of symptoms.</li>
+  </ul>
+
+  <p>Once the symptoms are entered, our system will analyze them and provide detailed information on:</p>
+  <ul>
+    <li><b>Predicted Disease:</b> The most likely disease based on symptoms.</li>
+    <li><b>Disease Description:</b> A brief description of the condition.</li>
+    <li><b>Precautions:</b> Recommendations to avoid exacerbating the disease.</li>
+    <li><b>Dietary Advice:</b> Suggested foods or dietary changes.</li>
+    <li><b>Medications:</b> Information about medications that might be prescribed.</li>
+    <li><b>Workout Recommendations:</b> Physical activities to promote health and recovery.</li>
+  </ul>
+
+  <h3>Our Approach</h3>
+  <p>At MedifAI, we combine the power of artificial intelligence with expert healthcare knowledge to provide reliable and accurate health predictions. Our platform makes it easier for you to monitor and manage your health, offering insights into potential health risks and proactive solutions. By using advanced machine learning algorithms and comprehensive datasets, we ensure our predictions are both accurate and helpful.</p>
+
+  <p>With MedifAI, you can access cutting-edge healthcare tools that help you understand your health better, make informed decisions, and take the necessary steps toward improving your well-being.</p>
+
+  <!-- Button -->
+  <div class="text-center">
+    <a href="/home" class="explore-btn" style="text-decoration: none;">Back to Home</a>
+  </div>
+</div>
+
+{% block extra_css %}
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Arial', sans-serif;
+            background-image: url("{% static 'assets/home-page.png' %}");
+        }
+        .content {
+          flex: 1;
+          padding: 60px 15px;
+          background: white;
+          margin: 30px auto;
+          border-radius: 15px;
+          max-width: 1000px;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      h3 {
+        font-size: 32px;
+        color: #2b6777;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        color: #4e4e4e;
+      }
+
+      .explore-btn {
+        background-color: #52ab98;
+        color: white;
+        padding: 12px 30px;
+        font-size: 18px;
+        border: none;
+        border-radius: 30px;
+        text-transform: uppercase;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s, transform 0.3s;
+      }
+      .explore-btn:hover {
+        background-color: #3d8d80;
+        transform: scale(1.05);
+      }
+
+      /* Responsive Styling */
+      @media (max-width: 768px) {
+        h3 {
+          font-size: 28px;
+        }
+        p {
+          font-size: 16px;
+        }
+      }
+    </style>
+{% endblock %}
+{% endblock content %}
