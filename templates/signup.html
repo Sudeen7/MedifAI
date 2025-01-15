@@ -124,6 +124,13 @@
             <div style="flex: 1;">
                 <label for="password1">Password</label>
                 <input type="password" placeholder="Password" id="password1" name="password1" required>
+                {% if messages %}
+                {% for message in messages %}
+                    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
             </div>
             <div style="flex: 1;">
                 <label for="password2">Confirm Password</label>
