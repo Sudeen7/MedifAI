@@ -8,6 +8,9 @@
 <div class="content">
     <div class="container">
         <h1>Heart Disease Prediction</h1>
+        <p class="text-right">
+            <a href="{% url 'heart_disease_help' %}" class="help-link">Learn About Prediction Attributes</a>
+        </p>
         <form method="post" action="{% url 'heart_disease_predict' %}">
             {% csrf_token %}
             <div class="row">
@@ -141,6 +144,14 @@
         }
         button:hover {
             background-color: #218838;
+        }
+        .help-link {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .help-link:hover {
+            text-decoration: underline;
+            color: #0056b3;
         }
         .results {
             margin-top: 20px;

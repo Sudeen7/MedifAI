@@ -213,6 +213,9 @@ def heart_disease_predict(request):
     
     return render(request, 'heart_disease_predict.html', {'title': title})
 
+@login_required(login_url='login')
+def heart_disease_attributes_help(request):
+    return render(request, 'heart_disease_help.html')
 
 @login_required(login_url='login')
 def predict_diabetes(request):
@@ -253,6 +256,10 @@ def predict_diabetes(request):
             'input_data': input_data[0].tolist()
         })
     return render(request, 'predict_diabetes.html', {'title': title})
+
+@login_required(login_url='login')
+def diabetes_attributes_help(request):
+    return render(request, 'diabetes_help.html')
 
 @login_required(login_url='login')
 def about(request):
