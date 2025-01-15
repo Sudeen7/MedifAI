@@ -215,7 +215,7 @@ def heart_disease_predict(request):
 
 @login_required(login_url='login')
 def heart_disease_attributes_help(request):
-    return render(request, 'heart_disease_help.html')
+    return render(request, 'heart_disease_help.html', {'title': 'Heart Disease Attribute Help'})
 
 @login_required(login_url='login')
 def predict_diabetes(request):
@@ -259,7 +259,7 @@ def predict_diabetes(request):
 
 @login_required(login_url='login')
 def diabetes_attributes_help(request):
-    return render(request, 'diabetes_help.html', {'title': 'Diabetes-attribute help'})
+    return render(request, 'diabetes_help.html', {'title': 'Diabetes Attribute Help'})
 
 @login_required(login_url='login')
 def about(request):
