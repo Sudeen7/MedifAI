@@ -56,7 +56,7 @@
 {% block content %}
 <div class="page-container">
 
-<div id="customAlert" class="alert-box">
+      <div id="customAlert" class="alert-box">
         <p id="alertMessage" class="alert-message"></p>
         <button id="closeAlert" class="alert-button">OK</button>
       </div>
@@ -1071,7 +1071,6 @@
         height: 100%;
         margin: 0;
         font-family: 'Arial', sans-serif;
-        background: linear-gradient(45deg, #f0f0f0, #c0d9e9);
         background-image: url("{% static 'assets/home-page.png' %}");
         color: #333;
       }
@@ -1093,15 +1092,28 @@
         margin: 10px;
         border-radius: 20px;
       }
-      .ai{
-        color: black;
-        background-color: rgb(231, 235, 220);
-        padding: 20px;
-        width: 1200px;
-        height: 200px;
-        /* margin-left: 100px;
-        margin-right: -100px; */
+      .ai {
+          color: black;
+          background-color: rgb(231, 235, 220);
+          padding: 20px;
+          width: 100%;
+          max-width: 1200px;
+          height: auto;
+          margin: 0 auto;
+          box-sizing: border-box;
+          border-radius: 20px;
       }
+
+      .ai .toggle-button {
+          flex: 1 1 15%;
+          margin: 5px;
+          padding: 10px;
+          font-size: 20px;
+          font-weight: bold;
+          border-radius: 8px;
+
+      }
+
       .form-label{
         color: black;
       }
@@ -1171,7 +1183,6 @@
           color: #0e0d0d;
           text-align: center;
           border-radius: 8px;
-          /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
           z-index: 1000;
       }
       .alert-message {
@@ -1190,11 +1201,54 @@
       .alert-button:hover {
           background-color: #a94442;
       }
+      /* Media Queries for Responsiveness */
       @media (max-width: 768px) {
-        h2 {
-          font-size: 28px;
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        .content {
+            padding: 10px;
+        }
+
+        .centered-button {
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .toggle-button {
+            font-size: 14px;
+            padding: 8px;
+        }
+
+        .modal-dialog {
+            max-width: 90%;
+        }
+
+        .form-label {
+            font-size: 1rem;
+        }
+        .ai {
+              padding: 15px;
+              margin: 10px;
+        }
+
+        .ai .toggle-button {
+              flex: 1 1 45%;
+              margin: 5px 0;
         }
       }
+      @media (max-width: 480px) {
+        .ai {
+              padding: 10px;
+              margin: 5px;
+        }
+
+        .ai .toggle-button {
+              flex: 1 1 100%;
+        }
+      }
+
     </style>
 {% endblock %}
 {% endblock content %}
