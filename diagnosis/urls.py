@@ -23,6 +23,9 @@ urlpatterns = [
     path('heart-disease-predict/', views.heart_disease_predict, name='heart_disease_predict'),
     path('heart-disease-help/', views.heart_disease_attributes_help, name='heart_disease_help'),
     path('diabetes-help/', views.diabetes_attributes_help, name='diabetes_help'),
+    path('heart-patient-history/', views.heart_patient_history_view, name='heart_patient_history_view'),
+    path('diabetes-patient-history/', views.diabetes_history, name='diabetes_patient_history_view'),
+    path('symptoms-prediction-history/', views.symptoms_prediction_history, name='symptoms_prediction_history'),
 ]
 
 

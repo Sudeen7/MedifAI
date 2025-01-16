@@ -12,8 +12,10 @@ import warnings
 from .forms import ContactForm
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import Contact
+from .models import Contact, HeartPatientHistory, DiabetesPatientHistory, SymptomsPredictionHistory
 import re
+from django.contrib.admin.views.decorators import staff_member_required
+
 warnings.filterwarnings('ignore', category=UserWarning)
 
 # Load datasets
@@ -98,6 +100,22 @@ def get_predicted_value(patient_symptoms):
     return diseases_list.get(prediction[0], "Disease not found")
 
 # Views
+@staff_member_required
+def heart_patient_history_view(request):
+    histories = HeartPatientHistory.objects.all().order_by('-created_at')
+    return render(request, 'heart_patient_history.html', {'histories': histories})
+
+@staff_member_required
+def diabetes_history(request):
+    # Get all diabetes prediction history for the logged-in user
+    histories = DiabetesPatientHistory.objects.all().order_by('-created_at')
+    return render(request, 'diabetes_patient_history.html', {'histories': histories})
+
+@staff_member_required
+def symptoms_prediction_history(request):
+    histories = SymptomsPredictionHistory.objects.all().order_by('-created_at')
+    return render(request, 'symptoms_prediction_history.html', {'histories': histories})
+
 def landingpage(request):
     if request.user.is_authenticated:
         return redirect('homepage')
@@ -139,7 +157,7 @@ def predict(request):
             message = "You cannot select the same symptom more than once."
             return render(request, 'index.html', {'message': message, 'title': title})
 
-        # Combine symptoms into a string for displaying
+        # Combine symptoms into a string for displaying and saving
         user_symptoms_string = ', '.join(selected_symptoms)
 
         # Call the prediction logic
@@ -153,6 +171,17 @@ def predict(request):
         # Get additional details for the predicted disease
         dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)
         my_precautions = [i for i in precautions[0] if pd.notna(i)]
+
+        # Save the prediction history
+        user = request.user
+        SymptomsPredictionHistory.objects.create(
+            user=user,
+            first_name=user.first_name,
+            last_name=user.last_name,
+            email=user.email,
+            symptoms=user_symptoms_string,
+            predicted_disease=predicted_disease
+        )
 
         # Render the results with all relevant information
         return render(
@@ -171,6 +200,7 @@ def predict(request):
         )
 
     return render(request, 'index.html', {'title': title})
+
 
 
 @login_required(login_url='login')
@@ -193,6 +223,12 @@ def heart_disease_predict(request):
         ca = request.POST.get('ca', 0)
         thal = request.POST.get('thal', 0)
 
+        # Retrieve user details from the authenticated user
+        user = request.user
+        first_name = user.first_name
+        last_name = user.last_name
+        email = user.email
+
         # Create the input data array
         input_data = np.array([age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal], dtype=float)
 
@@ -205,6 +241,28 @@ def heart_disease_predict(request):
         # Determine result
         result = "The Person may have Heart Disease" if prediction[0] == 1 else "The Person may not have Heart Disease"
 
+        # Save the history to the database
+        HeartPatientHistory.objects.create(
+            user=user,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            age=age,
+            sex=sex,
+            cp=cp,
+            trestbps=trestbps,
+            chol=chol,
+            fbs=fbs,
+            restecg=restecg,
+            thalach=thalach,
+            exang=exang,
+            oldpeak=oldpeak,
+            slope=slope,
+            ca=ca,
+            thal=thal,
+            prediction_result=result
+        )
+
         return render(request, 'heart_disease_predict.html', {
             'title': title, 
             'result': result,
@@ -212,6 +270,7 @@ def heart_disease_predict(request):
         })
     
     return render(request, 'heart_disease_predict.html', {'title': title})
+
 
 @login_required(login_url='login')
 def heart_disease_attributes_help(request):
@@ -250,12 +309,37 @@ def predict_diabetes(request):
         # Interpret prediction result
         result = 'The Person may have Diabetes' if prediction[0] == 1 else 'The Person may not have Diabetes'
 
+        # Retrieve user details
+        user = request.user
+        first_name = user.first_name
+        last_name = user.last_name
+        email = user.email
+
+        # Save prediction history
+        DiabetesPatientHistory.objects.create(
+            user=user,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            pregnancies=pregnancies,
+            glucose=glucose,
+            blood_pressure=blood_pressure,
+            skin_thickness=skin_thickness,
+            insulin=insulin,
+            bmi=bmi,
+            diabetes_pedigree_function=diabetes_pedigree_function,
+            age=age,
+            prediction_result=result
+        )
+
         return render(request, 'predict_diabetes.html', {
             'title': title,
             'result': result,
             'input_data': input_data[0].tolist()
         })
+    
     return render(request, 'predict_diabetes.html', {'title': title})
+
 
 @login_required(login_url='login')
 def diabetes_attributes_help(request):
@@ -293,6 +377,8 @@ def contact_view(request):
                       f"We have received your message:\n\nMessage: {form.cleaned_data['message']}\n\n" \
                       "Our team will get back to you soon.\n\nBest regards,\nMedifAI Team"
             recipient = form.cleaned_data['email']
+
+
 
             send_mail(
                 subject,  # Subject of the email

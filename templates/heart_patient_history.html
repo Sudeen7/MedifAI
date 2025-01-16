@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block title %}Heart Patient History{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="container">
+        <h1>Heart Patient History</h1>
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>User</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Prediction</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for history in histories %}
+                    <tr class="clickable-row" data-history-id="{{ history.id }}">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ history.user.username }}</td>
+                        <td>{{ history.first_name }}</td>
+                        <td>{{ history.last_name }}</td>
+                        <td>{{ history.email }}</td>
+                        <td>{{ history.prediction_result }}</td>
+                        <td>{{ history.created_at }}</td>
+                    </tr>
+                    <!-- Hidden row for full details -->
+                    <tr class="details-row" id="details-{{ history.id }}" style="display: none;">
+                        <td colspan="7">
+                            <strong>Input Data:</strong><br>
+                            Age: {{ history.age }}<br>
+                            Sex: {{ history.sex }}<br>
+                            CP: {{ history.cp }}<br>
+                            Trestbps: {{ history.trestbps }}<br>
+                            Chol: {{ history.chol }}<br>
+                            FBS: {{ history.fbs }}<br>
+                            Restecg: {{ history.restecg }}<br>
+                            Thalach: {{ history.thalach }}<br>
+                            Exang: {{ history.exang }}<br>
+                            Oldpeak: {{ history.oldpeak }}<br>
+                            Slope: {{ history.slope }}<br>
+                            CA: {{ history.ca }}<br>
+                            Thal: {{ history.thal }}<br>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% block extra_css %}
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background-image: url("{% static 'assets/home-page.png' %}");
+        background-size: cover;
+        background-attachment: fixed;
+        display: flex;
+        flex-direction: column;
+    }
+    .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+    .container {
+        max-width: 900px;
+        background: rgb(231, 235, 220);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    .table-container {
+        overflow-x: auto;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    table th, table td {
+        text-align: left;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+    table th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+        color: #333;
+    }
+    table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    table tr:hover {
+        background-color: #e9ecef;
+    }
+    table td {
+        vertical-align: top;
+        white-space: pre-wrap;
+    }
+    .clickable-row {
+        cursor: pointer;
+    }
+    .details-row {
+    display: none;
+    }
+
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    console.log("JavaScript is loaded!");  // This will print if the JS file is loaded correctly
+    document.addEventListener("DOMContentLoaded", function () {
+    const rows = document.querySelectorAll('.clickable-row');
+    rows.forEach(function (row) {
+        row.addEventListener('click', function () {
+            console.log('Row clicked!');
+            const historyId = this.getAttribute('data-history-id'); // Get the row's history ID
+            const detailsRow = document.getElementById('details-' + historyId); // Find the hidden details row
+            console.log(detailsRow);
+
+            if (detailsRow) {
+                console.log('Before:', detailsRow.style.display);
+                // Toggle display
+                if (detailsRow.style.display === 'none' || detailsRow.style.display === '') {
+                    detailsRow.style.display = 'table-row'; // Show the row
+                    console.log('After:', detailsRow.style.display);
+                } else {
+                    detailsRow.style.display = 'none'; // Hide the row
+                }
+            } else {
+                console.error(`Details row with id "details-${historyId}" not found.`);
+            }
+        });
+    });
+});
+
+
+</script>
+{% endblock %}
+
+{% endblock content %}
