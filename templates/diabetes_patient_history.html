@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
-
 {% block title %}Diabetes Patient History{% endblock %}
-
 {% load static %}
-
 {% block content %}
 <div class="content">
     <div class="container">
@@ -32,18 +29,22 @@
                         <td>{{ history.prediction_result }}</td>
                         <td>{{ history.created_at }}</td>
                     </tr>
-                    <!-- Hidden row for full details -->
-                    <tr class="details-row" id="details-{{ history.id }}" style="display: none;">
+                    <!-- Hidden details row -->
+                    <tr class="details-row" id="details-{{ history.id }}">
                         <td colspan="7">
-                            <strong>Input Data:</strong><br>
-                            Pregnancies: {{ history.pregnancies }}<br>
-                            Glucose: {{ history.glucose }}<br>
-                            Blood Pressure: {{ history.blood_pressure }}<br>
-                            Skin Thickness: {{ history.skin_thickness }}<br>
-                            Insulin: {{ history.insulin }}<br>
-                            BMI: {{ history.bmi }}<br>
-                            Diabetes Pedigree Function: {{ history.diabetes_pedigree_function }}<br>
-                            Age: {{ history.age }}<br>
+                            <div class="details-content">
+                                <strong>Input Data:</strong>
+                                <div class="details-grid">
+                                    <div>Pregnancies: {{ history.pregnancies }}</div>
+                                    <div>Glucose: {{ history.glucose }}</div>
+                                    <div>Blood Pressure: {{ history.blood_pressure }}</div>
+                                    <div>Skin Thickness: {{ history.skin_thickness }}</div>
+                                    <div>Insulin: {{ history.insulin }}</div>
+                                    <div>BMI: {{ history.bmi }}</div>
+                                    <div>Diabetes Pedigree Function: {{ history.diabetes_pedigree_function }}</div>
+                                    <div>Age: {{ history.age }}</div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
@@ -53,8 +54,8 @@
     </div>
 </div>
 
-{% block extra_css %}
 <style>
+    /* Updated CSS */
     body, html {
         height: 100%;
         margin: 0;
@@ -79,63 +80,72 @@
         border-radius: 10px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
-    h1 {
-        text-align: center;
-        color: #333;
-        margin-bottom: 20px;
+    .details-row {
+        display: none;
     }
-    .table-container {
-        overflow-x: auto;
+    
+    .details-row.active {
+        display: table-row;
     }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
+
+    .details-content {
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 4px;
+        margin: 10px 0;
     }
-    table th, table td {
-        text-align: left;
-        padding: 10px;
-        border: 1px solid #ddd;
+
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 10px;
     }
-    table th {
-        background-color: #f8f9fa;
-        font-weight: bold;
-        color: #333;
-    }
-    table tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-    table tr:hover {
-        background-color: #e9ecef;
-    }
-    table td {
-        vertical-align: top;
-        white-space: pre-wrap;
-    }
+
     .clickable-row {
         cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .clickable-row:hover {
+        background-color: #f1f1f1;
+    }
+
+    .clickable-row.active-row {
+        background-color: #e3f2fd;
+    }
+
+    @media (max-width: 768px) {
+        .details-grid {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
-{% endblock %}
 
-{% block extra_js %}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Add event listeners to all rows with class 'clickable-row'
         const rows = document.querySelectorAll('.clickable-row');
-        rows.forEach(function(row) {
+        
+        rows.forEach(row => {
             row.addEventListener('click', function() {
-                const historyId = this.getAttribute('data-history-id');  // Get the row's history id
-                const detailsRow = document.getElementById('details-' + historyId);  // Get the corresponding hidden row
-
-                if (detailsRow.style.display === 'none' || detailsRow.style.display === '') {
-                    detailsRow.style.display = 'table-row';  // Show details
-                } else {
-                    detailsRow.style.display = 'none';  // Hide details
+                // Toggle active class on clicked row
+                this.classList.toggle('active-row');
+                
+                // Get corresponding details row
+                const detailsRow = document.getElementById(
+                    `details-${this.dataset.historyId}`
+                );
+                
+                // Toggle details visibility
+                if (detailsRow) {
+                    detailsRow.classList.toggle('active');
+                    detailsRow.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest'
+                    });
                 }
             });
         });
     });
 </script>
 {% endblock %}
-{% endblock content %}

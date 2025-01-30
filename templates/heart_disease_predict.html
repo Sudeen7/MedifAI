@@ -13,81 +13,128 @@
         </p>
         <form method="post" action="{% url 'heart_disease_predict' %}">
             {% csrf_token %}
+
             <div class="row">
                 <div class="col-md-6 form-group">
                     <label for="age">Age (Years):</label>
-                    <input type="number" name="age" id="age" min="1" max="100" required>
+                    <input type="number" name="age" id="age" min="1" max="100" class="form-control" required>
                 </div>
                 <div class="col-md-6 form-group">
-                    <label for="sex">Sex (0 = Female, 1 = Male):</label>
-                    <input type="number" name="sex" id="sex" min="0" max="1" required>
+                    <label for="sex">Sex:</label>
+                    <select name="sex" id="sex" class="form-control" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="0">Female</option>
+                        <option value="1">Male</option>
+                    </select>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-6 form-group">
-                    <label for="cp">Chest Pain Type (0 = Typical Angina, 1 = Atypical Angina, 2 = Non-anginal Pain, 3 = Asymptomatic):</label>
-                    <input type="number" name="cp" id="cp" min="0" max="3" required>
+                    <label for="cp">Chest Pain Type:</label>
+                    <select name="cp" id="cp" class="form-control" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="0">Typical Angina</option>
+                        <option value="1">Atypical Angina</option>
+                        <option value="2">Non-anginal Pain</option>
+                        <option value="3">Asymptomatic</option>
+                    </select>
                 </div>
                 <div class="col-md-6 form-group">
                     <label for="trestbps">Resting Blood Pressure (mm Hg):</label>
-                    <input type="number" name="trestbps" id="trestbps" min="0" required>
+                    <input type="number" name="trestbps" id="trestbps" min="0" class="form-control" required>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-6 form-group">
                     <label for="chol">Cholesterol (mg/dl):</label>
-                    <input type="number" name="chol" id="chol" min="0" required>
+                    <input type="number" name="chol" id="chol" min="0" class="form-control" required>
                 </div>
                 <div class="col-md-6 form-group">
-                    <label for="fbs">Fasting Blood Sugar (>120 mg/dl = 1, Otherwise = 0):</label>
-                    <input type="number" name="fbs" id="fbs" min="0" max="1" required>
+                    <label for="fbs">Fasting Blood Sugar:</label>
+                    <select name="fbs" id="fbs" class="form-control" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="0">≤ 120 mg/dl</option>
+                        <option value="1">> 120 mg/dl</option>
+                    </select>
                 </div>
             </div>
-            <div class="row"> 
+
+            <div class="row">
                 <div class="col-md-6 form-group">
-                    <label for="restecg">Resting ECG (0 = Normal, 1 = ST-T Wave Abnormality, 2 = Left Ventricular Hypertrophy):</label>
-                    <input type="number" name="restecg" id="restecg" min="0" max="2" required>
+                    <label for="restecg">Resting ECG:</label>
+                    <select name="restecg" id="restecg" class="form-control" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="0">Normal</option>
+                        <option value="1">ST-T Wave Abnormality</option>
+                        <option value="2">Left Ventricular Hypertrophy</option>
+                    </select>
                 </div>
                 <div class="col-md-6 form-group">
                     <label for="thalach">Max Heart Rate Achieved (bpm):</label>
-                    <input type="number" name="thalach" id="thalach" min="0" required>
+                    <input type="number" name="thalach" id="thalach" min="0" class="form-control" required>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-6 form-group">
-                    <label for="exang">Exercise Induced Angina (1 = Yes, 0 = No):</label>
-                    <input type="number" name="exang" id="exang" min="0" max="1" required>
+                    <label for="exang">Exercise Induced Angina:</label>
+                    <select name="exang" id="exang" class="form-control" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
                 </div>
                 <div class="col-md-6 form-group">
-                    <label for="oldpeak">ST Depression Induced by Exercise (Relative to Rest):</label>
-                    <input type="number" name="oldpeak" id="oldpeak" min="0" required>
+                    <label for="oldpeak">ST Depression Induced by Exercise:</label>
+                    <input type="number" name="oldpeak" id="oldpeak" step="0.1" min="0" class="form-control" required>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-6 form-group">
-                    <label for="slope">Slope of the Peak Exercise ST (0 = Upsloping, 1 = Flat, 2 = Downsloping):</label>
-                    <input type="number" name="slope" id="slope" min="0" max="2" required>
+                    <label for="slope">Slope of the Peak Exercise ST:</label>
+                    <select name="slope" id="slope" class="form-control" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="0">Upsloping</option>
+                        <option value="1">Flat</option>
+                        <option value="2">Downsloping</option>
+                    </select>
                 </div>
                 <div class="col-md-6 form-group">
-                    <label for="ca">Number of Major Vessels (0-3):</label>
-                    <input type="number" name="ca" id="ca" min="0" max="3" required>
+                    <label for="ca">Number of Major Vessels:</label>
+                    <select name="ca" id="ca" class="form-control" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-6 form-group">
-                    <label for="thal">Thalassemia (1 = Normal, 2 = Fixed Defect, 3 = Reversible Defect):</label>
-                    <input type="number" name="thal" id="thal" min="1" max="3" required>
+                    <label for="thal">Thalassemia:</label>
+                    <select name="thal" id="thal" class="form-control" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="1">Normal</option>
+                        <option value="2">Fixed Defect</option>
+                        <option value="3">Reversible Defect</option>
+                    </select>
                 </div>
             </div>
+
             <div class="text-center mt-4">
-                <button type="submit">Predict</button>
+                <button type="submit" class="btn btn-success">Predict</button>
             </div>
         </form>
 
         {% if result %}
         <div class="results">
             <h2>Prediction Result</h2>
-            <p><strong>Input Data:</strong> {{ input_data }}</p>
+            <!-- <p><strong>Input Data:</strong> {{ input_data }}</p> -->
             <p><strong>Result:</strong> {{ result }}</p>
         </div>
         {% endif %}
@@ -97,12 +144,12 @@
 {% block extra_css %}
     <style>
         body, html {
-        height: 100%;
-        margin: 0;
-        font-family: 'Arial', sans-serif;
-        background-image: url("{% static 'assets/home-page.png' %}");
-        display: flex;
-        flex-direction: column;
+            height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url("{% static 'assets/home-page.png' %}");
+            display: flex;
+            flex-direction: column;
         }
         .content {
             flex: 1;
@@ -128,13 +175,13 @@
         label {
             font-weight: bold;
         }
-        input {
+        .form-control {
             width: 100%;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        button {
+        .btn-success {
             padding: 10px 20px;
             background-color: #28a745;
             color: white;
@@ -142,7 +189,7 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        button:hover {
+        .btn-success:hover {
             background-color: #218838;
         }
         .help-link {

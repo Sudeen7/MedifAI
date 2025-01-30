@@ -103,18 +103,17 @@ def get_predicted_value(patient_symptoms):
 @staff_member_required
 def heart_patient_history_view(request):
     histories = HeartPatientHistory.objects.all().order_by('-created_at')
-    return render(request, 'heart_patient_history.html', {'histories': histories})
+    return render(request, 'heart_patient_history.html', {'histories': histories, 'title': 'Heart-Patient-Histroy'})
 
 @staff_member_required
 def diabetes_history(request):
-    # Get all diabetes prediction history for the logged-in user
     histories = DiabetesPatientHistory.objects.all().order_by('-created_at')
-    return render(request, 'diabetes_patient_history.html', {'histories': histories})
+    return render(request, 'diabetes_patient_history.html', {'histories': histories, 'title': 'Diabetes-Patient-History'})
 
 @staff_member_required
 def symptoms_prediction_history(request):
     histories = SymptomsPredictionHistory.objects.all().order_by('-created_at')
-    return render(request, 'symptoms_prediction_history.html', {'histories': histories})
+    return render(request, 'symptoms_prediction_history.html', {'histories': histories, 'title': 'Symptoms-Prediction-History'})
 
 def landingpage(request):
     if request.user.is_authenticated:
