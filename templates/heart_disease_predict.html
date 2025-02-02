@@ -41,15 +41,15 @@
                     </select>
                 </div>
                 <div class="col-md-6 form-group">
-                    <label for="trestbps">Resting Blood Pressure (mm Hg):</label>
-                    <input type="number" name="trestbps" id="trestbps" min="0" class="form-control" required>
+                    <label for="trestbps">Resting Blood Pressure[Systolic] (mm Hg)[Range: 50 t0 200 mmHg]:</label>
+                    <input type="number" name="trestbps" id="trestbps" min="50" max="200" class="form-control" required>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6 form-group">
-                    <label for="chol">Cholesterol (mg/dl):</label>
-                    <input type="number" name="chol" id="chol" min="0" class="form-control" required>
+                    <label for="chol">Cholesterol (mg/dl)[Range: 30 to 500 mg/dL]:</label>
+                    <input type="number" name="chol" id="chol" min="30" max="500" class="form-control" required>
                 </div>
                 <div class="col-md-6 form-group">
                     <label for="fbs">Fasting Blood Sugar:</label>
@@ -72,8 +72,8 @@
                     </select>
                 </div>
                 <div class="col-md-6 form-group">
-                    <label for="thalach">Max Heart Rate Achieved (bpm):</label>
-                    <input type="number" name="thalach" id="thalach" min="0" class="form-control" required>
+                    <label for="thalach">Max Heart Rate Achieved (bpm)[Range: 60 to 250 bpm]:</label>
+                    <input type="number" name="thalach" id="thalach" min="60" max="250" class="form-control" required>
                 </div>
             </div>
 
@@ -87,8 +87,8 @@
                     </select>
                 </div>
                 <div class="col-md-6 form-group">
-                    <label for="oldpeak">ST Depression Induced by Exercise:</label>
-                    <input type="number" name="oldpeak" id="oldpeak" step="0.1" min="0" class="form-control" required>
+                    <label for="oldpeak">ST Depression Induced by Exercise[Range: 0 to 10 mm]:</label>
+                    <input type="number" name="oldpeak" id="oldpeak" step="0.1" min="0" max="10" class="form-control" required>
                 </div>
             </div>
 

@@ -19,34 +19,34 @@
                     <input type="number" name="pregnancies" id="pregnancies" min="0" required>
                 </div>
                 <div class="col-md-6 form-group">
-                    <label for="glucose">Glucose (mg/dL):</label>
-                    <input type="number" name="glucose" id="glucose" min="0" required>
+                    <label for="glucose">Glucose (mg/dL)[Range: 40 to 400 mg/dL]:</label>
+                    <input type="number" name="glucose" id="glucose" min="40" max="400" required>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 form-group">
-                    <label for="blood_pressure">Blood Pressure (mmHg):</label>
-                    <input type="number" name="blood_pressure" id="blood_pressure" min="0" required>
+                    <label for="blood_pressure">Blood Pressure[Systolic] (mmHg)[Range: 30 to 300 mmHg]:</label>
+                    <input type="number" name="blood_pressure" id="blood_pressure" min="30" max="300" required>
                 </div>
                 <div class="col-md-6 form-group">
-                    <label for="skin_thickness">Skin Thickness (mm):</label>
-                    <input type="number" name="skin_thickness" id="skin_thickness" min="0" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label for="insulin">Insulin (µU/mL):</label>
-                    <input type="number" name="insulin" id="insulin" min="0" required>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label for="bmi">BMI (kg/m²):</label>
-                    <input type="number" step="0.01" name="bmi" id="bmi" min="0" required>
+                    <label for="skin_thickness">Skin Thickness (mm)[Range: 7 to 50 mm]:</label>
+                    <input type="number" name="skin_thickness" id="skin_thickness" min="7" max="50" required>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 form-group">
-                    <label for="diabetes_pedigree_function">Diabetes Pedigree Function (score):</label>
-                    <input type="number" step="0.01" name="diabetes_pedigree_function" id="diabetes_pedigree_function" min="0" required>
+                    <label for="insulin">Insulin (µU/mL)[Range: 2 to 300 µU/mL]:</label>
+                    <input type="number" name="insulin" id="insulin" min="2" max="300" required>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="bmi">BMI (kg/m²)[Range: 10 to 70 kg/m²]:</label>
+                    <input type="number" step="0.01" name="bmi" id="bmi" min="10" max="70" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="diabetes_pedigree_function">Diabetes Pedigree Function (score)[Range: 0.0 to 2.5]:</label>
+                    <input type="number" step="0.01" name="diabetes_pedigree_function" id="diabetes_pedigree_function" min="0" max="2.5" required>
                 </div>
                 <div class="col-md-6 form-group">
                     <label for="age">Age (years):</label>
