@@ -8,6 +8,7 @@ from django.contrib import messages
 import numpy as np
 import pandas as pd
 import pickle
+import joblib
 import warnings
 from .forms import ContactForm
 from django.core.mail import send_mail
@@ -29,11 +30,47 @@ diets = pd.read_csv("datasets/diets.csv")
 # Load model
 voting_clf = pickle.load(open('models/voting_clf.pkl', 'rb'))
 
-diabetes_prediction_model = pickle.load(open('models/diabetes_prediction.pkl', 'rb'))
+# Load Diabetes Prediction model
+diabetes_pipeline = joblib.load('models/diabetes_pipeline.joblib')
+# Print scaler info
+print("For diabetes model")
+print("Scaler means:", diabetes_pipeline.named_steps['scaler'].mean_)
+print("Scaler scale:", diabetes_pipeline.named_steps['scaler'].scale_)
 
-with open('models/heart_disease_model.pkl', 'rb') as file:
-    heart_disease_model = pickle.load(file)
+# Test different inputs
+inputs = [
+    np.array([1, 1, 1, 1, 1, 1, 0.1, 1]).reshape(1, -1),
+    np.array([0, 120, 80, 20, 100, 30, 0.5, 25]).reshape(1, -1),
+    np.array([5, 166, 72, 19, 175, 25.8, 0.587, 51]).reshape(1, -1)
+]
+for inp in inputs:
+    print("Raw Input:", inp)
+    print("Scaled Input:", diabetes_pipeline.named_steps['scaler'].transform(inp))
+    print("Prediction:", diabetes_pipeline.predict(inp))
 
+
+# Load the trained pipeline for heart disease prediction
+heart_disease_model = joblib.load('models/heart_disease_pipeline.joblib')
+
+# Print scaler information
+print("For Heart Model")
+print("Scaler means:", heart_disease_model.named_steps['scaler'].mean_)
+print("Scaler scale:", heart_disease_model.named_steps['scaler'].scale_)
+
+# Define test inputs
+inputs = [
+    np.array([62, 0, 0, 140, 268, 0, 0, 160, 0, 3.6, 0, 2, 2]).reshape(1, -1),
+    np.array([45, 1, 2, 130, 240, 1, 1, 170, 0, 1.2, 1, 0, 3]).reshape(1, -1),
+    np.array([55, 0, 1, 120, 200, 0, 0, 150, 1, 2.5, 2, 1, 2]).reshape(1, -1)
+]
+
+# Test each input
+for inp in inputs:
+    print("\nRaw Input:", inp)
+    scaled_input = heart_disease_model.named_steps['scaler'].transform(inp)  # Apply scaling
+    print("Scaled Input:", scaled_input)
+    prediction = heart_disease_model.predict(inp)  # Predict using the pipeline
+    print("Prediction:", prediction)
 
 # Custom functions
 symptoms_dict = {
@@ -208,65 +245,70 @@ def heart_disease_predict(request):
 
     if request.method == 'POST':
         # Retrieve input data from form
-        age = request.POST.get('age', 0)
-        sex = request.POST.get('sex', 0)
-        cp = request.POST.get('cp', 0)
-        trestbps = request.POST.get('trestbps', 0)
-        chol = request.POST.get('chol', 0)
-        fbs = request.POST.get('fbs', 0)
-        restecg = request.POST.get('restecg', 0)
-        thalach = request.POST.get('thalach', 0)
-        exang = request.POST.get('exang', 0)
-        oldpeak = request.POST.get('oldpeak', 0)
-        slope = request.POST.get('slope', 0)
-        ca = request.POST.get('ca', 0)
-        thal = request.POST.get('thal', 0)
+        try:
+            age = float(request.POST.get('age', 0))
+            sex = float(request.POST.get('sex', 0))
+            cp = float(request.POST.get('cp', 0))
+            trestbps = float(request.POST.get('trestbps', 0))
+            chol = float(request.POST.get('chol', 0))
+            fbs = float(request.POST.get('fbs', 0))
+            restecg = float(request.POST.get('restecg', 0))
+            thalach = float(request.POST.get('thalach', 0))
+            exang = float(request.POST.get('exang', 0))
+            oldpeak = float(request.POST.get('oldpeak', 0))
+            slope = float(request.POST.get('slope', 0))
+            ca = float(request.POST.get('ca', 0))
+            thal = float(request.POST.get('thal', 0))
 
-        # Retrieve user details from the authenticated user
-        user = request.user
-        first_name = user.first_name
-        last_name = user.last_name
-        email = user.email
+            # Collect input data in an array
+            input_data = np.array([age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]).reshape(1, -1)
+            print("Input array: ", input_data)
+            # Ensure scaling is handled inside the pipeline
+            prediction = heart_disease_model.predict(input_data)
+            print("Prediction: ", prediction)
 
-        # Create the input data array
-        input_data = np.array([age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal], dtype=float)
+            # Determine result
+            result = "The Person may have Heart Disease" if prediction[0] == 1 else "The Person may not have Heart Disease"
 
-        # Reshape the input for prediction
-        input_data_reshaped = input_data.reshape(1, -1)
+            # Retrieve user details
+            user = request.user
+            first_name = user.first_name
+            last_name = user.last_name
+            email = user.email
 
-        # Make prediction
-        prediction = heart_disease_model.predict(input_data_reshaped)
+            # Save the prediction history
+            HeartPatientHistory.objects.create(
+                user=user,
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                age=age,
+                sex=sex,
+                cp=cp,
+                trestbps=trestbps,
+                chol=chol,
+                fbs=fbs,
+                restecg=restecg,
+                thalach=thalach,
+                exang=exang,
+                oldpeak=oldpeak,
+                slope=slope,
+                ca=ca,
+                thal=thal,
+                prediction_result=result
+            )
 
-        # Determine result
-        result = "The Person may have Heart Disease" if prediction[0] == 1 else "The Person may not have Heart Disease"
+            return render(request, 'heart_disease_predict.html', {
+                'title': title, 
+                'result': result,
+                'input_data': input_data.tolist()
+            })
 
-        # Save the history to the database
-        HeartPatientHistory.objects.create(
-            user=user,
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            age=age,
-            sex=sex,
-            cp=cp,
-            trestbps=trestbps,
-            chol=chol,
-            fbs=fbs,
-            restecg=restecg,
-            thalach=thalach,
-            exang=exang,
-            oldpeak=oldpeak,
-            slope=slope,
-            ca=ca,
-            thal=thal,
-            prediction_result=result
-        )
-
-        return render(request, 'heart_disease_predict.html', {
-            'title': title, 
-            'result': result,
-            'input_data': input_data.tolist()
-        })
+        except Exception as e:
+            return render(request, 'heart_disease_predict.html', {
+                'title': title, 
+                'error': f"Invalid input: {e}"
+            })
     
     return render(request, 'heart_disease_predict.html', {'title': title})
 
@@ -278,9 +320,9 @@ def heart_disease_attributes_help(request):
 @login_required(login_url='login')
 def predict_diabetes(request):
     title = 'Diabetes Prediction'
-
+    
     if request.method == 'POST':
-        # Retrieve input data from form
+        # Retrieve input data from form (defaulting to 0 if not provided)
         pregnancies = request.POST.get('pregnancies', 0)
         glucose = request.POST.get('glucose', 0)
         blood_pressure = request.POST.get('blood_pressure', 0)
@@ -290,7 +332,7 @@ def predict_diabetes(request):
         diabetes_pedigree_function = request.POST.get('diabetes_pedigree_function', 0)
         age = request.POST.get('age', 0)
 
-        # Create input data array
+        # Create input data array and reshape to 2D
         input_data = np.array([
             float(pregnancies),
             float(glucose),
@@ -302,24 +344,17 @@ def predict_diabetes(request):
             float(age)
         ]).reshape(1, -1)
 
-        # Make a prediction
-        prediction = diabetes_prediction_model.predict(input_data)
-
-        # Interpret prediction result
+        # The pipeline automatically scales the raw input data and predicts.
+        prediction = diabetes_pipeline.predict(input_data)
         result = 'The Person may have Diabetes' if prediction[0] == 1 else 'The Person may not have Diabetes'
 
-        # Retrieve user details
-        user = request.user
-        first_name = user.first_name
-        last_name = user.last_name
-        email = user.email
-
         # Save prediction history
+        user = request.user
         DiabetesPatientHistory.objects.create(
             user=user,
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
+            first_name=user.first_name,
+            last_name=user.last_name,
+            email=user.email,
             pregnancies=pregnancies,
             glucose=glucose,
             blood_pressure=blood_pressure,
@@ -336,9 +371,8 @@ def predict_diabetes(request):
             'result': result,
             'input_data': input_data[0].tolist()
         })
-    
-    return render(request, 'predict_diabetes.html', {'title': title})
 
+    return render(request, 'predict_diabetes.html', {'title': title})
 
 @login_required(login_url='login')
 def diabetes_attributes_help(request):
