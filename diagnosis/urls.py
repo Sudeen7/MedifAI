@@ -26,6 +26,10 @@ urlpatterns = [
     path('heart-patient-history/', views.heart_patient_history_view, name='heart_patient_history_view'),
     path('diabetes-patient-history/', views.diabetes_history, name='diabetes_patient_history_view'),
     path('symptoms-prediction-history/', views.symptoms_prediction_history, name='symptoms_prediction_history'),
+    path('forgot-password/', views.ForgotPasswordPage, name='forgot_password'),
+    path('verify-otp/', views.VerifyOTPPage, name='verify_otp'),
+    path('reset-password/', views.ResetPasswordPage, name='reset_password'),
 ]
+
 
 

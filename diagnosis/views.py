@@ -16,6 +16,8 @@ from django.conf import settings
 from .models import Contact, HeartPatientHistory, DiabetesPatientHistory, SymptomsPredictionHistory
 import re
 from django.contrib.admin.views.decorators import staff_member_required
+import random
+import time
 
 warnings.filterwarnings('ignore', category=UserWarning)
 
@@ -619,3 +621,108 @@ def EditProfilePage(request):
         'username': user.username
     }
     return render(request, 'profile_edit.html', context)
+
+def ForgotPasswordPage(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        user = User.objects.filter(email=email).first()
+        
+        if user:
+            # Generate a random 6-digit OTP
+            otp = random.randint(100000, 999999)
+            
+            # Save the OTP in the user's session
+            request.session['otp'] = otp
+            request.session['otp_timestamp'] = time.time()
+            request.session['email'] = email
+            
+            # Send the OTP to the user's email
+            send_mail(
+                'Password Reset Request - MedifAI Team',
+                f'''
+                Hello,
+
+                We received a request to reset the password for your MedifAI account associated with the email address {email}.
+                To proceed with resetting your password, please use the One-Time Password (OTP) below:
+
+                OTP: {otp}
+
+                Please note that this OTP is valid for 60 seconds only. If you did not request this password reset, please disregard this email.
+
+                If you have any questions or need assistance, feel free to reach out to our support team.
+
+                Best regards,
+                The MedifAI Team
+                ''',
+                settings.EMAIL_HOST_USER,
+                [email],
+                fail_silently=False,
+            )
+            
+            messages.success(request, "OTP has been sent to your email.")
+            return redirect('verify_otp')
+        else:
+            messages.error(request, "No user found with this email address.")
+    
+    return render(request, 'forgot_password.html')
+
+def VerifyOTPPage(request):
+    if request.method == 'POST':
+        otp = request.POST.get('otp')
+        session_otp = request.session.get('otp')
+        otp_timestamp = request.session.get('otp_timestamp')
+        
+        if otp_timestamp and time.time() - otp_timestamp > 60:
+            messages.error(request, "OTP has expired. Please request a new OTP.")
+            return redirect('forgot_password')
+        
+        if int(otp) == session_otp:
+            messages.success(request, "OTP verified. Please reset your password.")
+            return redirect('reset_password')
+        else:
+            messages.error(request, "Invalid OTP. Please try again.")
+    
+    return render(request, 'verify_otp.html')
+
+
+def ResetPasswordPage(request):
+    if request.method == 'POST':
+        new_password1 = request.POST.get('new_password1')
+        new_password2 = request.POST.get('new_password2')
+        
+        if new_password1 != new_password2:
+            messages.error(request, "Passwords do not match.")
+            return redirect('reset_password')
+
+        # Password strength validation (at least 8 characters)
+        if len(new_password1) < 8:
+            messages.error(request, "Password must be at least 8 characters long.")
+            return redirect('reset_password')
+
+        # Check for uppercase letter
+        if not re.search(r'[A-Z]', new_password1):
+            messages.error(request, "Password must contain at least one uppercase letter.")
+            return redirect('reset_password')
+
+        # Check for digit
+        if not re.search(r'[0-9]', new_password1):
+            messages.error(request, "Password must contain at least one number.")
+            return redirect('reset_password')
+
+        # Check for special character
+        if not re.search(r'[\W_]', new_password1):
+            messages.error(request, "Password must contain at least one special character (e.g., @, #, $, etc.).")
+            return redirect('reset_password')
+        
+        # Retrieve user by email from session
+        email = request.session.get('email')
+        user = User.objects.get(email=email)
+        
+        # Set the new password
+        user.set_password(new_password1)
+        user.save()
+        
+        messages.success(request, "Password reset successfully. Please login with your new password.")
+        return redirect('login')
+    
+    return render(request, 'reset_password.html')

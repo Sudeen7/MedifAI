@@ -3,10 +3,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login Page - MedifAI</title>
+    <title>Verify OTP - MedifAI</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <style media="screen">
         * { 
@@ -22,7 +21,6 @@
             height: 100vh; ;
         }
         .background {
-            
             width: 430px;
             height: 520px;
             position: absolute;
@@ -30,13 +28,6 @@
             left: 50%;
             top: 50%;
         }
-        .background .shape {
-            height: 200px;
-            width: 200px;
-            position: absolute;
-            border-radius: 50%;
-        }
-    
         form {
             height: 550px;
             width: 450px;
@@ -125,7 +116,7 @@
     </div>
     
     <form method="post">
-        <h3>Login Here</h3>
+        <h3>Verify OTP (OTP is valid for 60 seconds only)</h3>
         {% csrf_token %}
 
         <!-- Display messages -->
@@ -137,16 +128,11 @@
             {% endfor %}
         {% endif %}
 
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" value="{{ username|default:'' }}" placeholder="Enter Username">
+        <label for="otp">Enter OTP</label>
+        <input type="text" id="otp" name="otp" placeholder="Enter OTP">
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="pass" placeholder="Enter Password">
-
-        <button type="submit">Login</button>
-        <a href="{% url 'signup' %}" style="display: block; margin-top: 15px; text-align: center; color: #ffffff;">Create an Account</a>
-        <a href="{% url 'forgot_password' %}" style="display: block; margin-top: 15px; text-align: center; color: #ffffff;">Forgot Password</a>
-
+        <button type="submit">Verify OTP</button>
+        <a href="{% url 'login' %}">Back to Login</a>
     </form>
 </body>
 </html>
