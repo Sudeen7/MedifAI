@@ -7,22 +7,59 @@
 {% block content %}
 <div class="container page-container">
   <div class="profile-card">
-    <h2>User Profile</h2>
+    <div class= "profile-header">
+        <h2>User Profile</h2>
+    </div>   
 
     {% if messages %}
+    <div class = "message-container">
             {% for message in messages %}
                 <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
                     {{ message }}
                 </div>
             {% endfor %}
+    </div>           
     {% endif %}
 
-    <p><strong>Username:</strong> {{ username }}</p>
+    {% comment %} <p><strong>Username:</strong> {{ username }}</p>
     <p><strong>First Name:</strong> {{ first_name }}</p>
     <p><strong>Last Name:</strong> {{ last_name }}</p>
     <p><strong>Email:</strong> {{ email }}</p>
     <a href="/profile/edit" class="btn btn-warning btn-lg mb-4">Edit Profile</a>
-    <a href="/logout" class="btn btn-danger btn-lg mb-4">Logout</a>
+    <a href="/logout" class="btn btn-danger btn-lg mb-4">Logout</a> {% endcomment %}
+
+    <div class="profile-details">
+        <div class="detail-item">
+          <i class="fas fa-user-tag"></i>
+          <span class="detail-label">Username:</span>
+          <span class="detail-value">{{ username }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-id-card"></i>
+          <span class="detail-label">First Name:</span>
+          <span class="detail-value">{{ first_name }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-id-card"></i>
+          <span class="detail-label">Last Name:</span>
+          <span class="detail-value">{{ last_name }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-envelope"></i>
+          <span class="detail-label">Email:</span>
+          <span class="detail-value">{{ email }}</span>
+        </div>
+      </div>
+  
+      <div class="profile-actions">
+        <a href="/profile/edit" class="btn btn-edit">
+          <i class="fas fa-edit"></i> Edit Profile
+        </a>
+        <a href="/logout" class="btn btn-logout">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </div>
+
   </div>
 </div>
 
@@ -32,7 +69,10 @@
             height: 100%;
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background-image: url("{% static 'assets/home-page.png' %}");
+            background-image: url("{% static 'assets/profile.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
         }
@@ -40,23 +80,154 @@
         .page-container {
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Align content from the top */
+            align-items: center; /* Align content from the top */
             flex-grow: 1; /* Allow content to grow and push footer to the bottom */
-            padding-bottom: 50px; /* Ensure no overlap with footer */
+            padding: 20px; /* Ensure no overlap with footer */
         }
 
         .profile-card {
             background-color: #f8f9fa;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            height: 400px; /* Fixed height */
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+            {% comment %} height: 400px; /* Fixed height */
             width: 400px; /* Fixed width */
             text-align: center;
-            margin-top: 80px; /* Ensures profile card is below the navbar */
+            margin-top: 80px; /* Ensures profile card is below the navbar */ {% endcomment %}
         }
 
-        .profile-card h2 {
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-header h2 {
+            color: #2d3436;
+            font-size: 28px;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .profile-details {
+            margin-bottom: 30px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: rgba(245, 245, 245, 0.5);
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .detail-item:hover {
+            background: rgba(245, 245, 245, 0.8);
+        }
+
+        .detail-item i {
+            width: 30px;
+            color: #4ecdc4;
+            font-size: 18px;
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: #636e72;
+            margin-right: 10px;
+            min-width: 100px;
+        }
+
+        .detail-value {
+            color: #2d3436;
+            font-weight: 400;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-edit {
+            background: #4ecdc4;
+            color: white;
+            border: 2px solid #4ecdc4;
+        }
+
+        .btn-edit:hover {
+            background: #45b7af;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .btn-logout {
+            background: #ff6b6b;
+            color: white;
+            border: 2px solid #ff6b6b;
+        }
+
+        .btn-logout:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .message.success {
+            background: rgba(46, 213, 115, 0.15);
+            color: #2d3436;
+            border: 1px solid rgba(46, 213, 115, 0.3);
+        }
+
+        @media (max-width: 480px) {
+            .profile-card {
+                padding: 25px;
+            }
+            
+            .detail-item {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+            
+            .detail-label {
+                min-width: auto;
+            }
+
+
+
+
+        {% comment %} .profile-card h2 {
             color: #1a1a1a;
             margin-bottom: 20px;
         }
@@ -74,7 +245,7 @@
         .message.success {
             background-color: rgba(0, 128, 0, 0.8);
             color: #fff;
-        }
+        } {% endcomment %}
     </style>
 {% endblock %}
 {% endblock content %}

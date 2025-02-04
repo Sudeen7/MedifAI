@@ -1,106 +1,143 @@
-{% extends 'base.html' %} {% load static %} 
-{% block title%}Developer{%endblock%} {% block content %}
-<div class="container content my-4 mt-4">
-  <h2 class="text-center">Meet Our Developers</h2>
+{% extends 'base.html' %}
+{% load static %}
 
-  <!-- Developer 1 -->
-  <div class="developer-card d-flex align-items-center">
-    <img
-      src="{% static 'assets/asim.jpg' %}"
-      alt="Asim"
-      class="developer-img"
-    />
-    <div>
-      <h5>Asim Ghimire</h5>
-      <p>
-        <strong>Backend Developer</strong><br />Specializes in backend
-        development and machine learning models.
-      </p>
+{% block title %}Meet Our Developers{% endblock %}
+
+{% block content %}
+<div class="container content">
+  <h2 class="text-center">👨‍💻 Meet Our Developers</h2>
+
+  <div class="developer-list">
+    <!-- Developer 1 -->
+    <div class="developer-card">
+      <img src="{% static 'assets/asim.jpg' %}" alt="Asim" class="developer-img" />
+      <div class="developer-info">
+        <h5>Asim Ghimire</h5>
+        <p><strong>Backend Developer</strong><br />Specializes in backend development and machine learning models.</p>
+      </div>
     </div>
-  </div>
 
-  <!-- Developer 2 -->
-  <div class="developer-card d-flex align-items-center">
-    <img
-      src="{% static 'assets/sudeen.jpg' %}"
-      alt="Sudin"
-      class="developer-img"
-    />
-    <div>
-      <h5>Sudin Bohara</h5>
-      <p>
-        <strong>Frontend Developer</strong><br />Expert in creating engaging
-        user interfaces.
-      </p>
+    <!-- Developer 2 -->
+    <div class="developer-card">
+      <img src="{% static 'assets/sudeen.jpg' %}" alt="Sudin" class="developer-img" />
+      <div class="developer-info">
+        <h5>Sudin Bohara</h5>
+        <p><strong>Frontend Developer</strong><br />Expert in creating engaging user interfaces.</p>
+      </div>
     </div>
-  </div>
 
-  <!-- Developer 3 -->
-  <div class="developer-card d-flex align-items-center">
-    <img
-      src="{% static 'assets/sumit.jpg' %}"
-      alt="Sumit"
-      class="developer-img"
-    />
-    <div>
-      <h5>Sumit Darshandhari</h5>
-      <p>
-        <strong>UI/UX &amp; Frontend Developer</strong><br />Focuses on user
-        experience and design.
-      </p>
+    <!-- Developer 3 -->
+    <div class="developer-card">
+      <img src="{% static 'assets/sumit.jpg' %}" alt="Sumit" class="developer-img" />
+      <div class="developer-info">
+        <h5>Sumit Darshandhari</h5>
+        <p><strong>UI/UX &amp; Frontend Developer</strong><br />Focuses on user experience and design.</p>
+      </div>
     </div>
   </div>
 </div>
 
+
 {% block extra_css %}
 <style>
-  html,
-  body {
-    height: 100%;
+  /* Ensure full height layout */
+  body, html {
+    height: 100vh;  /* Ensures full viewport height */
+    width: 100vw;   /* Ensures full viewport width */
     margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url("{% static 'assets/profile.jpg' %}");
+    background-size: cover;         /* Ensures the image covers the full screen */
+    background-position: center;     /* Centers the image */
+    background-repeat: no-repeat;    /* Prevents tiling */
+    background-attachment: fixed;    /* Keeps the background fixed while scrolling */
     display: flex;
     flex-direction: column;
-    font-family: "Arial", sans-serif;
-    background-image: url("{% static 'assets/home-page.png' %}");
-  }
+}
+
+  /* Main content container */
   .content {
-    flex: 1;
-    padding: 60px 20px;
-    background: white;
-    margin: 30px auto;
+    
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    margin: 50px auto;
     border-radius: 15px;
-    max-width: 1000px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    flex-grow: 1; /* Pushes footer to bottom */
   }
+
   h2 {
     font-size: 32px;
     color: #2b6777;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
+
+  .developer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
   .developer-card {
-    margin: 10px 0;
-    border-radius: 15px;
-    background: #b0b6bb;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    background: white;
     padding: 20px;
-    transition: transform 0.3s;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
   }
+
   .developer-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
+
   .developer-img {
     border-radius: 50%;
     width: 100px;
     height: 100px;
     object-fit: cover;
-    margin-bottom: 15px;
-    margin-right: 10px;
+    margin-right: 20px;
+    border: 4px solid #2b6777;
   }
-  /* Responsive Styling */
+
+  .developer-info {
+    text-align: left;
+  }
+
+  .developer-info h5 {
+    font-size: 20px;
+    margin: 0;
+    color: #1a1a1a;
+  }
+
+  .developer-info p {
+    font-size: 16px;
+    color: #444;
+    margin-top: 5px;
+  }
+
+ 
+
+  /* Responsive Design */
   @media (max-width: 768px) {
-    h2 {
-      font-size: 28px;
+    .developer-card {
+      flex-direction: column;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .developer-img {
+      margin: 0 0 15px 0;
     }
   }
+
 </style>
-{% endblock %} {% endblock content %}
+{% endblock %}
+
+{% endblock content %}
