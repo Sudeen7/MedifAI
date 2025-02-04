@@ -133,30 +133,26 @@
         <a href="{% url 'login' %}">Back to Login</a>
     </form>
 
-    <!-- Hidden element to store remaining time -->
     <div id="remaining-time" data-remaining-time="{{ remaining_time }}" style="display: none;"></div>
 
     <script>
-        // Get the remaining time from the data attribute
         const remainingTimeElement = document.getElementById('remaining-time');
         let remainingTime = parseInt(remainingTimeElement.getAttribute('data-remaining-time'), 10);
-        let countdownInterval; // Store interval reference
+        let countdownInterval;
 
         function updateCountdown() {
-            if (remainingTime <= 0) {
-                clearInterval(countdownInterval); // Stop the countdown
+            if (remainingTime === 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('timer').textContent = '0';
                 alert('OTP has expired. Please request a new OTP.');
-                window.location.href = "{% url 'forgot_password' %}"; // Redirect after alert
+                window.location.href = "{% url 'forgot_password' %}";
             } else {
                 document.getElementById('timer').textContent = remainingTime;
-                remainingTime--; // Decrease the remaining time by 1 second
+                remainingTime--;
             }
         }
-
-        // Start the countdown and store the interval reference
         countdownInterval = setInterval(updateCountdown, 1000);
 
-        // Initial call to set the correct time immediately
         updateCountdown();
     </script>
 </body>

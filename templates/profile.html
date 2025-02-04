@@ -80,9 +80,9 @@
         .page-container {
             display: flex;
             justify-content: center;
-            align-items: center; /* Align content from the top */
-            flex-grow: 1; /* Allow content to grow and push footer to the bottom */
-            padding: 20px; /* Ensure no overlap with footer */
+            align-items: center;
+            flex-grow: 1;
+            padding: 20px;
         }
 
         .profile-card {
@@ -95,10 +95,10 @@
             max-width: 500px;
             transform: translateY(0);
             transition: transform 0.3s ease;
-            {% comment %} height: 400px; /* Fixed height */
-            width: 400px; /* Fixed width */
+            height: 400px;
+            width: 400px;
             text-align: center;
-            margin-top: 80px; /* Ensures profile card is below the navbar */ {% endcomment %}
+            margin-top: 80px;
         }
 
         .profile-card:hover {
@@ -224,10 +224,10 @@
                 min-width: auto;
             }
 
+        }
 
 
-
-        {% comment %} .profile-card h2 {
+        .profile-card h2 {
             color: #1a1a1a;
             margin-bottom: 20px;
         }
@@ -245,7 +245,7 @@
         .message.success {
             background-color: rgba(0, 128, 0, 0.8);
             color: #fff;
-        } {% endcomment %}
+        }
     </style>
 {% endblock %}
 {% endblock content %}
