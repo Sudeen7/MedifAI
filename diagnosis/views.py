@@ -633,7 +633,7 @@ def ForgotPasswordPage(request):
             
             # Save the OTP in the user's session
             request.session['otp'] = otp
-            request.session['otp_timestamp'] = time.time()
+            request.session['otp_timestamp'] = time.time()  # Current timestamp
             request.session['email'] = email
             
             # Send the OTP to the user's email
@@ -682,8 +682,11 @@ def VerifyOTPPage(request):
         else:
             messages.error(request, "Invalid OTP. Please try again.")
     
-    return render(request, 'verify_otp.html')
-
+    # Calculate remaining time
+    otp_timestamp = request.session.get('otp_timestamp', 0)
+    remaining_time = max(0, 60 - int(time.time() - otp_timestamp))  # Ensure it's an integer and >= 0
+    
+    return render(request, 'verify_otp.html', {'remaining_time': remaining_time})
 
 def ResetPasswordPage(request):
     if request.method == 'POST':

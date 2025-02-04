@@ -18,7 +18,7 @@
             background-size: cover;  
             background-position: center; 
             background-repeat: no-repeat;  
-            height: 100vh; ;
+            height: 100vh;
         }
         .background {
             width: 430px;
@@ -29,7 +29,7 @@
             top: 50%;
         }
         form {
-            height: 550px;
+            height: 450px;
             width: 450px;
             background-color: rgba(255,255,255,0.13);
             position: absolute;
@@ -107,16 +107,9 @@
         }        
     </style>
 </head>
-<body>
-    <div class="background">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-        <div class="shape shape-4"></div>
-    </div>
-    
+<body>    
     <form method="post">
-        <h3>Verify OTP (OTP is valid for 60 seconds only)</h3>
+        <h3>Verify OTP</h3>
         {% csrf_token %}
 
         <!-- Display messages -->
@@ -131,8 +124,40 @@
         <label for="otp">Enter OTP</label>
         <input type="text" id="otp" name="otp" placeholder="Enter OTP">
 
+        <!-- Countdown Timer -->
+        <div id="countdown" style="text-align: center; margin-top: 20px; font-size: 18px; color: #fff;">
+            Time remaining: <span id="timer">{{ remaining_time }}</span> seconds
+        </div>
+
         <button type="submit">Verify OTP</button>
         <a href="{% url 'login' %}">Back to Login</a>
     </form>
+
+    <!-- Hidden element to store remaining time -->
+    <div id="remaining-time" data-remaining-time="{{ remaining_time }}" style="display: none;"></div>
+
+    <script>
+        // Get the remaining time from the data attribute
+        const remainingTimeElement = document.getElementById('remaining-time');
+        let remainingTime = parseInt(remainingTimeElement.getAttribute('data-remaining-time'), 10);
+        let countdownInterval; // Store interval reference
+
+        function updateCountdown() {
+            if (remainingTime <= 0) {
+                clearInterval(countdownInterval); // Stop the countdown
+                alert('OTP has expired. Please request a new OTP.');
+                window.location.href = "{% url 'forgot_password' %}"; // Redirect after alert
+            } else {
+                document.getElementById('timer').textContent = remainingTime;
+                remainingTime--; // Decrease the remaining time by 1 second
+            }
+        }
+
+        // Start the countdown and store the interval reference
+        countdownInterval = setInterval(updateCountdown, 1000);
+
+        // Initial call to set the correct time immediately
+        updateCountdown();
+    </script>
 </body>
 </html>
