@@ -18,7 +18,7 @@
             background-size: cover;  
             background-position: center; 
             background-repeat: no-repeat;  
-            height: 100vh; ;
+            height: 100vh;
         }
         .background {
             width: 430px;
@@ -133,23 +133,28 @@
         <a href="{% url 'login' %}">Back to Login</a>
     </form>
 
+    <!-- Hidden element to store remaining time -->
+    <div id="remaining-time" data-remaining-time="{{ remaining_time }}" style="display: none;"></div>
+
     <script>
-        // Get the remaining time from the template
-        let remainingTime = {{ remaining_time }};
+        // Get the remaining time from the data attribute
+        const remainingTimeElement = document.getElementById('remaining-time');
+        let remainingTime = parseInt(remainingTimeElement.getAttribute('data-remaining-time'), 10);
+        let countdownInterval; // Store interval reference
 
         function updateCountdown() {
             if (remainingTime <= 0) {
-                document.getElementById('timer').textContent = '0';
+                clearInterval(countdownInterval); // Stop the countdown
                 alert('OTP has expired. Please request a new OTP.');
-                window.location.href = "{% url 'forgot_password' %}"; // Redirect to forgot password page
+                window.location.href = "{% url 'forgot_password' %}"; // Redirect after alert
             } else {
                 document.getElementById('timer').textContent = remainingTime;
                 remainingTime--; // Decrease the remaining time by 1 second
             }
         }
 
-        // Update the countdown every second
-        setInterval(updateCountdown, 1000);
+        // Start the countdown and store the interval reference
+        countdownInterval = setInterval(updateCountdown, 1000);
 
         // Initial call to set the correct time immediately
         updateCountdown();
