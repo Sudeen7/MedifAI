@@ -1,2 +1,2 @@
-#ignore database file 
+#db file is not tracked by git
 db.sqlite3
