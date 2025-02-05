@@ -1068,11 +1068,16 @@
 {% block extra_css %}
     <style>
         body, html {
-        height: 100%;
-        margin: 0;
-        font-family: 'Arial', sans-serif;
-        background-image: url("{% static 'assets/home-page.png' %}");
-        color: #333;
+          height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url("{% static 'assets/profile.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+        
       }
         .page-container {
         display: flex;
@@ -1081,7 +1086,8 @@
       }
       h1{
         margin-top: -80px;
-        font-size:100px;
+        font-size: 80px;
+       
       }
       .content {
         flex: 1;
