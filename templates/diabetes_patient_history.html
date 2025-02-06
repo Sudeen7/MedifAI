@@ -60,7 +60,7 @@
         height: 100%;
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background-image: url("{% static 'assets/profile.jpg' %}");
+            background-image: url("{% static 'assets/newbg.jpg' %}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -80,6 +80,9 @@
         padding: 30px;
         border-radius: 10px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .table-container {
+        overflow-x: auto;
     }
     .details-row {
         display: none;
@@ -117,8 +120,14 @@
     }
 
     @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
         .details-grid {
             grid-template-columns: 1fr;
+        }
+        table th, table td {
+            padding: 8px;
         }
     }
 </style>

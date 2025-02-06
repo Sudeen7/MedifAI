@@ -1,159 +1,164 @@
-{% extends 'base.html' %}
-
-{% block title %}Heart Patient History{% endblock %}
-
-{% load static %}
-
-{% block content %}
+{% extends 'base.html' %} {% block title %}Heart Patient History{% endblock %}
+{% load static %} {% block content %}
 <div class="content">
-    <div class="container">
-        <h1>Heart Patient History</h1>
-        <div class="table-container">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>User</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Prediction</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for history in histories %}
-                    <tr class="clickable-row" data-history-id="{{ history.id }}">
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ history.user.username }}</td>
-                        <td>{{ history.first_name }}</td>
-                        <td>{{ history.last_name }}</td>
-                        <td>{{ history.email }}</td>
-                        <td>{{ history.prediction_result }}</td>
-                        <td>{{ history.created_at }}</td>
-                    </tr>
-                    <!-- Hidden details row -->
-                    <tr class="details-row" id="details-{{ history.id }}">
-                        <td colspan="7">
-                            <div class="details-content">
-                                <strong>Input Data:</strong>
-                                <div class="details-grid">
-                                    <div>Age: {{ history.age }}</div>
-                                    <div>Sex: {{ history.sex }}</div>
-                                    <div>Chest Pain Type: {{ history.cp }}</div>
-                                    <div>Resting Blood Pressure: {{ history.trestbps }}</div>
-                                    <div>Cholesterol: {{ history.chol }}</div>
-                                    <div>Fasting Blood Sugar: {{ history.fbs }}</div>
-                                    <div>Resting ECG: {{ history.restecg }}</div>
-                                    <div>Max Heart Rate: {{ history.thalach }}</div>
-                                    <div>Exercise Induced Angina: {{ history.exang }}</div>
-                                    <div>ST Depression: {{ history.oldpeak }}</div>
-                                    <div>Slope of ST Segment: {{ history.slope }}</div>
-                                    <div>Number of Major Vessels: {{ history.ca }}</div>
-                                    <div>Thalassemia: {{ history.thal }}</div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+  <div class="container">
+    <h1>Heart Patient History</h1>
+    <div class="table-container">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>User</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Prediction</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for history in histories %}
+          <tr class="clickable-row" data-history-id="{{ history.id }}">
+            <td>{{ forloop.counter }}</td>
+            <td>{{ history.user.username }}</td>
+            <td>{{ history.first_name }}</td>
+            <td>{{ history.last_name }}</td>
+            <td>{{ history.email }}</td>
+            <td>{{ history.prediction_result }}</td>
+            <td>{{ history.created_at }}</td>
+          </tr>
+          <!-- Hidden details row -->
+          <tr class="details-row" id="details-{{ history.id }}">
+            <td colspan="7">
+              <div class="details-content">
+                <strong>Input Data:</strong>
+                <div class="details-grid">
+                  <div>Age: {{ history.age }}</div>
+                  <div>Sex: {{ history.sex }}</div>
+                  <div>Chest Pain Type: {{ history.cp }}</div>
+                  <div>Resting Blood Pressure: {{ history.trestbps }}</div>
+                  <div>Cholesterol: {{ history.chol }}</div>
+                  <div>Fasting Blood Sugar: {{ history.fbs }}</div>
+                  <div>Resting ECG: {{ history.restecg }}</div>
+                  <div>Max Heart Rate: {{ history.thalach }}</div>
+                  <div>Exercise Induced Angina: {{ history.exang }}</div>
+                  <div>ST Depression: {{ history.oldpeak }}</div>
+                  <div>Slope of ST Segment: {{ history.slope }}</div>
+                  <div>Number of Major Vessels: {{ history.ca }}</div>
+                  <div>Thalassemia: {{ history.thal }}</div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
 
 <style>
-    /* General Styling */
-    body, html {
-        height: 100%;
-        margin: 0;
-        font-family: 'Arial', sans-serif;
-        background-image: url("{% static 'assets/profile.jpg' %}");
-        background-size: cover;
-        background-attachment: fixed;
-        display: flex;
-        flex-direction: column;
-    }
-    .content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-    }
+  /* General Styling */
+  body,
+  html {
+    height: 100%;
+    margin: 0;
+    font-family: "Arial", sans-serif;
+    background-image: url("{% static 'assets/newbg.jpg' %}");
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+  }
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  .container {
+    max-width: 900px;
+    background: rgb(231, 235, 220);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  .table-container {
+    overflow-x: auto;
+  }
+  .details-row {
+    display: none;
+  }
+
+  .details-row.active {
+    display: table-row;
+  }
+
+  .details-content {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    margin: 10px 0;
+  }
+
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .clickable-row:hover {
+    background-color: #f1f1f1;
+  }
+
+  .clickable-row.active-row {
+    background-color: #e3f2fd;
+  }
+
+  @media (max-width: 768px) {
     .container {
-        max-width: 900px;
-        background: rgb(231, 235, 220);
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 15px;
     }
-    .details-row {
-        display: none;
-    }
-    
-    .details-row.active {
-        display: table-row;
-    }
-
-    .details-content {
-        padding: 15px;
-        background: #f8f9fa;
-        border-radius: 4px;
-        margin: 10px 0;
-    }
-
     .details-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        margin-top: 10px;
+      grid-template-columns: 1fr;
     }
-
-    .clickable-row {
-        cursor: pointer;
-        transition: background-color 0.2s;
+    table th, table td {
+      padding: 8px;
     }
-
-    .clickable-row:hover {
-        background-color: #f1f1f1;
-    }
-
-    .clickable-row.active-row {
-        background-color: #e3f2fd;
-    }
-
-    @media (max-width: 768px) {
-        .details-grid {
-            grid-template-columns: 1fr;
-        }
-    }
+  }
 </style>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const rows = document.querySelectorAll('.clickable-row');
-        
-        rows.forEach(row => {
-            row.addEventListener('click', function() {
-                // Toggle active class on clicked row
-                this.classList.toggle('active-row');
-                
-                // Get corresponding details row
-                const detailsRow = document.getElementById(
-                    `details-${this.dataset.historyId}`
-                );
-                
-                // Toggle details visibility
-                if (detailsRow) {
-                    detailsRow.classList.toggle('active');
-                    detailsRow.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'nearest'
-                    });
-                }
-            });
-        });
+  document.addEventListener("DOMContentLoaded", function () {
+    const rows = document.querySelectorAll(".clickable-row");
+
+    rows.forEach((row) => {
+      row.addEventListener("click", function () {
+        // Toggle active class on clicked row
+        this.classList.toggle("active-row");
+
+        // Get corresponding details row
+        const detailsRow = document.getElementById(
+          `details-${this.dataset.historyId}`
+        );
+
+        // Toggle details visibility
+        if (detailsRow) {
+          detailsRow.classList.toggle("active");
+          detailsRow.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+          });
+        }
+      });
     });
+  });
 </script>
 {% endblock %}

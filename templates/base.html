@@ -14,32 +14,8 @@
       type="image/x-icon"
     />
 
-    <!-- Bootstrap CSS
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJw2XxB6S3sVTCc1D1gfwQ6wR6llF4pkzZYw6AcdtJ5s94pgbV1RrYc39zQ3" crossorigin="anonymous"> -->
-
-    <!-- Bootstrap Icon library -->
-    <!-- <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
-      integrity="sha384-He3RckdFB2wffiHOcESa3sf4Ida+ni/fw9SSzAcfY2EPnU1zkK/sLUzw2C5Tyuhj"
-      crossorigin="anonymous"
-    />
-
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    /> -->
-
-    <!-- Bootstrap CSS -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
-    crossorigin="anonymous"> -->
-
-    <!-- Bootstrap Bundle JS -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
-      integrity="sha384-QFje6D17z8jWlxBOa/gSJoDk3qvgc7VePTw7D8kRRD+t3CFmWS5pADW1iwEslrBV" 
-      crossorigin="anonymous"></script> -->
+    <!-- Move Bootstrap CSS to head and use a single version -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Dynamic Title -->
     {% if title %}
@@ -48,6 +24,7 @@
     <title>MedifAI</title>
     {% endif %}
     <style>
+      
       /* Navbar Styles */
       .navbar {
         background-color: #121111;
@@ -59,16 +36,104 @@
         color: #fff !important;
       }
 
-      .nav-link {
+      .nav-link, footer a {
         color: #fff !important;
         font-size: 18px;
         margin-right: 10px;
+        position: relative;
+        background: linear-gradient(to right, #fff 50%, #52ab98 50%);
+        background-size: 200% 100%;
+        background-position: 0;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transition: 0.4s ease-out;
       }
 
-      .nav-link:hover {
+      .nav-link::after, footer a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        left: 0;
+        bottom: 0;
+        background: #52ab98;
+        transition: width 0.4s ease-out;
+      }
+
+      .nav-link:hover, footer a:hover {
+        background-position: -100%;
+      }
+
+      .nav-link:hover::after, footer a:hover::after {
+        width: 100%;
+      }
+
+      /* Dropdown specific styles */
+      .dropdown-menu {
+        background-color: #121111;
+        border: 1px solid #52ab98;
+        padding: 0.5rem 0;
+        min-width: 250px;
+        max-width: 300px;
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 1000;
+      }
+
+      .dropdown-item {
+        color: #fff !important;
+        padding: 0.5rem 0.5rem;
+        position: relative;
+        transition: 0.3s ease;
+        -webkit-background-clip: unset !important;
+        -webkit-text-fill-color: unset !important;
+        background: #121111;
+        white-space: normal; /* Allow text wrapping */
+        word-wrap: break-word; /* Break long words */
+        line-height: 1.4; /* Improve readability */
+      }
+
+      .dropdown-item:hover,
+      .dropdown-item:focus {
         background-color: #52ab98;
-        border-radius: 8px;
-        transition: 0.3s;
+        color: #fff !important;
+      }
+
+      .dropdown-item::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        left: 0;
+        bottom: 0;
+        background: #52ab98;
+        transition: width 0.3s ease-out;
+      }
+
+      .dropdown-item:hover::after {
+        width: 100%;
+      }
+
+      /* Dropdown arrow position*/
+      .nav-link.dropdown-toggle::after {
+        display: inline-block;
+        margin-left: 5px;
+        vertical-align: middle;
+        position: static;
+        width: auto;
+        height: auto;
+        background: none;
+        border-top: 0.3em solid;
+        border-right: 0.3em solid transparent;
+        border-left: 0.3em solid transparent;
+      }
+
+      .nav-link.dropdown-toggle:hover::after {
+        border-top-color: #52ab98;
+      }
+
+      .nav-link.dropdown-toggle::before {
+        display: none;
       }
 
       @media (max-width: 576px) {
@@ -100,6 +165,43 @@
         text-decoration: underline;
         background-color: #52ab98;
         color: rgb(249, 248, 247) !important;
+      }
+
+      .nav-item.dropdown {
+        position: relative;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: -100px;
+        background-color: #121111;
+        border: 1px solid #52ab98;
+        padding: 0.5rem 0;
+        min-width: 170px; /* Increased min-width */
+        max-width: 300px;
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 1000;
+      }
+      /* Add responsive styles for dropdown */
+      @media (max-width: 991.98px) {
+        .dropdown-menu {
+          position: static;
+          float: none;
+          width: auto;
+          margin-top: 0;
+          margin-left: -1rem; /* Added negative margin to shift left */
+          padding-left: 1rem; /* Added padding to maintain text alignment */
+          background-color: transparent;
+          border: 0;
+          box-shadow: none;
+          max-height: none;
+        }
+
+        .dropdown-item {
+          padding-left: 1rem; /* Reduced left padding */
+        }
       }
     </style>
 
@@ -192,20 +294,12 @@
               </ul>
             </li>
             {% endif %}
+            
           </ul>
         </div>
       </div>
     </nav>
 
-    <!-- Include Bootstrap 5 CSS and JS files -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-
-    <!-- Main Content Area (Content will be injected here) -->
     {% block content %} {% endblock content %}
 
     <!-- Footer -->
@@ -214,21 +308,11 @@
       <a href="/terms">Terms of Service</a>
     </footer>
 
-    <!-- Bootstrap Bundle with Popper -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"
-    ></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-
+    <!-- Consolidate Bootstrap JS dependencies in correct order -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0F6S3t02Bv7PYjH6Ltr84gOhFcS3yl1bqS9ztm/OfT7V6U2A" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Block for additional JavaScript -->
-    {% block extra_js %}
-    <!-- Additional JS files can be added here -->
-    {% endblock %}
+    {% block extra_js %}{% endblock %}
   </body>
 </html>

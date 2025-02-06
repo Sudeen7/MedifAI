@@ -55,12 +55,17 @@
 
 {% block extra_css %}
     <style>
+        :root{
+            --cardbg: rgba(230, 230, 230, 0.85);
+
+        }
+        
         /* Specific Styles for Home Page */
         body, html {
             height: 100%;
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background-image: url("{% static 'assets/profile.jpg' %}");
+            background-image: url("{% static 'assets/home.jpg' %}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -84,7 +89,7 @@
             border-radius: 10px;
             min-height: 340px;
             height: auto;
-            background: rgb(231, 235, 220);
+            background: var(--cardbg);
         }
 
         .card-title {

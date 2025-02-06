@@ -9,6 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
 
     <style>
+        :root{
+            --labelTextColor:rgb(31,38,40);
+            --placeholderColor:rgb(135,135,135);
+            --inputFieldbgColor:rgba(141,141,141, 0.1);
+            --buttonColor:rgb(229,229,229);
+            --inputColor:rgb(48, 88, 99);
+        }
         * {
             padding: 0;
             margin: 0;
@@ -20,7 +27,7 @@
             align-items: center;
             flex-direction: column;
             padding: 50px 0;
-            background-image: url("{% static 'assets/signup-page.png' %}");
+            background-image: url("{% static 'assets/newbg.jpg' %}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -38,7 +45,6 @@
         }
         form * { 
             font-family: 'Poppins',sans-serif; 
-            color: #ffffff; 
             letter-spacing: 0.5px; 
             outline: none; 
             border: none; 
@@ -47,7 +53,7 @@
             font-size: 36px; 
             font-weight: 500;
             text-align: center;
-            color: #ffffff;
+            color: var(--labelTextColor);
             margin-bottom: 20px;
         }
         .form-group {
@@ -57,26 +63,26 @@
         }
         .form-group label {
             display: block;
-            color: #ffffff;
+            color:var(--labelTextColor);
             font-size: 16px; 
         }
         .form-group input {
             width: 100%;
             padding: 15px; 
             border-radius: 5px; 
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
+            background-color: var(--inputFieldbgColor);
+            color: var(--inputColor);
             border: none;
             font-size: 16px; 
         }
         ::placeholder {
-            color: #e5e5e5;
+            color:var(--placeholderColor);
         }
         button {
             margin-top: 20px;
             width: 100%;
-            background-color: #ffffff;
-            color: #080710;
+            background-color:var(--buttonColor);
+            color:var(--labelTextColor);
             padding: 15px 0;
             font-size: 20px; 
             font-weight: 600;
@@ -85,7 +91,7 @@
         }
         a {
             text-decoration: none;
-            color: #ffffff;
+            color:var(--labelTextColor);
             font-size: 16px; 
             display: block;
             margin-top: 15px;

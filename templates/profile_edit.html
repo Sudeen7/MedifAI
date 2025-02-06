@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <style media="screen">
+        :root{
+            --labelTextColor:rgb(31,38,40);
+            --placeholderColor:rgb(135,135,135);
+            --inputFieldbgColor:rgba(141,141,141, 0.1);
+            --buttonColor:rgb(229,229,229);
+            --inputColor:rgb(48, 88, 99);
+        }
         * { 
             padding: 0;
             margin: 0;
@@ -18,7 +25,7 @@
             width: 100vw; /* Ensures it covers the full viewport width */
             margin: 0;
             padding: 0;
-            background-image: url("{% static 'assets/signup-page.png' %}");
+            background-image: url("{% static 'assets/newbg.jpg' %}");
             background-size: cover; /* Ensures the image covers the entire screen */
             background-position: center; /* Centers the image */
             background-repeat: no-repeat; /* Prevents the image from repeating */
@@ -60,7 +67,6 @@
         }
         form * { 
             font-family: 'Poppins',sans-serif; 
-            color: #ffffff; 
             letter-spacing: 0.5px; 
             outline: none; 
             border: none; 
@@ -74,7 +80,7 @@
         label {
             display: block;
             margin-top: 20px;
-            color: #ffffff;
+            color: var(--labelTextColor);
         }
         input {
             width: 100%;
@@ -82,17 +88,17 @@
             margin-top: 5px;
             border: none;
             border-radius: 3px;
-            background-color: rgba(255,255,255,0.1);
-            color: #fff;
+            background-color: var(--inputFieldbgColor);
+            color: #var(--inputColor);
         }
         ::placeholder { 
-            color: #e5e5e5; 
+            color: var(--placeholderColor);
         }
         button { 
             margin-top: 14px; 
             width: 100%; 
-            background-color: #ffffff; 
-            color: #080710; 
+            background-color: var(--buttonColor);
+            color: var(--labelTextColor);
             padding: 15px 0; 
             font-size: 18px; 
             font-weight: 600; 
@@ -115,7 +121,7 @@
         }
         a { 
             text-decoration: none; 
-            color: #ffffff; 
+            color: var(--labelTextColor);
             font-size: 14px; 
             display: block; 
             margin-top: 10px; 
@@ -160,7 +166,7 @@
         <input type="password" id="password2" name="password2" placeholder="Confirm New Password">
 
         <button type="submit">Update Profile</button>
-        <a href="{% url 'profile' %}" style="display: block; margin-top: 15px; text-align: center; color: #ffffff;">Back to Profile</a>
+        <a href="{% url 'profile' %}">Back to Profile</a>
     </form>
 </body>
 </html>

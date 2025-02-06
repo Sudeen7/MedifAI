@@ -7,24 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MedifAI - Personalized Medicine Recommendation System</title>
     <style>
-        body {
-            
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url("{% static 'assets/landing-page.png' %}");
-            background-size: cover;  
-            background-position: center; 
-            background-repeat: no-repeat;  
-            height: 100vh;   
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            float: right;
-            margin-right: 70px;
-            align-items: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
+      :root{
+        --textColor:rgb(67, 67, 67);
+      }
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url("{% static 'assets/landing.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 70px;
+        align-items: center;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        
+      }
 
       @keyframes fadeIn {
         from {
@@ -35,7 +37,7 @@
         }
       }
       h1 {
-        font-size: 4em;
+        font-size: 3em;
         margin: 0;
         animation: slideIn 1s ease forwards; /* Slide in animation */
         opacity: 0; /* Start hidden for animation */
@@ -51,7 +53,7 @@
         }
       }
       p {
-        font-size: 1.2em;
+        font-size: 1.1em;
         text-align: center;
         max-width: 600px;
         margin: 20px 0;
@@ -59,9 +61,23 @@
         opacity: 0; /* Start hidden for animation */
         animation-delay: 0.5s; /* Delay for a staggered effect */
       }
-      .content{
+      .content {
         text-align: center;
-        color: rgb(247, 249, 251);
+        color: var(--textColor);
+        padding: 40px;
+      }
+      .content-wrapper {
+        background: rgba(77, 77, 77, 0.2);
+        backdrop-filter: blur(3px);
+        border-radius: 25px;
+        padding: 40px;
+        margin: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px 0 rgba(18, 160, 141, 0.5);
+        transition: all 0.3s ease;
+      }
+      .content-wrapper:hover {
+        box-shadow: 0 8px 32px 0 rgba(15, 25, 153, 0.5);
       }
       @keyframes fadeInUp {
         from {
@@ -107,7 +123,7 @@
         position: absolute;
         bottom: 20px;
         font-size: 0.9em;
-        color: #fffefe;
+        color:var(--textColor);
         animation: fadeIn 2s; /* Fade in effect for footer */
       }
       @media (max-width: 768px) {
@@ -115,67 +131,81 @@
           font-size: 2.5em;
         }
         p {
-            font-size: 1.2em;
-            text-align: center;
-            max-width: 600px;
-            margin: 20px 0;
-            animation: fadeInUp 1s ease forwards; /* Fade in upwards */
-            opacity: 10; /* Start hidden for animation */
-            animation-delay: 0.5s; /* Delay for a staggered effect */
+          font-size: 1.2em;
+          text-align: center;
+          max-width: 600px;
+          margin: 20px 0;
+          animation: fadeInUp 1s ease forwards; /* Fade in upwards */
+          opacity: 10; /* Start hidden for animation */
+          animation-delay: 0.5s; /* Delay for a staggered effect */
         }
         @keyframes fadeInUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+          from {
+            transform: translateY(20px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
         }
         a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: rgba(76, 175, 80, 0.8);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
-            animation: bounce 1s infinite; /* Bounce animation */
+          display: inline-block;
+          margin-top: 20px;
+          padding: 10px 20px;
+          background-color: rgba(76, 175, 80, 0.8);
+          color: white;
+          text-decoration: none;
+          border-radius: 5px;
+          transition: background-color 0.3s, transform 0.3s;
+          animation: bounce 1s infinite; /* Bounce animation */
         }
         a:hover {
-            background-color: rgba(76, 175, 80, 1);
-            transform: scale(1.05);
+          background-color: rgba(76, 175, 80, 1);
+          transform: scale(1.05);
         }
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
+          0%,
+          20%,
+          50%,
+          80%,
+          100% {
+            transform: translateY(0);
+          }
+          40% {
+            transform: translateY(-10px);
+          }
+          60% {
+            transform: translateY(-5px);
+          }
         }
         .footer {
-            position: absolute;
-            bottom: 20px;
-            font-size: 0.9em;
-            color: #555;
-            animation: fadeIn 2s; /* Fade in effect for footer */
+          position: absolute;
+          bottom: 20px;
+          font-size: 0.9em;
+          color: #555;
+          animation: fadeIn 2s; /* Fade in effect for footer */
         }
       }
     </style>
+  </head>
+  <body>
+    <div class="content-wrapper">
+      <div class="content">
+        <h1>Welcome to MedifAI</h1>
 
-</head>
-<body>
-
-    <div class="content">
-      <h1>Welcome to MedifAI</h1>
-
-    <p>
-      Your personalized medicine recommendation system that helps you find the
-      best treatments tailored to your unique health needs. Explore a world of
-      health insights and treatment options designed just for you.
-    </p>
-    <p>
-      Discover personalized treatment plans, track your health progress, and
-      connect with healthcare professionals at your convenience.
-    </p>
-    <a href="/signup/">Login or SignUp</a>
+        <p>
+          Your personalized medicine recommendation system that helps you find the
+          best treatments tailored to your unique health needs. Explore a world of
+          health insights and treatment options designed just for you.
+        </p>
+        <p>
+          Discover personalized treatment plans, track your health progress, and
+          connect with healthcare professionals at your convenience.
+        </p>
+        <a href="/signup/">Login or SignUp</a>
+      </div>
     </div>
-    
-
     <div class="footer">&copy; 2024 MedifAI. All rights reserved.</div>
   </body>
 </html>

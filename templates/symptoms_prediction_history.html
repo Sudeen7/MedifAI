@@ -47,7 +47,7 @@
         height: 100%;
         margin: 0;
         font-family: 'Arial', sans-serif;
-        background-image: url("{% static 'assets/profile.jpg' %}");
+        background-image: url("{% static 'assets/newbg.jpg' %}");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -100,6 +100,14 @@
     table td {
         vertical-align: top;
         white-space: pre-wrap;
+    }
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+        table th, table td {
+            padding: 8px;
+        }
     }
 </style>
 {% endblock %}

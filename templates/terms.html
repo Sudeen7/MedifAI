@@ -1,65 +1,82 @@
-{% extends 'base.html' %}
-
-{% load static %}
-
-{% block title %}Terms of Services{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %}Terms of Services{%
+endblock %} {% block content %}
 <div class="container content my-4 mt-4">
-    <h2 class="text-center">Terms of Service</h2>
-    <p>Effective Date: 10/06/2024</p>
-    
-    <h4>Acceptance of Terms</h4>
-    <p>By using our website, you agree to these Terms of Service. If you do not agree, you must not use our services.</p>
-    
-    <h4>Modification of Terms</h4>
-    <p>We reserve the right to modify these Terms at any time. Your continued use of our website after changes will constitute your acceptance of the new Terms.</p>
+  <h2 class="text-center">Terms of Service</h2>
+  <p>Effective Date: 10/06/2024</p>
 
-    <h4>User Accounts</h4>
-    <p>You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account.</p>
+  <h4>Acceptance of Terms</h4>
+  <p>
+    By using our website, you agree to these Terms of Service. If you do not
+    agree, you must not use our services.
+  </p>
 
-    <h4>Limitation of Liability</h4>
-    <p>We are not liable for any damages arising from the use of our website or services.</p>
+  <h4>Modification of Terms</h4>
+  <p>
+    We reserve the right to modify these Terms at any time. Your continued use
+    of our website after changes will constitute your acceptance of the new
+    Terms.
+  </p>
 
-    <h4>Governing Law</h4>
-    <p>These Terms shall be governed by the laws of Nepal.</p>
-    
-    <h4>Contact Us</h4>
-    <p>If you have any questions about these Terms, please <a href="/contact" style="color: #2b6777; text-decoration: underline;">contact us</a>.</p>
+  <h4>User Accounts</h4>
+  <p>
+    You are responsible for maintaining the confidentiality of your account
+    information and for all activities that occur under your account.
+  </p>
+
+  <h4>Limitation of Liability</h4>
+  <p>
+    We are not liable for any damages arising from the use of our website or
+    services.
+  </p>
+
+  <h4>Governing Law</h4>
+  <p>These Terms shall be governed by the laws of Nepal.</p>
+
+  <h4>Contact Us</h4>
+  <p>
+    If you have any questions about these Terms, please
+    <a href="/contact" style="color: #2b6777; text-decoration: underline"
+      >contact us</a
+    >.
+  </p>
 </div>
 
 {% block extra_css %}
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-image: url("{% static 'assets/profile.jpg' %}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            flex-direction: column;
-        }
-        .content {
-            flex: 1;
-            padding: 60px 20px;
-            background: white;
-            margin: 30px auto;
-            border-radius: 15px;
-            max-width: 1000px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            font-size: 32px;
-            color: #2b6777;
-            margin-bottom: 20px;
-        }
-        @media (max-width: 768px) {
-            h2 {
-                font-size: 28px;
-            }
-        }
-    </style>
-{% endblock %}
-{% endblock content %}
+<style>
+  :root{
+    --contentbg: rgba(230, 230, 230, 0.9);
+  }
+  body,
+  html {
+    height: 100%;
+    margin: 0;
+    font-family: "Arial", sans-serif;
+    background-image: url("{% static 'assets/newbg.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+  }
+  .content {
+    flex: 1;
+    padding: 60px 20px;
+    background: var(--contentbg);
+    margin: 30px auto;
+    border-radius: 15px;
+    max-width: 1000px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: justify;
+  }
+  h2 {
+    font-size: 32px;
+    color: #2b6777;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 28px;
+    }
+  }
+</style>
+{% endblock %} {% endblock content %}

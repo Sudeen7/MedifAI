@@ -38,11 +38,14 @@
 
 {% block extra_css %}
     <style>
+        :root{
+            --contentbg: rgba(230, 230, 230, 0.9);
+          }
         body, html {
             height: 100%;
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background-image: url("{% static 'assets/profile.jpg' %}");
+            background-image: url("{% static 'assets/newbg.jpg' %}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -52,11 +55,12 @@
         .content {
             flex: 1;
             padding: 60px 20px;
-            background: white;
+            background: var(--contentbg);
             margin: 30px auto;
             border-radius: 15px;
             max-width: 1000px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: justify;
         }
         h2 {
             font-size: 32px;
