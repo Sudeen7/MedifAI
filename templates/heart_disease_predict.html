@@ -132,9 +132,8 @@
         </form>
 
         {% if result %}
-        <div class="results">
+        <div class="results" id="prediction-results">
             <h2>Prediction Result</h2>
-            <!-- <p><strong>Input Data:</strong> {{ input_data }}</p> -->
             <p><strong>Result:</strong> {{ result }}</p>
         </div>
         {% endif %}
@@ -211,4 +210,18 @@
         }
     </style>
 {% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (document.getElementById('prediction-results')) {
+            document.getElementById('prediction-results').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+    });
+</script>
+{% endblock %}
+
 {% endblock content %}

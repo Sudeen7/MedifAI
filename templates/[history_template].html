@@ -1,0 +1,43 @@
+// ...existing code...
+<style>
+    body, html {
+        min-height: 100vh;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+    }
+
+    body {
+        background-image: url("{% static 'assets/newbg.jpg' %}");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        flex: 1;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        min-height: calc(100vh - 120px); /* Account for header/footer */
+    }
+
+    @media (max-width: 768px) {
+        body {
+            background-attachment: scroll;
+        }
+        
+        .container {
+            width: 95%;
+            margin: 10px auto;
+        }
+    }
+    // ...existing code...
+</style>

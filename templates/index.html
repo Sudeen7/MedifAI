@@ -932,7 +932,7 @@
 
         {% if predicted_disease %}
         <!-- Results Section -->
-        <div class="container ai my-5">
+        <div class="container ai my-5" id="results-section">
           <h2 class="text-center my-4" style="color: black;"> Our AI System Results</h2>
           <div class="d-flex justify-content-center flex-wrap">
             <button type="button" class="toggle-button" onclick="showModal('diseaseModal')" style="background: #F39334;">Disease</button>
@@ -1059,6 +1059,27 @@
             var myModal = new bootstrap.Modal(document.getElementById(modalId));
             myModal.show();
           }
+
+          // Add form submission handler
+          document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('symptomForm');
+            
+            if (form) {
+              form.addEventListener('submit', function(e) {
+                // Store the scroll position in sessionStorage
+                sessionStorage.setItem('shouldScroll', 'true');
+              });
+            }
+
+            // Check if we should scroll after page load
+            if (sessionStorage.getItem('shouldScroll') === 'true' && document.getElementById('results-section')) {
+              document.getElementById('results-section').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center'
+              });
+              sessionStorage.removeItem('shouldScroll');
+            }
+          });
         </script>
 
       </div>
@@ -1255,6 +1276,26 @@
         }
       }
 
+    </style>
+    <style>
+    .page-container {
+        min-height: 100%;
+        padding: 20px;
+        padding-bottom: 80px; /* Match footer height */
+    }
+
+    .content {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        .page-container {
+            padding: 10px;
+            padding-bottom: 100px;
+        }
+    }
     </style>
 {% endblock %}
 {% endblock content %}
