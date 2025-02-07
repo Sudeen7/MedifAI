@@ -119,16 +119,29 @@ diseases_list = {0: '(vertigo) Paroymsal Positional Vertigo', 1: 'AIDS', 2: 'Acn
                  39: 'Varicose veins', 40: 'hepatitis A'}
 
 def helper(dis):
-    desc = description[description['Disease'] == dis]['Description']
+    # Standardize the disease name
+    dis_standard = dis.strip().lower()
+    
+    # Standardize the description search
+    desc = description[description['Disease'].str.strip().str.lower() == dis_standard]['Description']
     desc = " ".join([w for w in desc])
-    pre = precautions[precautions['Disease'] == dis][['Precaution_1', 'Precaution_2', 'Precaution_3', 'Precaution_4']]
-    pre = [col for col in pre.values]
-    med = medications[medications['Disease'] == dis]['Medication']
-    med = [med for med in med.values]
-    die = diets[diets['Disease'] == dis]['Diet']
-    die = [die for die in die.values]
-    wrkout = workout[workout['disease'] == dis]['workout']
+    
+    # Standardize the precautions lookup
+    pre_df = precautions[precautions['Disease'].str.strip().str.lower() == dis_standard][['Precaution_1', 'Precaution_2', 'Precaution_3', 'Precaution_4']]
+    if not pre_df.empty:
+        pre = [row for row in pre_df.values]
+    else:
+        pre = []
+    
+    med = medications[medications['Disease'].str.strip().str.lower() == dis_standard]['Medication']
+    med = [item for item in med.values]
+    
+    die = diets[diets['Disease'].str.strip().str.lower() == dis_standard]['Diet']
+    die = [item for item in die.values]
+    
+    wrkout = workout[workout['disease'].str.strip().str.lower() == dis_standard]['workout']
     return desc, pre, med, die, wrkout
+
 
 def get_predicted_value(patient_symptoms):
     input_vector = np.zeros(len(symptoms_dict))
@@ -207,8 +220,12 @@ def predict(request):
             return render(request, 'index.html', {'message': message, 'symptoms': user_symptoms_string, 'title': title})
 
         # Get additional details for the predicted disease
-        dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)
-        my_precautions = [i for i in precautions[0] if pd.notna(i)]
+        dis_des, precautions_list, medications, rec_diet, workout = helper(predicted_disease)
+
+        if precautions_list and len(precautions_list) > 0:
+            my_precautions = [i for i in precautions_list[0] if pd.notna(i)]
+        else:
+            my_precautions = ["No precautions available."]
 
         # Save the prediction history
         user = request.user
