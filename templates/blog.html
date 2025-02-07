@@ -41,6 +41,12 @@
     <style>
       :root{
         --contentbg: rgba(230, 230, 230, 0.9);
+        --headerColor: #2b6777;
+        --contentColor: #4e4e4e;  
+        --buttonColor: #52ab98;
+        --buttonHoverColor: #3d8d80;
+        --buttonShadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        contentShadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       }
     body, html {
       height: 100vh;  /* Ensures full viewport height */
@@ -64,35 +70,35 @@
           margin: 30px auto;
           border-radius: 15px;
           max-width: 1000px; /* Make both containers the same width */
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+          box-shadow: var(--contentShadow);
           text-align: justify;
       }
 
       h3 {
         font-size: 32px;
-        color: #2b6777;
+        color:var(--headerColor);
         margin-bottom: 20px;
       }
       p {
         font-size: 18px;
         line-height: 1.6;
         margin-bottom: 15px;
-        color: #4e4e4e;
+        color:var(--contentColor);
       }
 
       .explore-btn {
-        background-color: #52ab98;
+        background-color: var(--buttonColor);
         color: white;
         padding: 12px 30px;
         font-size: 18px;
         border: none;
         border-radius: 30px;
         text-transform: uppercase;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: var(--buttonShadow);
         transition: background-color 0.3s, transform 0.3s;
       }
       .explore-btn:hover {
-        background-color: #3d8d80;
+        background-color: vart(--buttonHoverColor);
         transform: scale(1.05);
       }
 

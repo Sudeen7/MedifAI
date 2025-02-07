@@ -9,6 +9,13 @@
     <style>
       :root{
         --textColor:rgb(67, 67, 67);
+        --textShadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        --contentBg: rgba(77, 77, 77, 0.2);
+        --contentBorder: 1px solid rgba(255, 255, 255, 0.1);
+        --contentShadow: 0 8px 32px 0 rgba(18, 160, 141, 0.5);
+        --contentHoverShadow: 0 8px 32px 0 rgba(15, 25, 153, 0.5);
+        --buttonBgColor: rgba(76, 175, 80, 0.8);
+        --buttonHoverColor: rgba(76, 175, 80, 1);
       }
       body {
         font-family: "Arial", sans-serif;
@@ -24,7 +31,7 @@
         justify-content: center;
         margin-right: 70px;
         align-items: center;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        text-shadow: var(--textShadow);
         
       }
 
@@ -67,17 +74,18 @@
         padding: 40px;
       }
       .content-wrapper {
-        background: rgba(77, 77, 77, 0.2);
+        background: var(--contentBg);
         backdrop-filter: blur(3px);
         border-radius: 25px;
         padding: 40px;
         margin: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 8px 32px 0 rgba(18, 160, 141, 0.5);
+        border: var(--contentBorder);
+        box-shadow: var(--contentShadow);
         transition: all 0.3s ease;
       }
+      
       .content-wrapper:hover {
-        box-shadow: 0 8px 32px 0 rgba(15, 25, 153, 0.5);
+        box-shadow: var(--contentHoverShadow);
       }
       @keyframes fadeInUp {
         from {
@@ -93,7 +101,7 @@
         display: inline-block;
         margin-top: 20px;
         padding: 10px 20px;
-        background-color: rgba(76, 175, 80, 0.8);
+        background-color: var(--buttonBgColor);
         color: white;
         text-decoration: none;
         border-radius: 5px;
@@ -101,9 +109,10 @@
         animation: bounce 1s infinite; /* Bounce animation */
       }
       a:hover {
-        background-color: rgba(76, 175, 80, 1);
+        background-color: var(--buttonHoverColor);
         transform: scale(1.05);
       }
+      
       @keyframes bounce {
         0%,
         20%,
@@ -153,15 +162,16 @@
           display: inline-block;
           margin-top: 20px;
           padding: 10px 20px;
-          background-color: rgba(76, 175, 80, 0.8);
+          background-color: var(--buttonBgColor);
           color: white;
           text-decoration: none;
           border-radius: 5px;
           transition: background-color 0.3s, transform 0.3s;
           animation: bounce 1s infinite; /* Bounce animation */
         }
+        
         a:hover {
-          background-color: rgba(76, 175, 80, 1);
+          background-color: var(--buttonHoverColor);
           transform: scale(1.05);
         }
         @keyframes bounce {

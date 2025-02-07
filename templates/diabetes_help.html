@@ -59,6 +59,13 @@
 <style>
     :root{
         --containerbg: rgba(230, 230, 230, 0.9);
+        --headerColor: #2b6777;  
+        --buttonColor: #28a745;
+        --buttonHoverColor: #218838;
+        --buttonShadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        --containerShadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        --noteColor: #6c757d;
+        --attribBoldColor: #121313; 
       }
     body, html {
         height: 100%;
@@ -83,7 +90,7 @@
         background: var(--containerbg);
         padding: 30px;
         border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--containerShadow);
     }
     h1 {
         text-align: center;
@@ -102,23 +109,23 @@
     }
     .attributes-list li strong {
         font-size: 20px;
-        color: #121313;
+        color:var(--attribBoldColor);
     }
     .note {
         margin-top: 20px;
         font-style: italic;
-        color: #6c757d;
+        color: var(--noteColor);
     }
     .btn-primary {
         padding: 10px 20px;
-        background-color: #28a745;
+        background-color: var(--buttonColor);
         color: white;
         border: none;
         border-radius: 5px;
         text-decoration: none;
     }
     .btn-primary:hover {
-        background-color: #218838;
+        background-color: var(--buttonHoverColor);
     }
 </style>
 {% endblock %}

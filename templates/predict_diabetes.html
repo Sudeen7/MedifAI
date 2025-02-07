@@ -69,6 +69,16 @@
 
 {% block extra_css %}
     <style>
+        :root{
+            --containerbg: rgba(230, 230, 230, 0.9);
+            --containerShadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+            --inputBorder: 1px solid #ccc;
+            --buttonColor: #28a745;
+            --buttonHoverColor: #218838;
+            --helpLinkColor: #007bff;
+            --helpLinkHoverColor: #0056b3;
+            --resultbg: #e9ecef;
+        }
         body, html {
             height: 100%;
             margin: 0;
@@ -89,14 +99,14 @@
         }
         .container {
             max-width: 700px;
-            background: rgb(231, 235, 220);
+            background: var(--containerbg);
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--containerShadow);
         }
         h1 {
             text-align: center;
-            color: #333;
+            color: var(--headerColor);
         }
         .form-group {
             margin-bottom: 15px;
@@ -107,32 +117,32 @@
         input {
             width: 100%;
             padding: 8px;
-            border: 1px solid #ccc;
+            border: var(--inputBorder);
             border-radius: 5px;
         }
         button {
             padding: 10px 20px;
-            background-color: #28a745;
+            background-color: var(--buttonColor);   
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #218838;
+            background-color:var(--buttonHoverColor);
         }
         .help-link {
             text-decoration: none;
-            color: #007bff;
+            color: var(--helpLinkColor);
         }
         .help-link:hover {
             text-decoration: underline;
-            color: #0056b3;
+            color: var(--helpLinkHoverColor);
         }
         .results {
             margin-top: 20px;
             padding: 15px;
-            background: #e9ecef;
+            background: var(--resultbg);
             border-radius: 5px;
         }
     </style>

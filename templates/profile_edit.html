@@ -9,11 +9,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <style media="screen">
         :root{
+            --formBgColor:rgba(255,255,255,0.1);
+            --formBorder: 2px solid rgba(255,255,255,0.1);
+            --formShadow: 0 0 40px rgba(8,7,16,0.6);
             --labelTextColor:rgb(31,38,40);
             --placeholderColor:rgb(135,135,135);
             --inputFieldbgColor:rgba(141,141,141, 0.1);
             --buttonColor:rgb(229,229,229);
             --inputColor:rgb(48, 88, 99);
+            --messageSuccess: rgba(0, 128, 0, 0.8);
+            --messageError: rgba(255, 0, 0, 0.8);
         }
         * { 
             padding: 0;
@@ -54,15 +59,15 @@
         form {
             height: 720px;
             width: 450px;
-            background-color: rgba(255,255,255,0.13);
+            background-color: var(--formBgColor);
             position: absolute;
             transform: translate(-50%, -50%);
             top: 50%;
             left: 50%;
             border-radius: 10px;
             backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.1);
-            box-shadow: 0 0 40px rgba(8,7,16,0.6);
+            border: var(--formBorder);
+            box-shadow: var(--formShadow);
             padding: 50px 35px;
         }
         form * { 
@@ -112,11 +117,11 @@
             border-radius: 5px;
         }
         .message.success {
-            background-color: rgba(0, 128, 0, 0.8);
+            background-color: var(--messageSuccess);
             color: #fff;
         }
         .message.error {
-            background-color: rgba(255, 0, 0, 0.8);
+            background-color: var(--messageError);
             color: #fff;
         }
         a { 

@@ -1,80 +1,102 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Meet Our Developers{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %}Meet Our
+Developers{% endblock %} {% block content %}
 <div class="container content">
   <h2 class="text-center">👨‍💻 Meet Our Developers</h2>
 
   <div class="developer-list">
     <!-- Developer 1 -->
     <div class="developer-card">
-      <img src="{% static 'assets/asim.jpg' %}" alt="Asim" class="developer-img" />
+      <img
+        src="{% static 'assets/asim.jpg' %}"
+        alt="Asim"
+        class="developer-img"
+      />
       <div class="developer-info">
         <h5>Asim Ghimire</h5>
-        <p><strong>Backend Developer</strong><br />Specializes in backend development and machine learning models.</p>
+        <p>
+          <strong>Backend Developer</strong><br />Specializes in backend
+          development and machine learning models.
+        </p>
       </div>
     </div>
 
     <!-- Developer 2 -->
     <div class="developer-card">
-      <img src="{% static 'assets/sudeen.jpg' %}" alt="Sudin" class="developer-img" />
+      <img
+        src="{% static 'assets/sudeen.jpg' %}"
+        alt="Sudin"
+        class="developer-img"
+      />
       <div class="developer-info">
         <h5>Sudin Bohara</h5>
-        <p><strong>Frontend Developer</strong><br />Expert in creating engaging user interfaces.</p>
+        <p>
+          <strong>Frontend Developer</strong><br />Expert in creating engaging
+          user interfaces.
+        </p>
       </div>
     </div>
 
     <!-- Developer 3 -->
     <div class="developer-card">
-      <img src="{% static 'assets/sumit.jpg' %}" alt="Sumit" class="developer-img" />
+      <img
+        src="{% static 'assets/sumit.jpg' %}"
+        alt="Sumit"
+        class="developer-img"
+      />
       <div class="developer-info">
         <h5>Sumit Darshandhari</h5>
-        <p><strong>UI/UX &amp; Frontend Developer</strong><br />Focuses on user experience and design.</p>
+        <p>
+          <strong>UI/UX &amp; Frontend Developer</strong><br />Focuses on user
+          experience and design.
+        </p>
       </div>
     </div>
   </div>
 </div>
 
-
 {% block extra_css %}
 <style>
-  :root{
+  :root {
     --contentbg: rgba(230, 230, 230, 0.9);
+    --headerColor: #2b6777;
+    --imageBorder: 4px solid #2b6777;
+    --contentShadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --cardShadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --cardHoverShadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    --devInfoHeader: #1a1a1a;
+    --devInfoContent: #444;
   }
   /* Ensure full height layout */
-  body, html {
-    height: 100vh;  /* Ensures full viewport height */
-    width: 100vw;   /* Ensures full viewport width */
+  body,
+  html {
+    height: 100vh; /* Ensures full viewport height */
+    width: 100vw; /* Ensures full viewport width */
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: "Arial", sans-serif;
     background-image: url("{% static 'assets/newbg.jpg' %}");
-    background-size: cover;         /* Ensures the image covers the full screen */
-    background-position: center;     /* Centers the image */
-    background-repeat: no-repeat;    /* Prevents tiling */
-    background-attachment: fixed;    /* Keeps the background fixed while scrolling */
+    background-size: cover; /* Ensures the image covers the full screen */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-attachment: fixed; /* Keeps the background fixed while scrolling */
     display: flex;
     flex-direction: column;
-}
+  }
 
-  /* Main content container */
   .content {
-    
     background: var(--contentbg);
     padding: 40px;
     margin: 50px auto;
     border-radius: 15px;
     max-width: 900px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--contentShadow);
     text-align: center;
-    flex-grow: 1; /* Pushes footer to bottom */
+    flex-grow: 1; /*foooter to bottom*/
   }
 
   h2 {
     font-size: 32px;
-    color: #2b6777;
+    color: var(--headerColor);
     margin-bottom: 30px;
   }
 
@@ -90,14 +112,14 @@
     background: white;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--cardShadow);
     transition: all 0.3s ease-in-out;
     cursor: pointer;
   }
 
   .developer-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--cardHoverShadow);
   }
 
   .developer-img {
@@ -106,7 +128,7 @@
     height: 100px;
     object-fit: cover;
     margin-right: 20px;
-    border: 4px solid #2b6777;
+    border: var(--imageBorder);
   }
 
   .developer-info {
@@ -116,31 +138,28 @@
   .developer-info h5 {
     font-size: 20px;
     margin: 0;
-    color: #1a1a1a;
+    color: var(--devInfoHeader);
   }
 
   .developer-info p {
     font-size: 16px;
-    color: #444;
+    color: var(--devInfoContent);
     margin-top: 5px;
   }
 
- 
-
-  /* Responsive Design */
   @media (max-width: 768px) {
     .developer-card {
       flex-direction: column;
-      text-align: center;
+      align-items: center;
       padding: 15px;
+    }
+    .developer-info {
+      text-align: center;
     }
 
     .developer-img {
       margin: 0 0 15px 0;
     }
   }
-
 </style>
-{% endblock %}
-
-{% endblock content %}
+{% endblock %} {% endblock content %}

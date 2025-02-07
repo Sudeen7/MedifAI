@@ -45,6 +45,9 @@ endblock %} {% block content %}
 <style>
   :root{
     --contentbg: rgba(230, 230, 230, 0.9);
+    --headerColor: #2b6777;
+    --contentColor: #4e4e4e;  
+    --contentShadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
   body,
   html {
@@ -65,12 +68,12 @@ endblock %} {% block content %}
     margin: 30px auto;
     border-radius: 15px;
     max-width: 1000px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--contentShadow);
     text-align: justify;
   }
   h2 {
     font-size: 32px;
-    color: #2b6777;
+    color:var(--headerColor);
     margin-bottom: 20px;
   }
   @media (max-width: 768px) {
